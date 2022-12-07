@@ -6,9 +6,10 @@ class MovableObject{
     width = 100;
 
 
+    //path = pfad zum img
    loadImage(path) {
-    this.img = new Image();
-    this.img.src = path;
+    this.img = new Image(); //ist dasselbe wie: this.img = document.getElementById('image')<img id="image" src)
+    this.img.src = path; //verändert das src Attribut
    }
 
     moveRight(){
