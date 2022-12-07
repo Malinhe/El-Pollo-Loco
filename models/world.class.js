@@ -10,6 +10,10 @@ class World {
         new Cloud(),
     ]; 
     
+    backgroundObjects = [
+        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0, 100),
+    ];
+
     canvas;
     ctx;
 
@@ -24,16 +28,10 @@ class World {
         //hiermit wird das Canvas gecleart, damit Pepe neu gezeichnet werden kann, sonst hätte man irgendwann 300x dasselbe Bild nur an anderer Stelle
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-
-        //Vorschleife für die Chicken zum drawen
-        this.enemies.forEach(enemy =>{
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        });
-
-        this.clouds.forEach(cloud =>{
-            this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
-        });
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.backgroundObjects);
 
 
         //der Variable self wird das this zugewiesen, weil das in der requestAnimationFrame nicht benutzt werden kann
@@ -42,5 +40,18 @@ class World {
         requestAnimationFrame(function(){   
             self.draw();
         });
+    }
+
+    addObjectsToMap(objects) {
+        objects.forEach(o =>{
+            this.addToMap(o);
+        });
+    }
+
+
+    //parameter mo stands for MovableObject
+    //diese funktion verkürzt die Vorschleifen
+    addToMap(mo) {
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }
