@@ -4,6 +4,7 @@ class World {
         new Chicken(),
         new Chicken(),
         new Chicken(),
+
     ];
 
     canvas;
