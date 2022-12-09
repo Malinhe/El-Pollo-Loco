@@ -1,8 +1,9 @@
 class Chicken extends MovableObject {
 
-    y = 390;
-    height = 50;
+    y = 375;
     width = 75;
+    height = 50;
+    
 
     constructor(){
         //ruft vom übergeordneten movableObject die loadImage() auf
