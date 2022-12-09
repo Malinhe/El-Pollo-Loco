@@ -12,6 +12,9 @@ class World {
     
     backgroundObjects = [
         new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0),
+        new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0),
+        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0),
+        
     ];
 
     canvas;
@@ -27,12 +30,12 @@ class World {
     draw() {
         //hiermit wird das Canvas gecleart, damit Pepe neu gezeichnet werden kann, sonst hätte man irgendwann 300x dasselbe Bild nur an anderer Stelle
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+        
+        this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.backgroundObjects);
-
+        
 
         //der Variable self wird das this zugewiesen, weil das in der requestAnimationFrame nicht benutzt werden kann
         //Draw() wird immerwieder aufgerufen durch requestAnimationFrame
