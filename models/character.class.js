@@ -3,6 +3,7 @@ class Character extends MovableObject {
       y = 155;
       width = 150;
       height = 280;
+      speed = 7;
       IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -23,17 +24,32 @@ class Character extends MovableObject {
     }
 
     //function to change the pictures from the Character, so he seems to walk
-    animate() {  
+    animate() { 
+    
+         //walking direction onkeydown
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT) {
+                this.x += this.speed;
+                }
+
+            if (this.world.keyboard.LEFT) {
+                this.x -= this.speed;
+                }
+        }, 1000 / 60);
+
+
+
+
+        //walk animation
         setInterval(() => {
 
-          if (this.world.keyboard.RIGHT) {
-
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             let i = this.currentImage % this.IMAGES_WALKING.length;
             let path = this.IMAGES_WALKING[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-    }
-    }, 200);
+            }
+    }, 50 );
     }
 
     jump() {
