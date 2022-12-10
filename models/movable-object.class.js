@@ -32,6 +32,19 @@ class MovableObject {
         this.img.src = path; //verändert das src Attribut
     }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        //draw rectangle
+        ctx.beginPath();
+        ctx.lineWidth = '2';
+        ctx.strokeStyle = 'blue';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+    }
+
     // um durch das Array zu etarieren und die Bilder zu laden
     loadImages(array) {
         array.forEach((path) => {
@@ -52,13 +65,10 @@ class MovableObject {
 
     moveRight() {
         this.x += this.speed;
-        this.otherDirection = false;
-
     }
 
     moveLeft() {
         this.x -= this.speed;
-        this.otherDirection = true;
     }
 
     jump() {
