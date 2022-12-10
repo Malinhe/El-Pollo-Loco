@@ -21,11 +21,19 @@ class World {
 
     canvas;
     ctx;
+    keyboard;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
+    }
+
+    //????????
+    setWorld() {
+        this.character.world = this;
     }
 
 
@@ -47,6 +55,7 @@ class World {
         });
     }
 
+    //diese funktion verkürzt die Vorschleifen
     addObjectsToMap(objects) {
         objects.forEach(o =>{
             this.addToMap(o);
@@ -55,7 +64,7 @@ class World {
 
 
     //parameter mo stands for MovableObject
-    //diese funktion verkürzt die Vorschleifen
+    //hiermit wird das Bild geladen
     addToMap(mo) {
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }

@@ -6,6 +6,7 @@ class MovableObject{
     width = 100;
     imageCache = {};
     currentImage = 0;
+    speed = 0.15;
 
 
     //path = pfad zum img
@@ -14,7 +15,7 @@ class MovableObject{
     this.img.src = path; //verändert das src Attribut
    }
 
-
+// um durch das Array zu etarieren und die Bilder zu laden
    loadImages(array) {
     array.forEach((path) => {
         let img = new Image();
@@ -28,7 +29,10 @@ class MovableObject{
         console.log('Moving right');
     }
 
-    moveLeft() {
-        
-    }
+  //damit die MO nach links laufen und für die Geschwindigkeit
+  moveLeft() {
+    setInterval(() => {
+        this.x -= this.speed;
+    }, 1000 / 60);
+   }
 }

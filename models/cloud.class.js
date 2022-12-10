@@ -3,6 +3,7 @@ class Cloud extends MovableObject {
     y = 20;
     width = 500;
     height = 250;
+    
 
     constructor(){
         //ruft vom übergeordneten movableObject die loadImage() auf
@@ -12,9 +13,10 @@ class Cloud extends MovableObject {
         this.animate();  
     }
 
+    
     animate() {
-        setInterval(() => {
-        this.x -= 0.15;
-    }, 1000 / 60);
+     this.moveLeft();
    }
+
+   
 }

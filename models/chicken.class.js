@@ -19,11 +19,14 @@ class Chicken extends MovableObject {
                         // damit die Chicken irgendwo zwischen 200 und 700px auf der x-Achse spawnen
                         //dadurch spawnen die Chicken zufällig bei jedem Neuladen der Seite an einer anderen Stelle
         this.x = 200 + Math.random() * 500;
+        this.speed = 0.15 + Math.random() * 0.5; 
         this.animate();
     }
 
 
+     //function to change the pictures from the Chickens, so they seem to walk
     animate() {
+        this.moveLeft();
 
         setInterval(() => {
         let i = this.currentImage % this.IMAGES_WALKING.length;
