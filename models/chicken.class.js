@@ -1,8 +1,8 @@
 class Chicken extends MovableObject {
 
-    y = 375;
-    width = 75;
-    height = 50;
+    y = 350;
+    width = 95;
+    height = 75;
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -29,7 +29,11 @@ class Chicken extends MovableObject {
 
      //function to change the pictures from the Chickens, so they seem to walk
     animate() {
-        this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+            this.otherDirection = false;
+        }, 1000 / 60);
+        
 
         // this.chicken_clucking_sound.play();
        

@@ -1,4 +1,4 @@
-class MovableObject{
+class MovableObject {
     x = 120;
     y = 340;
     img;
@@ -8,40 +8,61 @@ class MovableObject{
     currentImage = 0;
     speed = 0.15;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 2.5;
+
+    //damit Pepe fallen kann
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGorund() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);
+    }
+
+    isAboveGorund() {
+        return this.y < 150;
+    }
 
 
     //path = pfad zum img
-   loadImage(path) {
-    this.img = new Image(); //ist dasselbe wie: this.img = document.getElementById('image')<img id="image" src)
-    this.img.src = path; //verändert das src Attribut
-   }
-
-// um durch das Array zu etarieren und die Bilder zu laden
-   loadImages(array) {
-    array.forEach((path) => {
-        let img = new Image();
-        img.src = path;
-        this.imageCache[path] = img;
-        
-    });
-   }
-
-   playAnimation(images) {
-    let i = this.currentImage % this.IMAGES_WALKING.length;
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.currentImage++;
-}
-
-
-    moveRight(){
-        console.log('Moving right');
+    loadImage(path) {
+        this.img = new Image(); //ist dasselbe wie: this.img = document.getElementById('image')<img id="image" src)
+        this.img.src = path; //verändert das src Attribut
     }
 
-  //damit die MO nach links laufen und für die Geschwindigkeit
-  moveLeft() {
-    setInterval(() => {
+    // um durch das Array zu etarieren und die Bilder zu laden
+    loadImages(array) {
+        array.forEach((path) => {
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
+
+        });
+    }
+
+    playAnimation(images) {
+        let i = this.currentImage % this.IMAGES_WALKING.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
+
+    moveRight() {
+        this.x += this.speed;
+        this.otherDirection = false;
+
+    }
+
+    moveLeft() {
         this.x -= this.speed;
-    }, 1000 / 60);
-   }
+        this.otherDirection = true;
+    }
+
+    jump() {
+        this.speedY = 30;
+    }
+
 }
