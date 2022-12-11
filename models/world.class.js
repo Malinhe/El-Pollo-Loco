@@ -52,6 +52,11 @@ class World {
 
     //parameter mo stands for MovableObject
     //hiermit wird das Bild geladen
+    /**
+     * With this Function yua add Objects to the Map
+     * 
+     * @param {object} mo - this is the MovableObject that you want to add to the Map
+     */
     addToMap(mo) {
         //Bild spiegeln
         if (mo.otherDirection) {
@@ -66,6 +71,11 @@ class World {
         }
     }
 
+    /**
+     * This function can mirror Objects
+     * 
+     * @param {object} mo - this is the MovableObject that you want to mirror
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -73,8 +83,20 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * This function resets the mirrored Objects
+     * 
+     * @param {object} mo - this is the MovableObject that you want flip back
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    isColliding(mo) {
+        return this.x + this.width > mo.x && 
+               this.y + this.height > mo.y &&
+               this.x < mo.x &&
+               this.y < mo.height
     }
 }

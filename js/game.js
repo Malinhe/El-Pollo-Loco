@@ -3,13 +3,19 @@ let world;
 let keyboard = new Keyboard();
 
 //erstmal das Canvas laden, wenn der Body geladen ist
+/**
+ * This Function is used to load our Game
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('My Character is', world.character);
 }
 
-
+/**
+ * This Function is used to check if a key is pressed or not
+ * 
+ */
 window.addEventListener("keydown", (e) => {
 
     if(e.keyCode == 32) {

@@ -37,12 +37,16 @@ class MovableObject {
     }
 
     drawFrame(ctx) {
+
+        //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
+        if (this instanceof Character || this instanceof Chicken) {
         //draw rectangle
         ctx.beginPath();
         ctx.lineWidth = '2';
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
+    }
     }
 
     // um durch das Array zu etarieren und die Bilder zu laden

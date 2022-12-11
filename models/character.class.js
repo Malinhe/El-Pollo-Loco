@@ -1,7 +1,8 @@
 class Character extends MovableObject {
-
+//290 bei collision x + width
+//365 y + height
     y = 85;
-    width = 170;
+    width = 170; 
     height = 280;
     speed = 7;
     IMAGES_WALKING = [
