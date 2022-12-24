@@ -1,8 +1,8 @@
 class Character extends MovableObject {
-//290 bei collision x + width
-//365 y + height
+    //290 bei collision x + width
+    //365 y + height
     y = 85;
-    width = 170; 
+    width = 170;
     height = 280;
     speed = 7;
     IMAGES_WALKING = [
@@ -28,6 +28,8 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/walk.mp3');
+    endboss_sound = new Audio('audio/endboss_sound.mp3');
+
     constructor() {
         //ruft vom übergeordneten movableObject die loadImage() auf
         super().loadImage('/img/2_character_pepe/2_walk/W-21.png');
@@ -52,13 +54,26 @@ class Character extends MovableObject {
                 this.walking_sound.play();
             }
 
+            if (this.x > 1780) {
+                this.endboss_sound.volume = 0.5;
+                // this.endboss_sound.playbackRate = 1;
+                this.endboss_sound.play();
+            }
+
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();   
+                this.walking_sound.play();
             }
+
+            if (this.x < 1780) {
+                this.endboss_sound.volume = 0.5;
+                // this.endboss_sound.playbackRate = 1;
+                this.endboss_sound.pause();
+            }
+
             //wenn key up true ist UND wir nicht (!) über dem Boden sind
-            if(this.world.keyboard.SPACE && !this.isAboveGorund()) {
+            if (this.world.keyboard.SPACE && !this.isAboveGorund()) {
                 this.jump();
             }
             this.world.camera_x = -this.x + 100;

@@ -15,17 +15,29 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
-    constructor(){
-         super().loadImage(this.IMAGES_WALKING[0]);
-         this.loadImages(this.IMAGES_WALKING);                
-         this.x = 2400;
-         this.animate();
-            
-        }
+    // endboss_sound = new Audio('audio/endboss_sound.mp3');
+
+    constructor() {
+        super().loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_WALKING);
+        this.x = 2400;
+        this.animate();
+
+    }
 
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200)
-     }
+
+        //sound only played when Character arrives at Endboss
+    //     setInterval(() => {
+    //         if (this.world.character.x = 2100) {
+    //         // this.endboss_sound.volume = 0.5;
+    //         // this.endboss_sound.playbackRate = 1;
+    //         this.endboss_sound.play();
+    //     }
+    // }, 200)
+
+}
 }
