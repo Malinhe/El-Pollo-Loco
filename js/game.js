@@ -15,6 +15,7 @@ function init() {
 /**
  * This Function is used to check if a key is pressed or not
  * 
+ * 
  */
 window.addEventListener("keydown", (e) => {
 

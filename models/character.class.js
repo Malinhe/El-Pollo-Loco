@@ -43,6 +43,8 @@ class Character extends MovableObject {
         //walking direction onkeydown
         setInterval(() => {
             this.walking_sound.pause();
+            this.walking_sound.volume = 0.2;
+            this.walking_sound.playbackRate = 2.5;
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -53,7 +55,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();
+                this.walking_sound.play();   
             }
             //wenn key up true ist UND wir nicht (!) über dem Boden sind
             if(this.world.keyboard.SPACE && !this.isAboveGorund()) {
