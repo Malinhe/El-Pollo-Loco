@@ -32,12 +32,14 @@ class Chicken extends MovableObject {
 
      //function to change the pictures from the Chickens, so they seem to walk
     animate() {
+        
         setInterval(() => {
             this.moveLeft();
+            // this.chicken_clucking_sound.volume = 0.2;
+            // this.chicken_clucking_sound.playbackRate = 1;
+            // this.chicken_clucking_sound.play();
         }, 1000 / 60);
         
-
-        // this.chicken_clucking_sound.play();
        
 
         setInterval(() => {
