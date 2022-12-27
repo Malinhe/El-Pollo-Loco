@@ -5,6 +5,8 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;//Minus, weil das Bild ja nach links verschoben wird
+    statusbar = new Statusbar();
+    bottlebar = new Bottlebar();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -33,6 +35,7 @@ class World {
             this.level.enemies.forEach( (enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
+                    this.statusbar.setPercentage(this.character.energy);
                 }
             });
         }, 1000);
@@ -44,10 +47,15 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
 
         this.addObjectsToMap(this.level.clouds);
+
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusbar);
+        this.addToMap(this.bottlebar);
+        this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         
