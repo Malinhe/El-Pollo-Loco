@@ -10,6 +10,7 @@ class MovableObject {
     otherDirection = false;
     speedY = 0; // Geschwindigkeit mit der das Object auf der Y-Achse fällt
     acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
+    energy = 100;
 
     //damit Pepe fallen kann
     applyGravity() {
@@ -40,7 +41,7 @@ class MovableObject {
     drawFrame(ctx) {
 
         //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
-        if (this instanceof Character || this instanceof Chicken) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
         //draw rectangle
         ctx.beginPath();
         ctx.lineWidth = '2';
@@ -49,6 +50,28 @@ class MovableObject {
         ctx.stroke();
     }
     }
+
+    /**
+     * Function to check if a movable object overlaps with another
+     * 
+     * @param {object} mo - object that could be a bottle, character, endboss or chicken
+     * @returns 
+     */
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
+    }
+
+    hit() {
+        this.energy -= 5;
+        if(this.energy < 0) {
+            this.energy = 0;
+            // this.playAnimation(this.character.IMAGES_HURT);
+        }
+    }
+
 
     // um durch das Array zu etarieren und die Bilder zu laden
     loadImages(array) {

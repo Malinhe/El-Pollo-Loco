@@ -1,6 +1,4 @@
 class Character extends MovableObject {
-    //290 bei collision x + width
-    //365 y + height
     y = 85;
     width = 170;
     height = 280;
@@ -24,6 +22,12 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-37.png',
         'img/2_character_pepe/3_jump/J-38.png',
         'img/2_character_pepe/3_jump/J-39.png'
+    ];
+
+    IMAGES_HURT = [
+        'img/2_character_pepe/4_hurt/H-41.png',
+        'img/2_character_pepe/4_hurt/H-42.png',
+        'img/2_character_pepe/4_hurt/H-43.png'        
     ];
 
     world;
@@ -54,11 +58,11 @@ class Character extends MovableObject {
                 this.walking_sound.play();
             }
 
-            if (this.x > 1780) {
-                this.endboss_sound.volume = 0.5;
-                // this.endboss_sound.playbackRate = 1;
-                this.endboss_sound.play();
-            }
+            // if (this.x > 1780) {
+            //     this.endboss_sound.volume = 0.5;
+            //     // this.endboss_sound.playbackRate = 1;
+            //     this.endboss_sound.play();
+            // }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
@@ -93,5 +97,4 @@ class Character extends MovableObject {
             }
         }, 50);
     }
-
 }

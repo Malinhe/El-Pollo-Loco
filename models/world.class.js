@@ -12,11 +12,31 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     //????????
     setWorld() {
         this.character.world = this;
+    }
+
+    /**
+     * Function to check if movable objects are colliding
+     * 
+     * @param {object} mo - object that could be a bottle, character, endboss or chicken
+     */
+
+    //forEach Funktion wird jede Sekunde (oder was halt im Intervall angegeben) für alle Gegner ausgeführt, wenn 5 Gegner dann 5x ausgeführt
+    checkCollisions() {
+        setInterval(() => {
+            //um alle Gegner zu bekommen this.level.enemies //forEach um für jeden einzelnen Gegner zu kontrollieren, ob diese mit dem Character kollidieren
+            this.level.enemies.forEach( (enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.hit();
+                    console.log('Collision with Character energy', this.character.energy);
+                }
+            });
+        }, 1000);
     }
 
 
