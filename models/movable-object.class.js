@@ -72,6 +72,10 @@ class MovableObject {
         }
     }
 
+    isDead() {
+        return this.energy == 0;
+    }
+
 
     // um durch das Array zu etarieren und die Bilder zu laden
     loadImages(array) {
