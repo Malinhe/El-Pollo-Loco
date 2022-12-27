@@ -40,6 +40,10 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-57.png'   
     ];
 
+    // GAME_OVER = [
+    //     'img/9_intro_outro_screens/game_over/you lost.png'
+    // ];
+
     world;
     walking_sound = new Audio('audio/walk.mp3');
     endboss_sound = new Audio('audio/endboss_sound.mp3');
@@ -48,8 +52,10 @@ class Character extends MovableObject {
         //ruft vom übergeordneten movableObject die loadImage() auf
         super().loadImage('/img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
+        // this.loadImage(this.GAME_OVER);
         this.applyGravity();
         this.animate();
     }
@@ -98,6 +104,10 @@ class Character extends MovableObject {
             //dead animation
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                // this.playAnimation(this.GAME_OVER);??geht nicht
+                //dann GAMEOVER Screen einfügen
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
             }
 
             //jump animation

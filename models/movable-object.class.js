@@ -11,6 +11,7 @@ class MovableObject {
     speedY = 0; // Geschwindigkeit mit der das Object auf der Y-Achse fällt
     acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
     energy = 100;
+    lastHit = 0;
 
     //damit Pepe fallen kann
     applyGravity() {
@@ -42,13 +43,13 @@ class MovableObject {
 
         //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
-        //draw rectangle
-        ctx.beginPath();
-        ctx.lineWidth = '2';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-    }
+            //draw rectangle
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
 
     /**
@@ -66,16 +67,25 @@ class MovableObject {
 
     hit() {
         this.energy -= 5;
-        if(this.energy < 0) {
+        if (this.energy < 0) {
             this.energy = 0;
             // this.playAnimation(this.character.IMAGES_HURT);
+        } else {
+            this.lastHit = new Date().getTime();
         }
+    }
+
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit; //Difference in ms
+        timepassed = timepassed / 1000; // Difference in s
+        // console.log(timepassed);
+        return timepassed < 1; //was hit in the last 5s so this function returns true
     }
 
     isDead() {
         return this.energy == 0;
     }
-
 
     // um durch das Array zu etarieren und die Bilder zu laden
     loadImages(array) {
@@ -88,7 +98,7 @@ class MovableObject {
     }
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
