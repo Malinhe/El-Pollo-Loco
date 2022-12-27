@@ -28,9 +28,10 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
 
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
+        
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -63,6 +64,7 @@ class World {
           this.flipImage(mo);
         }
 
+        //warum mo.draw und this.ctx?
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
 

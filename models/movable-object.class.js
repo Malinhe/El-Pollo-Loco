@@ -6,10 +6,10 @@ class MovableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
-    speed = 0.15;
+    speed = 0.15; // 0.15px werden abgezogen
     otherDirection = false;
-    speedY = 0;
-    acceleration = 2.5;
+    speedY = 0; // Geschwindigkeit mit der das Object auf der Y-Achse fällt
+    acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
 
     //damit Pepe fallen kann
     applyGravity() {
@@ -32,6 +32,7 @@ class MovableObject {
         this.img.src = path; //verändert das src Attribut
     }
 
+    //?? Warum this.img, this.x usw?
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
