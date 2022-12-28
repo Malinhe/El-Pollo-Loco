@@ -4,9 +4,5 @@ class Keyboard {
     DOWN = false;
     UP = false;
     SPACE = false;
-    
-
-    // selectPressedKey() {
-    //     if (this.keyboard = )
-    // }
+    D = false;
 }

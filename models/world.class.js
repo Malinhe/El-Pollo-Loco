@@ -7,6 +7,7 @@ class World {
     camera_x = 0;//Minus, weil das Bild ja nach links verschoben wird
     statusbar = new Statusbar();
     bottlebar = new Bottlebar();
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -14,7 +15,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     //????????
@@ -29,18 +30,40 @@ class World {
      */
 
     //forEach Funktion wird jede Sekunde (oder was halt im Intervall angegeben) für alle Gegner ausgeführt, wenn 5 Gegner dann 5x ausgeführt
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            //um alle Gegner zu bekommen this.level.enemies //forEach um für jeden einzelnen Gegner zu kontrollieren, ob diese mit dem Character kollidieren
-            this.level.enemies.forEach( (enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusbar.setPercentage(this.character.energy);
-                }
-            });
-        }, 1000);
+            this.checkCollisionsWithEnemy();
+            // this.checkCollisionsWithBottles();
+            this.checkThrowObjects();
+
+        }, 200);
     }
 
+    checkCollisionsWithEnemy() {
+        //um alle Gegner zu bekommen this.level.enemies //forEach um für jeden einzelnen Gegner zu kontrollieren, ob diese mit dem Character kollidieren
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusbar.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+    // checkCollisionsWithBottles() {
+    //     // this.level.salsabottle.forEach( (bottle) => {
+    //     //     if(this.character.isColliding(bottle)) {
+    //     //         // this.character.collectBottle();
+    //     //         // this.bottlebar.setPercentage(this.character.collectedBottles);
+    //     //     }
+    //     // })
+    // }
+
+    checkThrowObjects() {
+        if(this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bottle);
+        }
+    }
 
     draw() {
         //hiermit wird das Canvas gecleart, damit Pepe neu gezeichnet werden kann, sonst hätte man irgendwann 300x dasselbe Bild nur an anderer Stelle
@@ -56,9 +79,10 @@ class World {
         this.addToMap(this.bottlebar);
         this.ctx.translate(this.camera_x, 0);
 
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        
+
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -88,10 +112,12 @@ class World {
     addToMap(mo) {
         //Bild spiegeln
         if (mo.otherDirection) {
-          this.flipImage(mo);
+            this.flipImage(mo);
         }
 
         //warum mo.draw und this.ctx?
+        //mo = movableObject, draw ist die Function die in MovableObject Class ist(oder gewesen, ist nun in drawableobjects), wir greifen mit mo.draw auf die Funktion zu
+        //this.ctx weil wir oben in Zeile 5 ctx; als Variable haben
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
 
@@ -123,9 +149,9 @@ class World {
     }
 
     isColliding(mo) {
-        return this.x + this.width > mo.x && 
-               this.y + this.height > mo.y &&
-               this.x < mo.x &&
-               this.y < mo.height
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.height
     }
 }

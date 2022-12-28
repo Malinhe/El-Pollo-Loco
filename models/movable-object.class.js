@@ -5,6 +5,8 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
     energy = 100;
     lastHit = 0;
+   
+    
 
     //damit Pepe fallen kann
     applyGravity() {
@@ -17,8 +19,11 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGorund() {
+        if(this instanceof ThrowableObject) {
+            return true;
+        } else {
         return this.y < 150;
-    }
+    }}
 
     /**
      * Function to check if a movable object overlaps with another
@@ -54,8 +59,6 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
-
-  
 
     playAnimation(images) {
         let i = this.currentImage % images.length;

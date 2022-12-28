@@ -16,6 +16,7 @@ class DrawableObject {
 
 
     //?? Warum this.img, this.x usw?
+    //weil wir vorher die draw() in der World hatten und mit mo.img, mo.x usw auf die MovableObjects zugegriffen haben, jetzt befinden sich aber die Variablen in derselben Klasse wie die Function, also wieder mit this darauf zugreifen
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
@@ -34,7 +35,7 @@ class DrawableObject {
     drawFrame(ctx) {
 
         //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject) {
             //draw rectangle
             ctx.beginPath();
             ctx.lineWidth = '2';
