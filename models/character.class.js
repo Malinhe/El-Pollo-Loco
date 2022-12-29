@@ -40,6 +40,13 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-57.png'   
     ];
 
+    offset = {
+        top: 110,
+        bottom: 14,
+        left: 40,
+        right: 40,
+    };
+
     // GAME_OVER = [
     //     'img/9_intro_outro_screens/game_over/you lost.png'
     // ];

@@ -11,6 +11,13 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
+
+    offset = {
+        top: 4,
+        bottom: 4,
+        left: 4,
+        right: 4,
+    };
     
     chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
 
@@ -23,7 +30,7 @@ class Chicken extends MovableObject {
                         //Math.random() generiert eine zufällige Zahle zwischen 0 und 1, deswegen *500,
                         // damit die Chicken irgendwo zwischen 200 und 700px auf der x-Achse spawnen
                         //dadurch spawnen die Chicken zufällig bei jedem Neuladen der Seite an einer anderen Stelle
-        this.x = 200 + Math.random() * 500;
+        this.x = 500 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.5; 
         this.animate();
         

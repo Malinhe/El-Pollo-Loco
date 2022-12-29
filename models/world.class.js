@@ -5,8 +5,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;//Minus, weil das Bild ja nach links verschoben wird
-    statusbar = new Statusbar();
-    bottlebar = new Bottlebar();
+    statusbar = new StatusBar();
+    bottlebar = new BottleBar();
+    coinbar = new CoinBar();
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -21,6 +22,7 @@ class World {
     //????????
     setWorld() {
         this.character.world = this;
+        this.level.coins.world = this;
     }
 
     /**
@@ -33,8 +35,9 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsWithEnemy();
-            // this.checkCollisionsWithBottles();
+            this.checkCollisionsWithBottles();
             this.checkThrowObjects();
+            this.checkCollisionsWithCoins();
 
         }, 200);
     }
@@ -49,20 +52,34 @@ class World {
         });
     }
 
-    // checkCollisionsWithBottles() {
-    //     // this.level.salsabottle.forEach( (bottle) => {
-    //     //     if(this.character.isColliding(bottle)) {
-    //     //         // this.character.collectBottle();
-    //     //         // this.bottlebar.setPercentage(this.character.collectedBottles);
-    //     //     }
-    //     // })
-    // }
+    checkCollisionsWithBottles() {
+        this.level.salsabottle.forEach((bottle, i) => {
+            if(this.character.isColliding(bottle)) {
+                this.level.salsabottle.splice(i, 1);
+                this.level.salsabottle.x = -3000;
+                console.log('collected bottle');
+                // this.character.collectBottle();
+                // this.bottlebar.setPercentage(this.character.collectedBottles);
+            }
+        })
+    }
 
     checkThrowObjects() {
         if(this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
+    }
+
+    checkCollisionsWithCoins() {
+        this.level.coins.forEach((coin, i) => {
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(i, 1);
+                this.level.coins.x = -3000;
+                console.log('collected coin');
+                // this.statusbar.setPercentage(this.character.energy);
+            }
+        });
     }
 
     draw() {
@@ -77,9 +94,12 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusbar);
         this.addToMap(this.bottlebar);
+        this.addToMap(this.coinbar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.salsabottle);
+        this.addObjectsToMap(this.level.coins);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
 
@@ -120,6 +140,7 @@ class World {
         //this.ctx weil wir oben in Zeile 5 ctx; als Variable haben
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
+        mo.drawFrameOffset(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

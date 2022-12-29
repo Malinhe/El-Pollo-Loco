@@ -1,5 +1,21 @@
 const level1 = new Level(
     [
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin()
+    ],
+
+    [
+        new SalsaBottle(),
+        new SalsaBottle(),
+        new SalsaBottle(),
+        new SalsaBottle(),
+        new SalsaBottle()
+    ],
+
+    [
         new Chicken(),
         new Chicken(),
         new Chicken(),

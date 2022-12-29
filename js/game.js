@@ -2,6 +2,12 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+function startGame() {
+    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('canvas').classList.remove('d-none'); 
+    init();
+}
+
 //erstmal das Canvas laden, wenn der Body geladen ist
 /**
  * This Function is used to load our Game
@@ -18,7 +24,6 @@ function init() {
  * 
  */
 window.addEventListener("keydown", (e) => {
-
     if(e.keyCode == 32) {
         keyboard.SPACE = true;
     }
@@ -70,3 +75,4 @@ window.addEventListener("keyup", (e) => {
         keyboard.D = false;
     } 
 });
+
