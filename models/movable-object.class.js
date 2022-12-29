@@ -5,7 +5,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
     energy = 100;
     lastHit = 0;
-   
+    bottleAmount = 0;
     
 
     //damit Pepe fallen kann

@@ -7,6 +7,7 @@ class World {
     camera_x = 0;//Minus, weil das Bild ja nach links verschoben wird
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
+    bottleCounter = 0;
     coinbar = new CoinBar();
     coin_sound = new Audio('audio/coin.mp3');
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
@@ -25,7 +26,7 @@ class World {
     //????????
     setWorld() {
         this.character.world = this;
-        this.level.coins.world = this;
+        // this.level.coins.world = this;
     }
 
     /**
@@ -38,9 +39,9 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsWithEnemy();
-            this.checkCollisionsWithBottles();
+            this.checkIfBottleCollected();
             this.checkThrowObjects();
-            this.checkCollisionsWithCoins();
+            this.checkIfCoinCollected();
         }, 200);
     }
 
@@ -54,13 +55,14 @@ class World {
         });
     }
 
-    checkCollisionsWithBottles() {
+    checkIfBottleCollected() {
         this.level.salsabottle.forEach((bottle, i) => {
             if (this.character.isColliding(bottle)) {
                 this.level.salsabottle.splice(i, 1);
+                this.bottleCounter++;
+                console.log('BottleCounter is', this.bottleCounter); //funktioniert bis hierhin sehr gut
                 this.playBottleCollectSound();
                 this.bottleDisappear();
-                // this.character.collectBottle();
                 // this.bottlebar.setPercentage(this.character.collectedBottles);
             }
         })
@@ -78,9 +80,12 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            if(this.bottleCounter > 0) {
             this.throwableObjects.push(bottle);
-            this.playBottleThrowSound();
-            
+            this.bottleCounter--;
+            console.log('BottleCounter is', this.bottleCounter);
+            this.playBottleThrowSound();  
+        }             
         }
     }
 
@@ -90,7 +95,7 @@ class World {
         this.throw_bottle_sound.play();
     }
 
-    checkCollisionsWithCoins() {
+    checkIfCoinCollected() {
         this.level.coins.forEach((coin, i) => {
             if (this.character.isColliding(coin)) {
                 this.coinbar.collectCoin();
@@ -98,7 +103,6 @@ class World {
                 this.coinbar.setCoinAmount(this.coinbar.coinAmount);
                 this.playCoinSound();
                 this.coinDisappear();
-                // this.statusbar.setPercentage(this.character.energy);
             }
         });
     }

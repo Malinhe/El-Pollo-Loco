@@ -9,7 +9,7 @@ class BottleBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png' //Bild Nummer 5
     ];
 
-    percentage = 0;
+    bottleAmount = 0; 
 
     constructor() {
         super();
@@ -18,30 +18,35 @@ class BottleBar extends DrawableObject {
         this.y = 50;
         this.width = 200;
         this.height = 60;
-        this.setPercentage(0);
+        this.setBottleAmount();
+        this.collectedBottle();
     }
 
-    setPercentage(percentage) {
-        this.percentage = percentage; //Zahl zwischen 0 und 5 muss ermittelt werden, weil das Array 6 Images hat
+    collectedBottle() {
+        this.bottleAmount += 1;
+        if(this.bottleAmount > 10) {
+            this.bottleAmount = 10;
+        }
+    }
+
+    setBottleAmount() {
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
-
     }
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.bottleAmount == 10) {
             return 5;
-        } else if (this.percentage > 80) {
+        } else if (this.bottleAmount > 8) {
             return 4;
-        } else if (this.percentage > 60) {
+        } else if (this.bottleAmount > 6) {
             return 3;
-        } else if (this.percentage > 40) {
+        } else if (this.bottleAmount > 4) {
             return 2;
-        } else if (this.percentage > 20) {
+        } else if (this.bottleAmount > 2) {
             return 1;
         } else {
             return 0;
         }
     }
-
 }

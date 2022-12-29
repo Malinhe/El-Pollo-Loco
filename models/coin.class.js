@@ -7,9 +7,8 @@ class Coin extends MovableObject {
         right: 35,
     };
 
-    world;
+    // world;
     
-
     constructor(){
         super().loadImage('img/8_coin/coin_1.png');
 
