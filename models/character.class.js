@@ -53,6 +53,7 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/walk.mp3');
+    hit_sound = new Audio('audio/ayayay.mp3');
     endboss_sound = new Audio('audio/endboss_sound.mp3');
 
     constructor() {
@@ -115,6 +116,7 @@ class Character extends MovableObject {
                 //dann GAMEOVER Screen einfügen
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.hit_sound.play();
             }
 
             //jump animation

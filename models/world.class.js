@@ -11,6 +11,7 @@ class World {
     coin_sound = new Audio('audio/coin.mp3');
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
+    throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -59,7 +60,6 @@ class World {
                 this.level.salsabottle.splice(i, 1);
                 this.playBottleCollectSound();
                 this.bottleDisappear();
-                console.log('collected bottle');
                 // this.character.collectBottle();
                 // this.bottlebar.setPercentage(this.character.collectedBottles);
             }
@@ -79,17 +79,25 @@ class World {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.playBottleThrowSound();
+            
         }
+    }
+
+    playBottleThrowSound() {
+        this.throw_bottle_sound.volume = 0.2;
+        this.throw_bottle_sound.playbackRate = 2;
+        this.throw_bottle_sound.play();
     }
 
     checkCollisionsWithCoins() {
         this.level.coins.forEach((coin, i) => {
             if (this.character.isColliding(coin)) {
-                this.level.coins.splice(i, 1);
+                this.coinbar.collectCoin();
+                this.level.coins.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
+                this.coinbar.setCoinAmount(this.coinbar.coinAmount);
                 this.playCoinSound();
                 this.coinDisappear();
-                
-                console.log('collected coin');
                 // this.statusbar.setPercentage(this.character.energy);
             }
         });
