@@ -1,13 +1,14 @@
 class Coin extends MovableObject {
 
     offset = {
-        top: 60,
-        bottom: 60,
-        left: 60,
-        right: 60,
+        top: 35,
+        bottom: 35,
+        left: 35,
+        right: 35,
     };
 
     world;
+    
 
     constructor(){
         super().loadImage('img/8_coin/coin_1.png');
@@ -16,6 +17,5 @@ class Coin extends MovableObject {
         this.y = 150 + Math.random() * 125;
 
 }
-
 
 }

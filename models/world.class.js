@@ -8,6 +8,8 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
+    coin_sound = new Audio('audio/coin.mp3');
+    bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -38,7 +40,6 @@ class World {
             this.checkCollisionsWithBottles();
             this.checkThrowObjects();
             this.checkCollisionsWithCoins();
-
         }, 200);
     }
 
@@ -54,9 +55,10 @@ class World {
 
     checkCollisionsWithBottles() {
         this.level.salsabottle.forEach((bottle, i) => {
-            if(this.character.isColliding(bottle)) {
+            if (this.character.isColliding(bottle)) {
                 this.level.salsabottle.splice(i, 1);
-                this.level.salsabottle.x = -3000;
+                this.playBottleCollectSound();
+                this.bottleDisappear();
                 console.log('collected bottle');
                 // this.character.collectBottle();
                 // this.bottlebar.setPercentage(this.character.collectedBottles);
@@ -64,8 +66,17 @@ class World {
         })
     }
 
+    playBottleCollectSound() {
+        this.bottle_collect_sound.volume = 0.2;
+        this.bottle_collect_sound.play();
+    }
+
+    bottleDisappear() {
+        this.level.salsabottle.x = -3000;
+    }
+
     checkThrowObjects() {
-        if(this.keyboard.D) {
+        if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
@@ -75,12 +86,24 @@ class World {
         this.level.coins.forEach((coin, i) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(i, 1);
-                this.level.coins.x = -3000;
+                this.playCoinSound();
+                this.coinDisappear();
+                
                 console.log('collected coin');
                 // this.statusbar.setPercentage(this.character.energy);
             }
         });
     }
+
+    playCoinSound() {
+        this.coin_sound.volume = 0.2;
+        this.coin_sound.play();
+    }
+
+    coinDisappear() {
+        this.level.coins.x = -3000;
+    }
+    
 
     draw() {
         //hiermit wird das Canvas gecleart, damit Pepe neu gezeichnet werden kann, sonst hätte man irgendwann 300x dasselbe Bild nur an anderer Stelle
