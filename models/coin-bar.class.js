@@ -9,7 +9,7 @@ class CoinBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png' //Bild Nummer 5
     ];
 
-    coinAmount = 0;
+    // coinAmount = 0;
 
     constructor() {
         super();
@@ -18,32 +18,33 @@ class CoinBar extends DrawableObject {
         this.y = 100;
         this.width = 200;
         this.height = 60;
-        this.setCoinAmount();
-        this.collectCoin();
+        this.setCoinAmount(0);
+        // this.collectCoin();
     }
 
-    collectCoin() {
-        this.coinAmount += 1;
-        if(this.coinAmount > 10) {
-            this.coinAmount = 10;
-        }
-    }
+    // collectCoin() {
+    //     this.coinAmount += 1;
+    //     if(this.coinAmount > 10) {
+    //         this.coinAmount = 10;
+    //     }
+    // }
 
-    setCoinAmount() {
+    setCoinAmount(coinAmount) {
+        this.coinAmount = coinAmount;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
     resolveImageIndex() {
-        if (this.coinAmount == 10) {
+        if (this.coinAmount == 5) {
             return 5;
-        } else if (this.coinAmount > 8) {
+        } else if (this.coinAmount == 4) {
             return 4;
-        } else if (this.coinAmount > 6) {
+        } else if (this.coinAmount == 3) {
             return 3;
-        } else if (this.coinAmount > 4) {
+        } else if (this.coinAmount == 2) {
             return 2;
-        } else if (this.coinAmount > 2) {
+        } else if (this.coinAmount == 1) {
             return 1;
         } else {
             return 0;

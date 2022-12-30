@@ -8,6 +8,7 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     bottleCounter = 0;
+    coinCounter = 0;
     coinbar = new CoinBar();
     coin_sound = new Audio('audio/coin.mp3');
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
@@ -42,7 +43,7 @@ class World {
             this.checkIfBottleCollected();
             this.checkThrowObjects();
             this.checkIfCoinCollected();
-        }, 200);
+        }, 100);
     }
 
     checkCollisionsWithEnemy() {
@@ -60,10 +61,10 @@ class World {
             if (this.character.isColliding(bottle)) {
                 this.level.salsabottle.splice(i, 1);
                 this.bottleCounter++;
-                console.log('BottleCounter is', this.bottleCounter); //funktioniert bis hierhin sehr gut
+                this.bottlebar.setBottleAmount(this.bottleCounter);
+                console.log('BottleCounter is', this.bottleCounter);
                 this.playBottleCollectSound();
                 this.bottleDisappear();
-                // this.bottlebar.setPercentage(this.character.collectedBottles);
             }
         })
     }
@@ -98,9 +99,9 @@ class World {
     checkIfCoinCollected() {
         this.level.coins.forEach((coin, i) => {
             if (this.character.isColliding(coin)) {
-                this.coinbar.collectCoin();
                 this.level.coins.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
-                this.coinbar.setCoinAmount(this.coinbar.coinAmount);
+                this.coinCounter++;
+                this.coinbar.setCoinAmount(this.coinCounter);
                 this.playCoinSound();
                 this.coinDisappear();
             }

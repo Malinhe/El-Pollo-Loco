@@ -9,8 +9,6 @@ class BottleBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png' //Bild Nummer 5
     ];
 
-    bottleAmount = 0; 
-
     constructor() {
         super();
         this.loadImages(this.IMAGES);
@@ -18,32 +16,25 @@ class BottleBar extends DrawableObject {
         this.y = 50;
         this.width = 200;
         this.height = 60;
-        this.setBottleAmount();
-        this.collectedBottle();
+        this.setBottleAmount(0);
     }
 
-    collectedBottle() {
-        this.bottleAmount += 1;
-        if(this.bottleAmount > 10) {
-            this.bottleAmount = 10;
-        }
-    }
-
-    setBottleAmount() {
+    setBottleAmount(bottleAmount) {
+        this.bottleAmount = bottleAmount;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
     resolveImageIndex() {
-        if (this.bottleAmount == 10) {
+        if (this.bottleAmount == 5) {
             return 5;
-        } else if (this.bottleAmount > 8) {
+        } else if (this.bottleAmount == 4) {
             return 4;
-        } else if (this.bottleAmount > 6) {
+        } else if (this.bottleAmount == 3) {
             return 3;
-        } else if (this.bottleAmount > 4) {
+        } else if (this.bottleAmount == 2) {
             return 2;
-        } else if (this.bottleAmount > 2) {
+        } else if (this.bottleAmount == 1) {
             return 1;
         } else {
             return 0;
