@@ -1,6 +1,8 @@
 class ThrowableObject extends MovableObject {
     width = 50;
     height = 75;
+    hitEnemy = false;
+    bottle_break_sound = new Audio('audio/bottle-break.mp3');
 
     IMAGES_SPLASH = [
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
@@ -18,7 +20,7 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.throw();
-        // this.animate();
+        this.animate();
     }
 
     throw() {
@@ -30,24 +32,19 @@ class ThrowableObject extends MovableObject {
         }, 25);
     }
 
-    bottleBreak() {
+    animate() {
         setInterval(() => {
-            // if (this.hitEnemy == true) {}
+            if (this.hitEnemy) {
                 this.playAnimation(this.IMAGES_SPLASH);
-                console.log('played animation'); //wird garnicht ausgeführt
-                this.x = -3000;
-                // this.hitEnemy = false;
-            }, 1000)    
-}
+                this.bottle_break_sound.play();
 
-// animate() {
-//     setInterval(() => {
-//         if (this.hitEnemy == true) {
-//             this.playAnimation(this.IMAGES_SPLASH);
-//             console.log('played animation'); //wird garnicht ausgeführt
-//             this.x = -3000;
-//             this.hitEnemy = false;
-// }}, 1000)    
-// }
+                setTimeout(() => {
+                    this.x = -3000;
+                }, 300);
+
+                this.hitEnemy = false;
+            }
+        }, 200);
+    }
 
 }

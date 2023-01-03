@@ -14,7 +14,7 @@ class World {
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
-    hitEnemy = false;
+    
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -47,9 +47,12 @@ class World {
     }
 
     checkCollisionsWithEnemy() {
-        //um alle Gegner zu bekommen this.level.enemies //forEach um für jeden einzelnen Gegner zu kontrollieren, ob diese mit dem Character kollidieren
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.jumpOnTop(enemy)) {
+                enemy.hit();
+                // setTimeout(this.chickenDies(enemy), 2000);
+            } else if 
+                (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 this.character.hit();
                 this.statusbar.setPercentage(this.character.energy);
             }
@@ -98,28 +101,16 @@ class World {
     }
 
     checkCollisionBottleVSenemies() {
-            this.throwableObjects.forEach((bottle) => {
+        this.throwableObjects.forEach((bottle) => {
 
-                this.level.enemies.forEach((enemy) => {
-                    if(bottle.isColliding(enemy) && bottle.isAboveGround()) {
-                       bottle.bottleBreak();
-                        console.log('Hit enemy', enemy);
-                    }
-            })
+            this.level.enemies.forEach((enemy) => {
+                if(bottle.isColliding(enemy)) {
+                    bottle.hitEnemy = true;
+                    console.log('Hit enemy', enemy);
+                }
         })
-    }
-
-//     checkCollisionBottleVSenemies() {
-//         this.throwableObjects.forEach((bottle) => {
-
-//             this.level.enemies.forEach((enemy) => {
-//                 if(bottle.isColliding(enemy)) {
-//                     this.hitEnemy = true;
-//                     console.log('Hit enemy', enemy);
-//                 }
-//         })
-//     })
-// }
+    })
+}
 
     checkIfCoinCollected() {
         this.level.coins.forEach((coin, i) => {

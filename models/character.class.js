@@ -102,7 +102,7 @@ class Character extends MovableObject {
             }
 
             //wenn key up true ist UND wir nicht (!) über dem Boden sind
-            if (this.world.keyboard.SPACE && !this.isAboveGorund()) {
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
             }
             this.world.camera_x = -this.x + 100;
@@ -120,7 +120,7 @@ class Character extends MovableObject {
             }
 
             //jump animation
-           else if (this.isAboveGorund()) {
+           else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
 
@@ -130,5 +130,9 @@ class Character extends MovableObject {
                 }
             }
         }, 50);
+    }
+
+    jumpOnTop(enemy) {
+        return this.isColliding(enemy) && this.isAboveGround() && this.speedY < 0;
     }
 }

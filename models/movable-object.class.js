@@ -10,14 +10,14 @@ class MovableObject extends DrawableObject {
     //damit Pepe fallen kann
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGorund() || this.speedY > 0) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
     }
 
-    isAboveGorund() {
+    isAboveGround() {
         if(this instanceof ThrowableObject) {
             return true;
         } else {
@@ -41,12 +41,10 @@ class MovableObject extends DrawableObject {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
-            // this.playAnimation(this.character.IMAGES_HURT);
         } else {
             this.lastHit = new Date().getTime();
         }
     }
-
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; //Difference in ms
