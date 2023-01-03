@@ -5,7 +5,6 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
     energy = 100;
     lastHit = 0;
-    bottleAmount = 0;
     
 
     //damit Pepe fallen kann
@@ -31,13 +30,6 @@ class MovableObject extends DrawableObject {
      * @param {object} mo - object that could be a bottle, character, endboss or chicken
      * @returns 
      */
-    // isColliding(mo) {
-    //     return this.x + this.width > mo.x &&
-    //         this.y + this.height > mo.y &&
-    //         this.x < mo.x &&
-    //         this.y < mo.y + mo.height;
-    // }
-
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&

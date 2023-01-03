@@ -14,6 +14,7 @@ class World {
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
+    hitEnemy = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -35,14 +36,13 @@ class World {
      * 
      * @param {object} mo - object that could be a bottle, character, endboss or chicken
      */
-
-    //forEach Funktion wird jede Sekunde (oder was halt im Intervall angegeben) für alle Gegner ausgeführt, wenn 5 Gegner dann 5x ausgeführt
     run() {
         setInterval(() => {
             this.checkCollisionsWithEnemy();
             this.checkIfBottleCollected();
             this.checkThrowObjects();
             this.checkIfCoinCollected();
+            this.checkCollisionBottleVSenemies();
         }, 100);
     }
 
@@ -66,7 +66,7 @@ class World {
                 this.playBottleCollectSound();
                 this.bottleDisappear();
             }
-        })
+         })
     }
 
     playBottleCollectSound() {
@@ -84,6 +84,7 @@ class World {
             if(this.bottleCounter > 0) {
             this.throwableObjects.push(bottle);
             this.bottleCounter--;
+            this.bottlebar.setBottleAmount(this.bottleCounter);
             console.log('BottleCounter is', this.bottleCounter);
             this.playBottleThrowSound();  
         }             
@@ -95,6 +96,30 @@ class World {
         this.throw_bottle_sound.playbackRate = 2;
         this.throw_bottle_sound.play();
     }
+
+    checkCollisionBottleVSenemies() {
+            this.throwableObjects.forEach((bottle) => {
+
+                this.level.enemies.forEach((enemy) => {
+                    if(bottle.isColliding(enemy) && bottle.isAboveGround()) {
+                       bottle.bottleBreak();
+                        console.log('Hit enemy', enemy);
+                    }
+            })
+        })
+    }
+
+//     checkCollisionBottleVSenemies() {
+//         this.throwableObjects.forEach((bottle) => {
+
+//             this.level.enemies.forEach((enemy) => {
+//                 if(bottle.isColliding(enemy)) {
+//                     this.hitEnemy = true;
+//                     console.log('Hit enemy', enemy);
+//                 }
+//         })
+//     })
+// }
 
     checkIfCoinCollected() {
         this.level.coins.forEach((coin, i) => {
@@ -133,11 +158,12 @@ class World {
         this.addToMap(this.coinbar);
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.throwableObjects);
+       
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
 
 
         this.ctx.translate(-this.camera_x, 0);
