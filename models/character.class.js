@@ -43,8 +43,8 @@ class Character extends MovableObject {
     offset = {
         top: 100,
         bottom: 10,
-        left: 20,
-        right: 20,
+        left: 30,
+        right: 30,
     };
 
     // GAME_OVER = [
@@ -132,7 +132,4 @@ class Character extends MovableObject {
         }, 50);
     }
 
-    jumpOnTop(enemy) {
-        return this.isColliding(enemy) && this.isAboveGround() && this.speedY < 0;
-    }
 }

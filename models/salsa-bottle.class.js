@@ -1,10 +1,12 @@
 class SalsaBottle extends MovableObject {
 
+    width = 75;
+    height = 100;
     offset = {
         top: 4,
         bottom: 4,
-        left: 60,
-        right: 60,
+        left: 30,
+        right: 30,
     };
 
     constructor(){

@@ -12,7 +12,7 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
-    
+
     CHICKEN_DEAD = [
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
@@ -42,19 +42,7 @@ class Chicken extends MovableObject {
 
     }
 
-
-    //function to change the pictures from the Chickens, so they seem to walk
     animate() {
-        if (!this.isHurt()) {
-            this.chickenAlive();
-        }
-
-        if (this.isHurt()) {
-            this.chickenDead();
-        }
-    }
-
-    chickenAlive() {
         setInterval(() => {
             this.moveLeft();
             // this.chicken_clucking_sound.volume = 0.2;
@@ -62,19 +50,23 @@ class Chicken extends MovableObject {
             // this.chicken_clucking_sound.play();
         }, 1000 / 60);
 
-
         setInterval(() => {
             this.playAnimation(this.CHICKEN_WALKING);
-        }, 200)
+        }, 200);
     }
 
     chickenDead() {
         setInterval(() => {
-            if (this.isHurt()) {
-                this.playAnimation(this.CHICKEN_DEAD);
-            } else {this.playAnimation(this.CHICKEN_WALKING);}
-        }, 100)
+            this.playAnimation(this.CHICKEN_DEAD);
+        }, 1000 / 60);
+
+        this.deadChickenDisappear();
     }
 
+    deadChickenDisappear() {
+        setTimeout(() => {
+            this.x = -3000;
+        }, 400);
+    }
 }
 

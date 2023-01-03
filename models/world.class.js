@@ -14,7 +14,8 @@ class World {
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
-    
+    chicken_dead_sound = new Audio('audio/chicken-dead.mp3');
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -48,16 +49,20 @@ class World {
 
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.jumpOnTop(enemy)) {
-                enemy.hit();
-                // setTimeout(this.chickenDies(enemy), 2000);
-            } else if 
-                (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
+            if(this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                console.log('Jumped on', enemy);
+                enemy.chickenDead();
+                this.chicken_dead_sound.play();
+
+                //character wird trotzdem verletzt!!Wieso?
+            } else if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 this.character.hit();
                 this.statusbar.setPercentage(this.character.energy);
             }
         });
     }
+
+
 
     checkIfBottleCollected() {
         this.level.salsabottle.forEach((bottle, i) => {
@@ -67,9 +72,9 @@ class World {
                 this.bottlebar.setBottleAmount(this.bottleCounter);
                 console.log('BottleCounter is', this.bottleCounter);
                 this.playBottleCollectSound();
-                this.bottleDisappear();
+                this.bottleDisappearWhenCollected();
             }
-         })
+        })
     }
 
     playBottleCollectSound() {
@@ -77,26 +82,26 @@ class World {
         this.bottle_collect_sound.play();
     }
 
-    bottleDisappear() {
+    bottleDisappearWhenCollected() {
         this.level.salsabottle.x = -3000;
     }
 
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            if(this.bottleCounter > 0) {
-            this.throwableObjects.push(bottle);
-            this.bottleCounter--;
-            this.bottlebar.setBottleAmount(this.bottleCounter);
-            console.log('BottleCounter is', this.bottleCounter);
-            this.playBottleThrowSound();  
-        }             
+            if (this.bottleCounter > 0) {
+                this.throwableObjects.push(bottle);
+                this.bottleCounter--;
+                this.bottlebar.setBottleAmount(this.bottleCounter);
+                console.log('BottleCounter is', this.bottleCounter);
+                this.playBottleThrowSound();
+            }
         }
     }
 
     playBottleThrowSound() {
         this.throw_bottle_sound.volume = 0.2;
-        this.throw_bottle_sound.playbackRate = 2;
+        this.throw_bottle_sound.playbackRate = 3;
         this.throw_bottle_sound.play();
     }
 
@@ -104,13 +109,12 @@ class World {
         this.throwableObjects.forEach((bottle) => {
 
             this.level.enemies.forEach((enemy) => {
-                if(bottle.isColliding(enemy)) {
+                if (bottle.isColliding(enemy)) {
                     bottle.hitEnemy = true;
-                    console.log('Hit enemy', enemy);
                 }
+            })
         })
-    })
-}
+    }
 
     checkIfCoinCollected() {
         this.level.coins.forEach((coin, i) => {
@@ -132,7 +136,6 @@ class World {
     coinDisappear() {
         this.level.coins.x = -3000;
     }
-    
 
     draw() {
         //hiermit wird das Canvas gecleart, damit Pepe neu gezeichnet werden kann, sonst hätte man irgendwann 300x dasselbe Bild nur an anderer Stelle
@@ -149,7 +152,7 @@ class World {
         this.addToMap(this.coinbar);
         this.ctx.translate(this.camera_x, 0);
 
-       
+
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
         this.addToMap(this.character);
