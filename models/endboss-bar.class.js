@@ -10,6 +10,7 @@ class EndbossBar extends DrawableObject {
     ];
 
     percentage = 100;
+    energy = 100;
 
     constructor() {
         super();
@@ -22,10 +23,9 @@ class EndbossBar extends DrawableObject {
     }
 
     setPercentage(percentage) {
-        this.percentage = percentage; //Zahl zwischen 0 und 5 muss ermittelt werden, weil das Array 6 Images hat
+        this.percentage = percentage; 
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
-
     }
 
     resolveImageIndex() {

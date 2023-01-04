@@ -5,6 +5,7 @@ let keyboard = new Keyboard();
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none'); 
+    initLevel(); //damit die Gegener erst geladen werden, sobald das Spiel startet, sonst laufen die schon durch, bevor man START gedrückt hat
     init();
 }
 

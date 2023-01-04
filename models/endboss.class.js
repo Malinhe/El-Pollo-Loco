@@ -4,7 +4,14 @@ class Endboss extends MovableObject {
     height = 490;
     y = -30;
 
-    IMAGES_WALKING = [
+    ENDBOSS_WALKING = [
+        'img/4_enemie_boss_chicken/1_walk/G1.png',
+        'img/4_enemie_boss_chicken/1_walk/G2.png',
+        'img/4_enemie_boss_chicken/1_walk/G3.png',
+        'img/4_enemie_boss_chicken/1_walk/G4.png'
+    ];
+
+    ENDBOSS_ANGRY = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
         'img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -23,15 +30,21 @@ class Endboss extends MovableObject {
     };
 
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
-        this.loadImages(this.IMAGES_WALKING);
-        this.x = 2100;
+        super().loadImage(this.ENDBOSS_WALKING[0]);
+        this.loadImages(this.ENDBOSS_WALKING);
+        this.x = 2550; //wo der Endboss spawned
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
+            this.moveLeft();
+        }, 1000 / 60);
+
+        setInterval(() => {
+            this.playAnimation(this.ENDBOSS_WALKING);
         }, 200)
+
+        
 }
 }

@@ -116,8 +116,9 @@ class World {
                 if (bottle.isColliding(enemy)) {
                     bottle.hitEnemy = true;
                 } else if (bottle.isColliding(endboss)) {
-                    console.log('hit Endboss');
+                    // console.log('hit Endboss');
                     endboss.hit();
+                    console.log('Endboss energy is', endboss.energy);
                     this.endbossbar.setPercentage(endboss.energy);
                 }
             })
