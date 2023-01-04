@@ -55,6 +55,7 @@ class World {
     //     this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof SmallChicken))
     {
                 console.log('Jumped on', enemy);
+                this.character.jump();
                 enemy.chickenDead();
                 this.chicken_dead_sound.play();
 
