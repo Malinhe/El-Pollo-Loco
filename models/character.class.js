@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    y = 85;
+    y = 160;
     width = 170;
     height = 280;
     speed = 7;
@@ -101,7 +101,7 @@ class Character extends MovableObject {
                 this.endboss_sound.pause();
             }
 
-            //wenn key up true ist UND wir nicht (!) über dem Boden sind
+            //wenn key space true ist UND wir nicht (!) über dem Boden sind
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
             }

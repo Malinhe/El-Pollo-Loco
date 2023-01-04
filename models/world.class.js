@@ -7,6 +7,7 @@ class World {
     camera_x = 0;//Minus, weil das Bild ja nach links verschoben wird
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
+    endbossbar = new EndbossBar();
     bottleCounter = 0;
     coinCounter = 0;
     coinbar = new CoinBar();
@@ -49,7 +50,10 @@ class World {
 
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if(this.character.isColliding(enemy) && this.character.isAboveGround()) {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY <0)
+    // if (!this.character.isHurt() && this.character.speedY <0 && this.character.isColliding(enemy) && 
+    //     this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof SmallChicken))
+    {
                 console.log('Jumped on', enemy);
                 enemy.chickenDead();
                 this.chicken_dead_sound.play();
@@ -61,8 +65,6 @@ class World {
             }
         });
     }
-
-
 
     checkIfBottleCollected() {
         this.level.salsabottle.forEach((bottle, i) => {
@@ -109,8 +111,14 @@ class World {
         this.throwableObjects.forEach((bottle) => {
 
             this.level.enemies.forEach((enemy) => {
+                let endboss = this.level.enemies[3];
+
                 if (bottle.isColliding(enemy)) {
                     bottle.hitEnemy = true;
+                } else if (bottle.isColliding(endboss)) {
+                    console.log('hit Endboss');
+                    endboss.hit();
+                    this.endbossbar.setPercentage(endboss.energy);
                 }
             })
         })
@@ -148,6 +156,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusbar);
+        this.addToMap(this.endbossbar);
         this.addToMap(this.bottlebar);
         this.addToMap(this.coinbar);
         this.ctx.translate(this.camera_x, 0);

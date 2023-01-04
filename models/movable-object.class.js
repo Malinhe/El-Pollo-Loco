@@ -2,7 +2,7 @@ class MovableObject extends DrawableObject {
     speed = 0.15; // 0.15px werden abgezogen
     otherDirection = false;
     speedY = 0; // Geschwindigkeit mit der das Object auf der Y-Achse fällt
-    acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
+    acceleration = 2.6; // Beschleunigung auf die Geschwindigkeit speedY
     energy = 100;
     lastHit = 0;
     
@@ -37,6 +37,10 @@ class MovableObject extends DrawableObject {
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
+    jump() {
+        this.speedY = 30;
+    }
+
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
@@ -49,7 +53,6 @@ class MovableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; //Difference in ms
         timepassed = timepassed / 1000; // Difference in s
-        // console.log(timepassed);
         return timepassed < 1; //was hit in the last 5s so this function returns true
     }
 
@@ -64,7 +67,6 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-
     moveRight() {
         this.x += this.speed;
     }
@@ -73,8 +75,5 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    jump() {
-        this.speedY = 30;
-    }
-
+   
 }

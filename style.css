@@ -25,6 +25,12 @@ h2 {
     font-family: 'zabars', Arial, Helvetica, sans-serif;
 }
 
+.startImages{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .startBtn {
     display: flex;
     justify-content: center;
@@ -38,6 +44,10 @@ h2 {
 
 .startBtn:hover {
     transform: scale(1.1);
+}
+
+.fullscreen {
+    width: 32px;
 }
 
 .d-none {
