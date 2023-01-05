@@ -43,8 +43,8 @@ class Character extends MovableObject {
     offset = {
         top: 100,
         bottom: 10,
-        left: 30,
-        right: 30,
+        left: 35,
+        right: 50,
     };
 
     // GAME_OVER = [

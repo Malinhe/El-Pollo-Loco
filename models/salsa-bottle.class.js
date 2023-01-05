@@ -1,18 +1,17 @@
 class SalsaBottle extends MovableObject {
 
-    width = 75;
-    height = 100;
+    width = 60;
+    height = 75;
     offset = {
         top: 4,
         bottom: 4,
         left: 30,
-        right: 30,
+        right: 15,
     };
 
     constructor(){
-        super().loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
-
-        this.x = 300 + Math.random() * 1400;
-
+        super().loadImage('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
+        this.x = 200 + Math.random() * 2000;
+        this.y = 350 + Math.random() * 10;
 }
 }
