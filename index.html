@@ -31,27 +31,50 @@
 <body>
 
     <!-- <div id="fullscreen"> -->
-        <h1>El Pollo Loco</h1>
+    <h1>El Pollo Loco</h1>
 
-        <div id="startScreen">
-            <img class="startScreen" src="img/9_intro_outro_screens/start/startscreen_2.png" width="720px" height="480px">
-        </div>
+    <div class="startScreen" id="startScreen">
 
-        <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
+        <img class="startScreen" src="img/9_intro_outro_screens/start/startscreen_2.png" width="720px" height="480px">
 
-        <div class="endScreen d-none" id="endScreen">
-            <img src="img/9_intro_outro_screens/game_over/you lost.png" width="720px" height="480px">
-        </div>
-
-        <div class="startImages">
-            <div class="startBtn" id="startBtn" onclick="startGame()">
-                <h2 id="start">START</h2>
+        <div class="space_between">
+            <div class="description">
+                MOVE LEFT <img src="img/description/arrow-left-4-32.png">
             </div>
 
-            <!-- <div>
+            <div class="description">
+                MOVE RIGHT <img src="img/description/arrow-right-4-32.png">
+            </div>
+
+            <div class="description">
+                THROW BOTTLE <img src="img/description/letter-d-32.png">
+            </div class="d-flex">
+
+            <div class="description">
+                JUMP <img src="img/description/myspace-32.png">
+            </div>
+        </div>
+
+        <div class="startBtn_position"> 
+            <div class="startBtn" onclick="startGame()">START</div>
+        </div>
+    </div>
+
+
+
+    <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
+
+    <div class="endScreen d-none" id="endScreen">
+        <img src="img/9_intro_outro_screens/game_over/you lost.png" width="720px" height="480px">
+    </div>
+
+    <!-- <div class="startImages">
+    </div> -->
+
+    <!-- <div>
                 <img onclick="fullscreen()" class="fullscreen" src="img/9_intro_outro_screens/fullscreen.svg">
             </div> -->
-        </div>
+
     <!-- </div> -->
 </body>
 

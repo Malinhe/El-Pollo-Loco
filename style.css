@@ -19,33 +19,43 @@ h1 {
     text-shadow: 6px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-h2 {
-    font-size: 24px;
-    letter-spacing: 2px;
-    text-shadow: 6px 4px 6px rgba(0, 0, 0, 0.5);
-    /* Warum muss ich dem h2-Element die font-family extra zuordnen?? */
-    font-family: 'zabars', Arial, Helvetica, sans-serif;
-}
 
-.startImages{
+/* .startImages{
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.startBtn {
+} */
+.startBtn_position {
     display: flex;
     justify-content: center;
-    background-color: transparent;
-    border-radius: 30px;
-    border: 1px solid black;
-    margin-top: 8px;
-    width: 150px;
+    max-width: 720px;
+}
+.startBtn {
+    width: 110px;
     cursor: pointer;
+    font-size: 40px;
+    letter-spacing: 2px;
+    text-shadow: 6px 4px 6px rgb(0 0 0 / 50%);
+    padding: 8px;
+    text-align: center;
 }
 
 .startBtn:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+}
+
+.description {
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+    text-shadow: 6px 4px 4px rgb(0 0 0 / 50%);
+    font-size: 18px;
+}
+
+.space_between {
+    max-width: 720px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .fullscreen {
