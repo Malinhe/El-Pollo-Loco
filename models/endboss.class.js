@@ -23,10 +23,10 @@ class Endboss extends MovableObject {
     ];
 
     offset = {
-        top: 70,
-        bottom: 8,
-        left: 4,
-        right: 4,
+        top: 130,
+        bottom: 20,
+        left: 50,
+        right: 50,
     };
 
     constructor() {
@@ -34,6 +34,15 @@ class Endboss extends MovableObject {
         this.loadImages(this.ENDBOSS_WALKING);
         this.x = 2550; //wo der Endboss spawned
         this.animate();
+    }
+
+    hit() {
+        this.energy -= 2; //so braucht er 4 Flaschen zum Sterben
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
     }
 
     animate() {
@@ -45,6 +54,6 @@ class Endboss extends MovableObject {
             this.playAnimation(this.ENDBOSS_WALKING);
         }, 200)
 
-        
+
 }
 }

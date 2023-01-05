@@ -50,16 +50,11 @@ class World {
 
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY <0)
-    // if (!this.character.isHurt() && this.character.speedY <0 && this.character.isColliding(enemy) && 
-    //     this.character.isAboveGround() && (enemy instanceof Chicken || enemy instanceof SmallChicken))
-    {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY <0) {
                 console.log('Jumped on', enemy);
                 this.character.jump();
                 enemy.chickenDead();
                 this.chicken_dead_sound.play();
-
-                //character wird trotzdem verletzt!!Wieso?
             } else if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 this.character.hit();
                 this.statusbar.setPercentage(this.character.energy);
