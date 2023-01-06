@@ -60,6 +60,11 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    gameOver() {
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('endScreen').classList.remove('d-none');
+    }
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];

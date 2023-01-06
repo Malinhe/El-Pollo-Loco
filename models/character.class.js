@@ -47,10 +47,6 @@ class Character extends MovableObject {
         right: 50,
     };
 
-    // GAME_OVER = [
-    //     'img/9_intro_outro_screens/game_over/you lost.png'
-    // ];
-
     world;
     walking_sound = new Audio('audio/walk.mp3');
     hit_sound = new Audio('audio/ayayay.mp3');
@@ -112,8 +108,10 @@ class Character extends MovableObject {
             //dead animation
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                // this.playAnimation(this.GAME_OVER);??geht nicht
-                //dann GAMEOVER Screen einfügen
+
+                setTimeout(() => {
+                    this.gameOver();
+                }, 500);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.hit_sound.play();
