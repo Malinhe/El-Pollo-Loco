@@ -22,6 +22,12 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
+    ENDBOSS_DEAD = [
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png'
+    ];
+
     offset = {
         top: 130,
         bottom: 20,
@@ -32,6 +38,7 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.ENDBOSS_WALKING[0]);
         this.loadImages(this.ENDBOSS_WALKING);
+        this.loadImages(this.ENDBOSS_DEAD);
         this.x = 2550; //wo der Endboss spawned
         this.animate();
     }
@@ -51,7 +58,12 @@ class Endboss extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
+
+            if(this.isDead()) {
+                this.playAnimation(this.ENDBOSS_DEAD);
+            } else {
             this.playAnimation(this.ENDBOSS_WALKING);
+        }
         }, 200)
 
 
