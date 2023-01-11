@@ -84,6 +84,10 @@ canvas {
     .startScreen {
         width: 100%;
     }
+
+    .endScreen {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-height: 480px) {
@@ -92,6 +96,10 @@ canvas {
     }
 
     .startScreen {
+        height: 100%;
+    }
+
+    .endScreen {
         height: 100%;
     }
 }
