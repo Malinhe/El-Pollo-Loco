@@ -60,7 +60,7 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    gameOver() {
+    youLost() {
         // document.getElementById('canvas').classList.add('d-none');
         document.getElementById('endScreen').classList.remove('d-none');
     }

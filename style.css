@@ -76,7 +76,7 @@ canvas {
 .endScreen {
     position: absolute;
     z-index: 1;
-    top: 250px;
+    top: 132px;
     /* margin-top: -480px; */
 }
 
@@ -94,7 +94,7 @@ canvas {
         width: 100%;
     }
 
-    .endScreen {
+    .endScreen img {
         width: 100%;
     }
 }
@@ -108,7 +108,7 @@ canvas {
         height: 100%;
     }
 
-    .endScreen {
+    .endScreen img {
         height: 100%;
     }
 }
