@@ -61,7 +61,7 @@ class MovableObject extends DrawableObject {
     }
 
     gameOver() {
-        document.getElementById('canvas').classList.add('d-none');
+        // document.getElementById('canvas').classList.add('d-none');
         document.getElementById('endScreen').classList.remove('d-none');
     }
 

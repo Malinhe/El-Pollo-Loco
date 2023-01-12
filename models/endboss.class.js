@@ -11,6 +11,12 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/1_walk/G4.png'
     ];
 
+    ENDBOSS_HURT = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png'
+    ];
+
     ENDBOSS_ANGRY = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -38,13 +44,15 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.ENDBOSS_WALKING[0]);
         this.loadImages(this.ENDBOSS_WALKING);
+        this.loadImages(this.ENDBOSS_HURT);
+        this.loadImages(this.ENDBOSS_ANGRY);
         this.loadImages(this.ENDBOSS_DEAD);
         this.x = 2550; //wo der Endboss spawned
         this.animate();
     }
 
     hit() {
-        this.energy -= 2; //so braucht er 4 Flaschen zum Sterben
+        this.energy -= 2; //so braucht er 4 Flaschen zum Sterben, je nachdem wo er getroffen wird (Kopf)
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -58,14 +66,19 @@ class Endboss extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-
-            if(this.isDead()) {
+            //dead animation
+            if (this.isDead()) {
                 this.playAnimation(this.ENDBOSS_DEAD);
-            } else {
-            this.playAnimation(this.ENDBOSS_WALKING);
-        }
+            } else if (this.isHurt()) {
+                this.playAnimation(this.ENDBOSS_HURT);
+            }
+            //klappt so nicht
+            // else if (this.energy < 95) {
+            //     this.playAnimation(this.ENDBOSS_ANGRY);
+            // }
+            else {
+                this.playAnimation(this.ENDBOSS_WALKING);
+            }
         }, 200)
-
-
-}
+    }
 }

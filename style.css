@@ -30,8 +30,8 @@ h1 {
     justify-content: center;
     max-width: 720px;
 }
-.startBtn {
-    width: 110px;
+.startBtn, .restartBtn {
+    width: 224px;
     cursor: pointer;
     font-size: 40px;
     letter-spacing: 2px;
@@ -40,7 +40,7 @@ h1 {
     text-align: center;
 }
 
-.startBtn:hover {
+.startBtn:hover, .restartBtn:hover {
     transform: scale(1.2);
 }
 
@@ -69,6 +69,15 @@ h1 {
 canvas {
     background-color: black;
     display: block;
+}
+
+
+/* passt noch nicht 100% */
+.endScreen {
+    position: absolute;
+    z-index: 1;
+    top: 250px;
+    /* margin-top: -480px; */
 }
 
 @font-face {
