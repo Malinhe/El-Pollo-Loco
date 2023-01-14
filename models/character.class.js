@@ -2,7 +2,9 @@ class Character extends MovableObject {
     y = 10;
     width = 170;
     height = 280;
-    speed = 5;
+    speed = 7;
+    lastMoved = new Date().getTime();
+
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -22,6 +24,19 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-37.png',
         'img/2_character_pepe/3_jump/J-38.png',
         'img/2_character_pepe/3_jump/J-39.png'
+    ];
+
+    IMAGES_SLEEPING = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
     IMAGES_HURT = [
@@ -57,8 +72,10 @@ class Character extends MovableObject {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
-        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_SLEEPING);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        
         // this.loadImage(this.GAME_OVER);
         this.applyGravity();
         this.animate();
@@ -72,6 +89,11 @@ class Character extends MovableObject {
             this.walking_sound.pause();
             this.walking_sound.volume = 0.2;
             this.walking_sound.playbackRate = 2.5;
+
+            //dann is er nur am Anfang vom Spiel am Schlafen
+            if (this.stayLong()) {
+                this.playAnimation(this.IMAGES_SLEEPING);
+            }
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -130,4 +152,9 @@ class Character extends MovableObject {
         }, 50);
     }
 
+stayLong() {
+    let timepassed = new Date().getTime() - this.lastMoved;
+    timepassed = timepassed / 1000;
+    return timepassed < 1;
+}
 }

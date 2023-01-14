@@ -47,8 +47,7 @@ class MovableObject extends DrawableObject {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
-        }
-    }
+        }}
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; //Difference in ms
@@ -61,7 +60,6 @@ class MovableObject extends DrawableObject {
     }
 
     youLost() {
-        // document.getElementById('canvas').classList.add('d-none');
         document.getElementById('endScreen').classList.remove('d-none');
     }
 
