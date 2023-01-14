@@ -39,7 +39,7 @@ class World {
      * @param {object} mo - object that could be a bottle, character, endboss or chicken
      */
     run() {
-        setInterval(() => {
+         setStopableInterval(() => {
             this.checkCollisionsWithEnemy();
             this.checkIfBottleCollected();
             this.checkThrowObjects();

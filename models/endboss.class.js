@@ -61,14 +61,19 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        setStopableInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
-        setInterval(() => {
+        setStopableInterval(() => {
             //dead animation
             if (this.isDead()) {
                 this.playAnimation(this.ENDBOSS_DEAD);
+
+                setTimeout(() => {
+                stopGame();
+            }, 1000);
+            
             } else if (this.isHurt()) {
                 this.playAnimation(this.ENDBOSS_HURT);
             }

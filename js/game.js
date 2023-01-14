@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let intervalIds = [];
 
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
@@ -18,6 +19,16 @@ function init() {
     world = new World(canvas, keyboard);
     console.log('My Character is', world.character);
 }
+
+function setStopableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    intervalIds.push(id);
+}
+
+function stopGame() {
+    intervalIds.forEach(clearInterval);
+    // this.gameSound.pause();
+  }
 
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
