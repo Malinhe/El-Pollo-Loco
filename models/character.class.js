@@ -101,22 +101,20 @@ class Character extends MovableObject {
                 this.walking_sound.play();
             }
 
-            // if (this.x > 1780) {
+            // if (this.x > 3250) {
             //     this.endboss_sound.volume = 0.5;
-            //     // this.endboss_sound.playbackRate = 1;
+            //     this.endboss_sound.playbackRate = 1;
             //     this.endboss_sound.play();
+            // }
+
+            // if (this.x < 3250) {
+            //     this.endboss_sound.pause();
             // }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
-            }
-
-            if (this.x < 1780) {
-                this.endboss_sound.volume = 0.5;
-                // this.endboss_sound.playbackRate = 1;
-                this.endboss_sound.pause();
             }
 
             //wenn key space true ist UND wir nicht (!) über dem Boden sind

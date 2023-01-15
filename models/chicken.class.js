@@ -33,7 +33,7 @@ class Chicken extends MovableObject {
         //Math.random() generiert eine zufällige Zahle zwischen 0 und 1, deswegen *500,
         // damit die Chicken irgendwo zwischen 200 und 700px auf der x-Achse spawnen
         //dadurch spawnen die Chicken zufällig bei jedem Neuladen der Seite an einer anderen Stelle
-        this.x = 900 + Math.random() * 1500;
+        this.x = 900 + Math.random() * 2500;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
 

@@ -47,12 +47,12 @@ class Endboss extends MovableObject {
         this.loadImages(this.ENDBOSS_HURT);
         this.loadImages(this.ENDBOSS_ANGRY);
         this.loadImages(this.ENDBOSS_DEAD);
-        this.x = 2550; //wo der Endboss spawned
+        this.x = 4000; //wo der Endboss spawned
         this.animate();
     }
 
     hit() {
-        this.energy -= 2; //so braucht er 4 Flaschen zum Sterben, je nachdem wo er getroffen wird (Kopf)
+        this.energy -= 0.75;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

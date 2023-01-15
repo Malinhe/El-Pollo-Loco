@@ -27,6 +27,7 @@ function setStopableInterval(fn, time) {
 
 function stopGame() {
     intervalIds.forEach(clearInterval);
+    //gameOver screen
     // this.gameSound.pause();
   }
 

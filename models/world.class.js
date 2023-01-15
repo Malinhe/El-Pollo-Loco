@@ -107,12 +107,12 @@ class World {
         this.throwableObjects.forEach((bottle) => {
 
             this.level.enemies.forEach((enemy) => {
-                let endboss = this.level.enemies[3];
+                let endboss = this.level.enemies[5];
 
                 if (bottle.isColliding(enemy)) {
                     bottle.hitEnemy = true;
                 } else if (bottle.isColliding(endboss)) {
-                    // console.log('hit Endboss');
+                    console.log('hit Endboss');
                     endboss.hit();
                     console.log('Endboss energy is', endboss.energy);
                     this.endbossbar.setPercentage(endboss.energy);
