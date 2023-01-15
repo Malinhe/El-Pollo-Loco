@@ -19,15 +19,7 @@ class CoinBar extends DrawableObject {
         this.width = 200;
         this.height = 60;
         this.setCoinAmount(0);
-        // this.collectCoin();
     }
-
-    // collectCoin() {
-    //     this.coinAmount += 1;
-    //     if(this.coinAmount > 10) {
-    //         this.coinAmount = 10;
-    //     }
-    // }
 
     setCoinAmount(coinAmount) {
         this.coinAmount = coinAmount;
@@ -35,16 +27,17 @@ class CoinBar extends DrawableObject {
         this.img = this.imageCache[path];
     }
 
+    
     resolveImageIndex() {
-        if (this.coinAmount == 5) {
+        if (this.coinAmount == 10) {
             return 5;
-        } else if (this.coinAmount == 4) {
+        } else if (this.coinAmount >= 8) {
             return 4;
-        } else if (this.coinAmount == 3) {
+        } else if (this.coinAmount >= 6) {
             return 3;
-        } else if (this.coinAmount == 2) {
+        } else if (this.coinAmount >= 3) {
             return 2;
-        } else if (this.coinAmount == 1) {
+        } else if (this.coinAmount >= 0) {
             return 1;
         } else {
             return 0;
