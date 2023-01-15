@@ -1,7 +1,7 @@
 class Character extends MovableObject {
-    y = 65;
-    width = 170;
-    height = 280;
+    y = 160;
+    width = 180;
+    height = 290;
     speed = 7;
     lastMoved = new Date().getTime();
 
@@ -56,8 +56,8 @@ class Character extends MovableObject {
     ];
 
     offset = {
-        top: 100,
-        bottom: 10,
+        top: 130,
+        bottom: 5,
         left: 35,
         right: 50,
     };
@@ -130,7 +130,8 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
 
                 setTimeout(() => {
-                    this.youLost();
+                    youLost();
+                    stopGame();
                 }, 500);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

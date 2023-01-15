@@ -29,7 +29,15 @@ function stopGame() {
     intervalIds.forEach(clearInterval);
     //gameOver screen
     // this.gameSound.pause();
-  }
+}
+
+function youLost() {
+    document.getElementById('endScreenLost').classList.remove('d-none');
+}
+
+function youWon() {
+    document.getElementById('endScreenWon').classList.remove('d-none');
+}
 
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');

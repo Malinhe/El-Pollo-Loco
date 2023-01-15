@@ -2,7 +2,7 @@ class MovableObject extends DrawableObject {
     speed = 0.15; // 0.15px werden abgezogen
     otherDirection = false;
     speedY = 0; // Geschwindigkeit mit der das Object auf der Y-Achse fällt
-    acceleration = 2.6; // Beschleunigung auf die Geschwindigkeit speedY
+    acceleration = 2.25; // Beschleunigung auf die Geschwindigkeit speedY
     energy = 100;
     lastHit = 0;
     
@@ -21,7 +21,7 @@ class MovableObject extends DrawableObject {
         if(this instanceof ThrowableObject) {
             return true;
         } else {
-        return this.y < 140;
+        return this.y < 180;
     }}
 
     /**
@@ -57,10 +57,6 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
-    }
-
-    youLost() {
-        document.getElementById('endScreen').classList.remove('d-none');
     }
 
     playAnimation(images) {

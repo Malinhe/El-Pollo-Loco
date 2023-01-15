@@ -107,7 +107,7 @@ class World {
         this.throwableObjects.forEach((bottle) => {
 
             this.level.enemies.forEach((enemy) => {
-                let endboss = this.level.enemies[5];
+                let endboss = this.level.enemies[11];
 
                 if (bottle.isColliding(enemy)) {
                     bottle.hitEnemy = true;

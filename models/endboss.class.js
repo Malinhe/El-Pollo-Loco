@@ -71,9 +71,10 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.ENDBOSS_DEAD);
 
                 setTimeout(() => {
-                stopGame();
-            }, 1000);
-            
+                    youWon();
+                    stopGame();
+                }, 1000);
+
             } else if (this.isHurt()) {
                 this.playAnimation(this.ENDBOSS_HURT);
             }
