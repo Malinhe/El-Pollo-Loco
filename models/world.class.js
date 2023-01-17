@@ -58,6 +58,7 @@ class World {
                 this.chicken_dead_sound.play();
             } else if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 this.character.hit();
+                console.log('Character energy is', this.character.energy);
                 this.statusbar.setPercentage(this.character.energy);
             }
         });
@@ -147,8 +148,9 @@ class World {
         this.level.hearts.forEach((heart, i) => {
             if (this.character.isColliding(heart)) {
                 this.level.hearts.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
-                this.character.energy += 20;
+                this.character.energy += 50;
                 this.statusbar.setPercentage(this.character.energy);
+                console.log('Character energy is', this.character.energy);
                 // this.playHeartSound();
                 this.heartDisappear();
             }
