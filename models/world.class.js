@@ -45,6 +45,7 @@ class World {
             this.checkThrowObjects();
             this.checkIfCoinCollected();
             this.checkCollisionBottleVSenemies();
+            this.checkIfHeartCollected();
         }, 100);
     }
 
@@ -142,6 +143,27 @@ class World {
         this.level.coins.x = -3000;
     }
 
+    checkIfHeartCollected() {
+        this.level.hearts.forEach((heart, i) => {
+            if (this.character.isColliding(heart)) {
+                this.level.hearts.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
+                this.character.energy += 20;
+                this.statusbar.setPercentage(this.character.energy);
+                // this.playHeartSound();
+                this.heartDisappear();
+            }
+        });
+    }
+
+    // playHeartSound() {
+    //     this.heart_sound.volume = 0.2;
+    //     this.heart_sound.play();
+    // }
+
+    heartDisappear() {
+        this.level.coins.x = -3000;
+    }
+
     draw() {
         //hiermit wird das Canvas gecleart, damit Pepe neu gezeichnet werden kann, sonst hätte man irgendwann 300x dasselbe Bild nur an anderer Stelle
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -161,6 +183,7 @@ class World {
 
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.hearts);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);

@@ -41,7 +41,7 @@ class DrawableObject {
     drawFrame(ctx) {
 
         //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin || this instanceof SmallChicken) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin || this instanceof SmallChicken || this instanceof Heart) {
             //draw rectangle
             ctx.beginPath();
             ctx.lineWidth = '2';
@@ -54,7 +54,7 @@ class DrawableObject {
     drawFrameOffset(ctx) {
 
         //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin || this instanceof SmallChicken) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin || this instanceof SmallChicken || this instanceof Heart) {
             //draw rectangle
             ctx.beginPath();
             ctx.lineWidth = '2';

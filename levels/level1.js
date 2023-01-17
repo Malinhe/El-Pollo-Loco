@@ -2,6 +2,12 @@ let level1;
 function initLevel() {
 
 level1 = new Level(
+
+    [
+        new Heart(),
+        new Heart()
+    ],
+    
     [
         new Coin(),
         new Coin(),

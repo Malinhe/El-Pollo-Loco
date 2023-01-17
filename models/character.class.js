@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    y = 160;
+    y = 5;
     width = 180;
     height = 290;
     speed = 7;
@@ -91,9 +91,9 @@ class Character extends MovableObject {
             this.walking_sound.playbackRate = 2.5;
 
             //dann is er nur am Anfang vom Spiel am Schlafen
-            if (this.stayLong()) {
-                this.playAnimation(this.IMAGES_SLEEPING);
-            }
+            // if (this.stayLong()) {
+            //     this.playAnimation(this.IMAGES_SLEEPING);
+            // }
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
