@@ -14,7 +14,7 @@
     <script src="models/coin-bar.class.js"></script>
     <script src="models/salsa-bottle.class.js"></script>
     <script src="models/coin.class.js"></script>
-    <script src="models/heart.class.js"></script> 
+    <script src="models/heart.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
     <script src="models/character.class.js"></script>
     <script src="models/chicken.class.js"></script>
@@ -55,13 +55,18 @@
             <div class="description">
                 JUMP <img src="img/description/myspace-32.png">
             </div>
+
+            <div class="description" onclick="gameSound()">
+                SOUND ON/OFF <img class="soundIcon" id="soundOn" src="img/description/audioOn.png">
+                             <img class="soundIcon d-none" id="soundOff" src="img/description/audioOff.png">
+            </div>
         </div>
 
         <div class="startBtn_position">
             <div class="startBtn" onclick="startGame()">START</div>
         </div>
     </div>
-</div>
+    </div>
     <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
 
     <div class="endScreen d-none" id="endScreenLost">

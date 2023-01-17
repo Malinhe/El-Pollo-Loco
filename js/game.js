@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
+let soundOff = false;
 
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
@@ -25,10 +26,20 @@ function setStopableInterval(fn, time) {
     intervalIds.push(id);
 }
 
+//funktioniert noch nicht richtig
+function gameSound() {
+    if(!soundOff) {
+      soundOff = true;
+      document.getElementById('soundOff').classList.remove('d-none');
+      document.getElementById('soundOn').classList.add('d-none');
+} else if(soundOff) {
+      document.getElementById('soundOff').classList.add('d-none');
+      document.getElementById('soundOn').classList.remove('d-none');
+}
+}
+
 function stopGame() {
     intervalIds.forEach(clearInterval);
-    //gameOver screen
-    // this.gameSound.pause();
 }
 
 function youLost() {

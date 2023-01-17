@@ -1,6 +1,6 @@
 class Character extends MovableObject {
-    y = 180;
-    width = 180;
+    y = 150;
+    width = 160;
     height = 290;
     speed = 7;
     lastMoved = new Date().getTime();
@@ -42,7 +42,7 @@ class Character extends MovableObject {
     IMAGES_HURT = [
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
-        'img/2_character_pepe/4_hurt/H-43.png'        
+        'img/2_character_pepe/4_hurt/H-43.png'
     ];
 
     IMAGES_DEAD = [
@@ -52,7 +52,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-54.png',
         'img/2_character_pepe/5_dead/D-55.png',
         'img/2_character_pepe/5_dead/D-56.png',
-        'img/2_character_pepe/5_dead/D-57.png'   
+        'img/2_character_pepe/5_dead/D-57.png'
     ];
 
     offset = {
@@ -75,7 +75,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SLEEPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        
+
         // this.loadImage(this.GAME_OVER);
         this.applyGravity();
         this.animate();
@@ -98,23 +98,30 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play();
+                if (!soundOff) {
+                    this.walking_sound.play();
+                }
+            }
+            //wenn man das oben mit in die Abfrage packt, dann läuft der Character nicht mehr, wenn man es hier macht dann is der Sound immer aus
+
+            if (this.x > 3250) {
+                this.endboss_sound.volume = 0.5;
+                this.endboss_sound.playbackRate = 1;
+                if ( !soundOff) {
+                    this.endboss_sound.play();
+                }
             }
 
-            // if (this.x > 3250) {
-            //     this.endboss_sound.volume = 0.5;
-            //     this.endboss_sound.playbackRate = 1;
-            //     this.endboss_sound.play();
-            // }
-
-            // if (this.x < 3250) {
-            //     this.endboss_sound.pause();
-            // }
+            if (this.x < 3250) {
+                this.endboss_sound.pause();
+            }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();
+                if (!soundOff) {
+                    this.walking_sound.play();
+                }
             }
 
             //wenn key space true ist UND wir nicht (!) über dem Boden sind
@@ -135,11 +142,14 @@ class Character extends MovableObject {
                 }, 500);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                this.hit_sound.play();
+                if (!soundOff) {
+                    this.hit_sound.play();
+                }
+
             }
 
             //jump animation
-           else if (this.isAboveGround()) {
+            else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
 
@@ -151,9 +161,9 @@ class Character extends MovableObject {
         }, 50);
     }
 
-stayLong() {
-    let timepassed = new Date().getTime() - this.lastMoved;
-    timepassed = timepassed / 1000;
-    return timepassed < 1;
-}
+    stayLong() {
+        let timepassed = new Date().getTime() - this.lastMoved;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
+    }
 }

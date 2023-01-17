@@ -39,7 +39,7 @@ class World {
      * @param {object} mo - object that could be a bottle, character, endboss or chicken
      */
     run() {
-         setStopableInterval(() => {
+        setStopableInterval(() => {
             this.checkCollisionsWithEnemy();
             this.checkIfBottleCollected();
             this.checkThrowObjects();
@@ -51,11 +51,13 @@ class World {
 
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY <0) {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY < 0) {
                 console.log('Jumped on', enemy);
                 this.character.jump();
                 enemy.chickenDead();
+                if (!soundOff) {
                 this.chicken_dead_sound.play();
+                }
             } else if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 this.character.hit();
                 console.log('Character energy is', this.character.energy);
@@ -79,7 +81,9 @@ class World {
 
     playBottleCollectSound() {
         this.bottle_collect_sound.volume = 0.2;
+        if (!soundOff) {
         this.bottle_collect_sound.play();
+        }
     }
 
     bottleDisappearWhenCollected() {
@@ -102,8 +106,9 @@ class World {
     playBottleThrowSound() {
         this.throw_bottle_sound.volume = 0.2;
         this.throw_bottle_sound.playbackRate = 3;
+        if (!soundOff) {
         this.throw_bottle_sound.play();
-    }
+    }}
 
     checkCollisionBottleVSenemies() {
         this.throwableObjects.forEach((bottle) => {
@@ -137,31 +142,58 @@ class World {
 
     playCoinSound() {
         this.coin_sound.volume = 0.2;
+        if (!soundOff) {
         this.coin_sound.play();
-    }
+    }}
 
     coinDisappear() {
         this.level.coins.x = -3000;
     }
 
+    /**
+     * this function checks the collision between the Character and the heart and
+     * if the Characters energy has to be increased or not
+     */
     checkIfHeartCollected() {
         this.level.hearts.forEach((heart, i) => {
-            if (this.character.isColliding(heart)) {
-                this.level.hearts.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
-                this.character.energy += 50;
-                this.statusbar.setPercentage(this.character.energy);
-                console.log('Character energy is', this.character.energy);
-                // this.playHeartSound();
-                this.heartDisappear();
+            if (this.character.isColliding(heart) && this.character.energy < 100) {
+                this.collectHeart();
+                this.increaseCharactersEnergy(i);
+            } if (this.character.isColliding(heart)) {
+                this.collectHeart();
+                console.log('Heart collected');
+
             }
         });
     }
 
+    /**
+     * this function collects the heart
+     * 
+     * @param {integer} i - is the index from the heart which is collected
+     */
+    collectHeart(i) {
+        this.level.hearts.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
+        this.heartDisappear();
+        // this.playHeartSound();
+    }
+
+    /**
+     * this function increases the energy from the Character with the difference he lost
+     */
+    increaseCharactersEnergy() {
+        this.character.energy += 100 - this.character.energy;
+        console.log('Character energy is', this.character.energy);
+        this.statusbar.setPercentage(this.character.energy);  
+    }
     // playHeartSound() {
     //     this.heart_sound.volume = 0.2;
     //     this.heart_sound.play();
     // }
 
+    /**
+     * this function lets the heart disappear after it is collected
+     */
     heartDisappear() {
         this.level.coins.x = -3000;
     }

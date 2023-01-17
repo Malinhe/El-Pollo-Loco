@@ -43,7 +43,9 @@ class ThrowableObject extends MovableObject {
          setStopableInterval(() => {
             if (this.hitEnemy) {
                 this.playAnimation(this.BOTTLE_SPLASH);
+                if (!soundOff) {
                 this.bottle_break_sound.play();
+                }
                 this.splashedBottleDisappear();
                 this.hitEnemy = false;
             } else {

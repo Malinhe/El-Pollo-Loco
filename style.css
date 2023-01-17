@@ -5,8 +5,8 @@ body {
     align-items: center;
     background-image: url('img/5_background/desert-bg.png');
     background-position: center;
-    max-height: 100vh; 
-    max-width: 100vw; 
+    max-height: 100vh;
+    max-width: 100vw;
     height: 100vh;
     width: 100vw;
     font-family: 'zabars', Arial, Helvetica, sans-serif;
@@ -30,6 +30,7 @@ h1 {
     justify-content: center;
     max-width: 720px;
 }
+
 .startBtn, .restartBtn {
     width: 224px;
     cursor: pointer;
@@ -58,6 +59,10 @@ h1 {
     justify-content: space-around;
 }
 
+.soundIcon {
+    width: 28px;
+}
+
 .fullscreen {
     width: 32px;
 }
@@ -78,13 +83,14 @@ canvas {
     z-index: 1;
     /* top: 0; */
     /* bottom: 0; */
-    margin-top: 120px;
+    margin-top: 131px;
 }
 
 @font-face {
     font-family: 'zabars';
-    src: url('fonts/zabars.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-}  
+    src: url('fonts/zabars.ttf') format('truetype');
+    /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
 @media only screen and (max-width: 720px) {
     canvas {
