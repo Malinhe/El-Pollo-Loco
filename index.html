@@ -56,16 +56,18 @@
                 JUMP <img src="img/description/myspace-32.png">
             </div>
 
-            <div class="description" onclick="gameSound()">
-                SOUND ON/OFF <img class="soundIcon" id="soundOn" src="img/description/audioOn.png">
-                <img class="soundIcon d-none" id="soundOff" src="img/description/audioOff.png">
-            </div>
+           
         </div>
 
         <div class="startBtn_position">
             <div class="startBtn" onclick="startGame()">START</div>
-            <div>
-                <img onclick="fullscreen()" class="chooseFullscreenIcon" src="img/9_intro_outro_screens/fullscreen.svg">
+            <div style="display: flex; flex-direction: column; align-items: center; letter-spacing: 1px; text-shadow: 6px 4px 4px rgb(0 0 0 / 50%); font-size: 18px;">
+                CHOOSE FULLSCREEN
+                <img style="margin-top: 8px;" onclick="fullscreen()" class="chooseFullscreenIcon" src="img/9_intro_outro_screens/fullscreen.svg">
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; letter-spacing: 1px; text-shadow: 6px 4px 4px rgb(0 0 0 / 50%); font-size: 18px;" onclick="gameSound()">
+                SOUND ON/OFF <img class="soundIcon" id="soundOn" src="img/description/audioOn.png">
+                <img class="soundIcon d-none" id="soundOff" src="img/description/audioOff.png">
             </div>
         </div>
     </div>

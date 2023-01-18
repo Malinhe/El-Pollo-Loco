@@ -27,7 +27,7 @@ h1 {
 } */
 .startBtn_position {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     max-width: 720px;
 }
@@ -42,7 +42,7 @@ h1 {
     text-align: center;
 }
 
-.startBtn:hover, .restartBtn:hover, .chooseFullscreenIcon:hover {
+.startBtn:hover, .restartBtn:hover, .chooseFullscreenIcon:hover, .soundIcon:hover {
     transform: scale(1.2);
 }
 
