@@ -4,34 +4,34 @@ function initLevel() {
 level1 = new Level(
 
     [
-        new Heart(),
-        new Heart()
+        new Heart(2000, 100),
+        new Heart(3500, 200)
     ],
     
     [
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin()
+        new Coin(300, 220),
+        new Coin(1050, 180),
+        new Coin(1100, 160),
+        new Coin(1150, 140),
+        new Coin(1500, 275),
+        new Coin(2500, 180),
+        new Coin(2550, 160),
+        new Coin(2600, 140),
+        new Coin(2650, 160),
+        new Coin(2700, 180)
     ],
 
     [
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle(),
-        new SalsaBottle()
+        new SalsaBottle(500, 380),
+        new SalsaBottle(700, 345),
+        new SalsaBottle(1000, 380),
+        new SalsaBottle(1300, 345),
+        new SalsaBottle(1500, 380),
+        new SalsaBottle(1800, 345),
+        new SalsaBottle(2150, 380),
+        new SalsaBottle(2300, 345),
+        new SalsaBottle(2550, 380),
+        new SalsaBottle(3000, 345)
     ],
 
     [

@@ -13,10 +13,10 @@ class Heart extends MovableObject {
         right: 12,
     };
     
-    constructor(){
+    constructor(x, y){
         super().loadImage('img/7_statusbars/3_icons/icon_health.png');
         this.loadImages(this.HEART_IMAGES);
-        this.x = 200 + Math.random() * 3000;
-        this.y = 150 + Math.random() * 125;
+        this.x = x;
+        this.y = y;
 }
 }

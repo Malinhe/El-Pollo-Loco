@@ -33,11 +33,14 @@ class DrawableObject {
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
-
         });
     }
 
-    
+    /**
+     * this function is used to draw rectangles around the MovableObject, it helps to check where they will collide
+     * 
+     * @param {string} ctx - so that you can draw on the canvas
+     */
     drawFrame(ctx) {
 
         //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
@@ -45,12 +48,30 @@ class DrawableObject {
             //draw rectangle
             ctx.beginPath();
             ctx.lineWidth = '2';
-            ctx.strokeStyle = 'blue';
+            ctx.strokeStyle = 'transparent';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
     }
 
+    /**
+     * this function is used to draw the coordinates from the MovableObject that you want to know
+     * 
+     * @param {string} ctx - so that you can draw on the canvas
+     */
+    // drawPosition(ctx) {
+    //     if(this instanceof SalsaBottle) {
+    //         ctx.font = "48px serif";
+    //         ctx.fillText(`${this.x}, ${this.y}`, this.x, this.y);
+    //     }
+    // }
+
+     /**
+     * this function is used to draw rectangles around the MovableObject within the other frame, it helps to check where they will collide
+     * offset means the difference between the outer and the inner frame (this one here is the inner one)
+     * 
+     * @param {string} ctx - so that you can draw on the canvas
+     */
     drawFrameOffset(ctx) {
 
         //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
@@ -58,7 +79,7 @@ class DrawableObject {
             //draw rectangle
             ctx.beginPath();
             ctx.lineWidth = '2';
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = 'transparent';
             ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.top - this.offset.bottom);
             ctx.stroke();
         }
