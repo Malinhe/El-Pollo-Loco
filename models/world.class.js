@@ -17,6 +17,7 @@ class World {
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
     chicken_dead_sound = new Audio('audio/chicken-dead.mp3');
     power_up = new Audio('audio/powerUp.mp3');
+    background_sound = new Audio('audio/pepe-bg-sound.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -39,6 +40,8 @@ class World {
      */
     run() {
         setStopableInterval(() => {
+            this.background_sound.play();
+            this.background_sound.volume = 0.2;
             this.checkCollisionsWithEnemy();
             this.checkIfBottleCollected();
             this.checkThrowObjects();
