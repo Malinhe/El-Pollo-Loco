@@ -16,6 +16,7 @@ class World {
     throwableObjects = [];
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
     chicken_dead_sound = new Audio('audio/chicken-dead.mp3');
+    power_up = new Audio('audio/powerUp.mp3');
 
 
     constructor(canvas, keyboard) {
@@ -49,6 +50,13 @@ class World {
         }, 100);
     }
 
+    playCollectSound(sound, volume = 0.2) {
+        sound.volume = volume;
+        if (!soundOff) {
+            sound.play();
+        }
+    }
+
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY < 0) {
@@ -56,7 +64,7 @@ class World {
                 this.character.jump();
                 enemy.chickenDead();
                 if (!soundOff) {
-                this.chicken_dead_sound.play();
+                    this.chicken_dead_sound.play();
                 }
             } else if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                 this.character.hit();
@@ -66,6 +74,15 @@ class World {
         });
     }
 
+    /**
+     * this function makes collected objects disappear
+     * 
+     * @param {Object} object - the object is something collectable like a heart, coin or bottle
+     */
+    disappear(object) {
+        object.x = -3000;
+    }
+
     checkIfBottleCollected() {
         this.level.salsabottle.forEach((bottle, i) => {
             if (this.character.isColliding(bottle)) {
@@ -73,21 +90,10 @@ class World {
                 this.bottleCounter++;
                 this.bottlebar.setBottleAmount(this.bottleCounter);
                 console.log('BottleCounter is', this.bottleCounter);
-                this.playBottleCollectSound();
-                this.bottleDisappearWhenCollected();
+                this.playCollectSound(this.bottle_collect_sound);
+                this.disappear(this.level.salsabottle);
             }
         })
-    }
-
-    playBottleCollectSound() {
-        this.bottle_collect_sound.volume = 0.2;
-        if (!soundOff) {
-        this.bottle_collect_sound.play();
-        }
-    }
-
-    bottleDisappearWhenCollected() {
-        this.level.salsabottle.x = -3000;
     }
 
     checkThrowObjects() {
@@ -107,8 +113,9 @@ class World {
         this.throw_bottle_sound.volume = 0.2;
         this.throw_bottle_sound.playbackRate = 3;
         if (!soundOff) {
-        this.throw_bottle_sound.play();
-    }}
+            this.throw_bottle_sound.play();
+        }
+    }
 
     checkCollisionBottleVSenemies() {
         this.throwableObjects.forEach((bottle) => {
@@ -134,20 +141,10 @@ class World {
                 this.level.coins.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
                 this.coinCounter++;
                 this.coinbar.setCoinAmount(this.coinCounter);
-                this.playCoinSound();
-                this.coinDisappear();
+                this.playCollectSound(this.coin_sound);
+                this.disappear(this.level.coins);
             }
         });
-    }
-
-    playCoinSound() {
-        this.coin_sound.volume = 0.2;
-        if (!soundOff) {
-        this.coin_sound.play();
-    }}
-
-    coinDisappear() {
-        this.level.coins.x = -3000;
     }
 
     /**
@@ -174,28 +171,17 @@ class World {
      */
     collectHeart(i) {
         this.level.hearts.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
-        this.heartDisappear();
-        // this.playHeartSound();
+        this.playCollectSound(this.power_up);
+        this.disappear(this.level.hearts);
     }
 
     /**
-     * this function increases the energy from the Character with the difference he lost
+     * this function increases the energy from the Character with the difference he lost when he´s hit
      */
     increaseCharactersEnergy() {
         this.character.energy += 100 - this.character.energy;
         console.log('Character energy is', this.character.energy);
-        this.statusbar.setPercentage(this.character.energy);  
-    }
-    // playHeartSound() {
-    //     this.heart_sound.volume = 0.2;
-    //     this.heart_sound.play();
-    // }
-
-    /**
-     * this function lets the heart disappear after it is collected
-     */
-    heartDisappear() {
-        this.level.coins.x = -3000;
+        this.statusbar.setPercentage(this.character.energy);
     }
 
     draw() {
@@ -261,7 +247,7 @@ class World {
         mo.drawFrame(this.ctx);
         mo.drawFrameOffset(this.ctx);
 
-        mo.drawPosition(this.ctx);
+        // mo.drawPosition(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

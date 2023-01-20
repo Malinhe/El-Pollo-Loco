@@ -47,7 +47,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.ENDBOSS_HURT);
         this.loadImages(this.ENDBOSS_ANGRY);
         this.loadImages(this.ENDBOSS_DEAD);
-        this.x = 4000; //wo der Endboss spawned
+        this.x = 3800; //wo der Endboss spawned
         this.animate();
     }
 
