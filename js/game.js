@@ -3,12 +3,14 @@ let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
 let soundOff = false;
+let lastMoved;
 
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none'); 
     initLevel(); //damit die Gegener erst geladen werden, sobald das Spiel startet, sonst laufen die schon durch, bevor man START gedrückt hat
     init();
+    lastMoved = new Date().getTime();
 }
 
 //erstmal das Canvas laden, wenn der Body geladen ist
@@ -80,26 +82,32 @@ function enterFullscreen(element) {
 window.addEventListener("keydown", (e) => {
     if(e.keyCode == 32) {
         keyboard.SPACE = true;
+        lastMoved = new Date().getTime();
     }
 
     if(e.keyCode == 37) {
         keyboard.LEFT = true;
+        lastMoved = new Date().getTime();
     }
 
     if(e.keyCode == 38) {
         keyboard.UP = true;
+        lastMoved = new Date().getTime();
     }
 
     if(e.keyCode == 39) {
         keyboard.RIGHT = true;
+        lastMoved = new Date().getTime();
     }    
 
     if(e.keyCode == 40) {
         keyboard.DOWN = true;
+        lastMoved = new Date().getTime();
     } 
 
     if(e.keyCode == 68) {
         keyboard.D = true;
+        lastMoved = new Date().getTime();
     } 
 });
 

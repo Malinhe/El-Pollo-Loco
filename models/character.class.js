@@ -3,7 +3,6 @@ class Character extends MovableObject {
     width = 160;
     height = 290;
     speed = 7;
-    lastMoved = 0;
 
 
     IMAGES_IDLE = [
@@ -18,7 +17,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-9.png',
         'img/2_character_pepe/1_idle/idle/I-10.png',
     ];
-    
+
     IMAGES_LONG_IDLE = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
         'img/2_character_pepe/1_idle/long_idle/I-12.png',
@@ -90,8 +89,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-
-        // this.loadImage(this.GAME_OVER);
         this.applyGravity();
         this.animate();
     }
@@ -160,28 +157,22 @@ class Character extends MovableObject {
             //jump animation
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
+            } else if (this.stayLong()) {
+                this.playAnimation(this.IMAGES_LONG_IDLE);
+                console.log('schläft');
             } else {
-
-                //walk animation
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                } 
+                this.playAnimation(this.IMAGES_IDLE);
             }
-        }, 50);
 
-        setStopableInterval(() => {
-            if(!this.world.keyboard.RIGHT || !this.world.keyboard.LEFT || !this.isAboveGround() && !this.stayLong()) {
-            this.playAnimation(this.IMAGES_IDLE);
-            this.lastMoved = new Date().getTime();
-        } else if (this.stayLong()) {
-            this.playAnimation(this.IMAGES_LONG_IDLE);
-        }
-        }, 500);
+        }, 200);
+
     }
 
     stayLong() {
-        let timepassed = new Date().getTime() - this.lastMoved;
+        let timepassed = new Date().getTime() - lastMoved;
         timepassed = timepassed / 1000;
-        return timepassed < 5;
+        return timepassed > 5;
     }
 }

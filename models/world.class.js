@@ -18,7 +18,6 @@ class World {
     chicken_dead_sound = new Audio('audio/chicken-dead.mp3');
     power_up = new Audio('audio/powerUp.mp3');
 
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
