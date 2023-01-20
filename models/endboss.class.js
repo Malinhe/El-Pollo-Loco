@@ -73,6 +73,7 @@ class Endboss extends MovableObject {
                 setTimeout(() => {
                     youWon();
                     stopGame();
+                    //  this.endboss_sound.pause();
                 }, 1000);
 
             } else if (this.isHurt()) {

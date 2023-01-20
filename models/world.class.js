@@ -30,7 +30,6 @@ class World {
     //????????
     setWorld() {
         this.character.world = this;
-        // this.level.coins.world = this;
     }
 
     /**
@@ -56,22 +55,30 @@ class World {
         }
     }
 
+    
+    characterJumps() {
+        return this.character.isAboveGround() && this.character.speedY < 0
+    }
+
+    characterDoesNotJump() {
+        return !this.character.isAboveGround()
+    }
+
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY < 0) {
-                console.log('Jumped on', enemy);
+            if (this.character.isColliding(enemy) && this.characterJumps()) {
                 this.character.jump();
                 enemy.chickenDead();
                 if (!soundOff) {
                     this.chicken_dead_sound.play();
                 }
-            } else if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
+            } else if (this.character.isColliding(enemy) && this.characterDoesNotJump()) {
                 this.character.hit();
-                console.log('Character energy is', this.character.energy);
                 this.statusbar.setPercentage(this.character.energy);
             }
         });
     }
+
 
     /**
      * this function makes collected objects disappear

@@ -146,6 +146,8 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     youLost();
                     stopGame();
+                    // this.endboss_sound.pause();
+
                 }, 500);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -154,7 +156,6 @@ class Character extends MovableObject {
                 }
             }
 
-            //jump animation
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
