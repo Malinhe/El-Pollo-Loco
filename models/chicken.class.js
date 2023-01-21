@@ -42,13 +42,14 @@ class Chicken extends MovableObject {
     animate() {
          setStopableInterval(() => {
             this.moveLeft();
-            // this.chicken_clucking_sound.volume = 0.2;
-            // this.chicken_clucking_sound.playbackRate = 1;
-            // if (!soundOff) {
-            // // this.chicken_clucking_sound.play();
+          
         }, 1000 / 60);
 
          setStopableInterval(() => {
+              // this.chicken_clucking_sound.volume = 0.2;
+            // this.chicken_clucking_sound.playbackRate = 1;
+            // if (!soundOff) {
+            // // this.chicken_clucking_sound.play();
             this.playAnimation(this.CHICKEN_WALKING);
         }, 200);
     }

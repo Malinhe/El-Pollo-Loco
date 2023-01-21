@@ -78,7 +78,7 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('audio/walk.mp3');
     hit_sound = new Audio('audio/ayayay.mp3');
-    endboss_sound = new Audio('audio/endboss_sound.mp3');
+    // endboss_sound = new Audio('audio/endboss_sound.mp3');
 
     constructor() {
         //ruft vom übergeordneten movableObject die loadImage() auf
@@ -112,10 +112,10 @@ class Character extends MovableObject {
             //wenn man das oben mit in die Abfrage packt, dann läuft der Character nicht mehr, wenn man es hier macht dann is der Sound immer aus
 
             if (this.x > 3250) {
-                this.endboss_sound.volume = 0.5;
-                this.endboss_sound.playbackRate = 1;
+                endboss_sound.volume = 0.2;
+                endboss_sound.playbackRate = 1;
                 if (!soundOff) {
-                    this.endboss_sound.play();
+                    endboss_sound.play();
                 }
             }
 
@@ -142,11 +142,10 @@ class Character extends MovableObject {
             //dead animation
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-
                 setTimeout(() => {
                     youLost();
                     stopGame();
-                    // this.endboss_sound.pause();
+                    
 
                 }, 500);
             } else if (this.isHurt()) {
