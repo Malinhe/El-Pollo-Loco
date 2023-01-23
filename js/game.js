@@ -10,6 +10,9 @@ let endboss_sound = new Audio('audio/endboss_sound.mp3');
 
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('start').classList.add('d-none'); 
+    document.getElementById('sound').classList.add('d-none'); 
+    document.getElementById('restart').classList.remove('d-none');  
     document.getElementById('canvas').classList.remove('d-none');
     initLevel(); //damit die Gegener erst geladen werden, sobald das Spiel startet, sonst laufen die schon durch, bevor man START gedrückt hat
     init();
@@ -35,7 +38,6 @@ function setStopableInterval(fn, time) {
     intervalIds.push(id);
 }
 
-//funktioniert noch nicht richtig
 function gameSound() {
     if (!soundOff) {
         soundOff = true;

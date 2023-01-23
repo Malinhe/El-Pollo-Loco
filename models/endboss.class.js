@@ -52,6 +52,8 @@ class Endboss extends MovableObject {
         right: 50,
     };
 
+    energy = 400;
+
     constructor() {
         super().loadImage(this.ENDBOSS_WALKING[0]);
         this.loadImages(this.ENDBOSS_WALKING);
@@ -64,7 +66,7 @@ class Endboss extends MovableObject {
     }
 
     hit() {
-        this.energy -= 0.75;
+        this.energy -= 1.2;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -73,12 +75,6 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        // setStopableInterval(() => {
-        //     if(this.energy < 100 && this.energy > 50)
-        //     this.moveLeft();
-
-        // }, 1000 / 60);
-
         setStopableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.ENDBOSS_DEAD);
@@ -90,26 +86,26 @@ class Endboss extends MovableObject {
 
             } else if (this.isHurt()) {
                 this.playAnimation(this.ENDBOSS_HURT);
-            } else if (this.energy < 100 && this.energy > 60) {
+            } else if (this.energy < 400 && this.energy > 250) {
                 this.playAnimation(this.ENDBOSS_WALKING);
-                 this.moveLeft();
-            } else if (this.energy < 60){
+                this.moveLeft();
+            } else if (this.energy < 250) {
                 this.playAnimation(this.ENDBOSS_ATTACK);
                 this.moveFastLeft();
-            } 
+            }
             else {
                 this.playAnimation(this.ENDBOSS_ALERT);
             }
         }, 200);
     }
 
-    
+
     moveLeft() {
         this.x -= this.speed * 75;
     }
 
 
-    moveFastLeft(){
+    moveFastLeft() {
         this.x -= this.speed * 200;
     }
 }

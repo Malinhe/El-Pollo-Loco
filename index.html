@@ -31,61 +31,104 @@
 </head>
 
 <body>
-
-    <!-- <div id="fullscreen"> -->
     <h1>El Pollo Loco</h1>
 
-    <div class="startScreen" id="startScreen">
+    
+<div class="main">
+    <div id="fullscreen" class="fullscreen">
+        <img class="startScreen" id="startScreen" src="img/9_intro_outro_screens/start/startscreen_2.png" width="720px" height="480px">
 
-        <img class="startScreen" src="img/9_intro_outro_screens/start/startscreen_2.png" width="720px" height="480px">
+        <div class="soundOnOFF" id="sound" onclick="gameSound()">
+            SOUND ON/OFF <img class="soundIcon" id="soundOn" src="img/description/audioOn.png">
+            <img class="soundIcon d-none" id="soundOff" src="img/description/audioOff.png">
+        </div>
+
+       
+
+        <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
+
+        <img class="endScreen d-none" id="endScreenLost" src="img/9_intro_outro_screens/game_over/you lost.png"
+            width="720px" height="480px">
+        <img class="endScreen d-none" id="endScreenWon" src="img/9_intro_outro_screens/game_over/game over.png"
+            width="720px" height="480px">
+    </div>
+
+
+    <div class="description-container">
+        <div class="description">
+            MOVE LEFT <img src="img/description/arrow-left-4-32.png">
+        </div>
+
+        <div class="description">
+            MOVE RIGHT <img src="img/description/arrow-right-4-32.png">
+        </div>
+
+        <div class="description">
+            THROW BOTTLE <img src="img/description/letter-d-32.png">
+        </div>
+
+        <div class="description">
+            JUMP <img src="img/description/myspace-32.png">
+        </div>
+    </div>
+
+    <div class="startBtn" id="start" onclick="startGame()">START</div>
+
+    <div class="restartBtn d-none" id="restart" onclick="reload()">RESTART GAME</div>
+
+</div>
+ 
+
+
+
+    <!-- <div class="overlayMobile d-none">
+
+        <div class="mobileCover">
+            <div class="panel ml">
+              <div>Play</div>
+              <div>Sound</div>
+              <div>reload</div>
+            </div>
+
+            <div class="panel">
+                <div class="d-flex">
+                    <div>leftBtn</div>
+                    <div>rightBtn</div>
+                </div>
+                <div class="d-flex">
+                    <div>JUMP</div>
+                    <div>THROW</div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="startScreen" id="startScreen">
+
+       
+        
 
         <div class="space_between">
-            <div class="description">
-                MOVE LEFT <img src="img/description/arrow-left-4-32.png">
-            </div>
-
-            <div class="description">
-                MOVE RIGHT <img src="img/description/arrow-right-4-32.png">
-            </div>
-
-            <div class="description">
-                THROW BOTTLE <img src="img/description/letter-d-32.png">
-            </div class="d-flex">
-
-            <div class="description">
-                JUMP <img src="img/description/myspace-32.png">
-            </div>
-
            
+
         </div>
 
         <div class="startBtn_position">
-            <div class="startBtn" onclick="startGame()">START</div>
-            <div style="display: flex; flex-direction: column; align-items: center; letter-spacing: 1px; text-shadow: 6px 4px 4px rgb(0 0 0 / 50%); font-size: 18px;">
-                CHOOSE FULLSCREEN
-                <img style="margin-top: 8px;" onclick="fullscreen()" class="chooseFullscreenIcon" src="img/9_intro_outro_screens/fullscreen.svg">
-            </div>
-            <div style="display: flex; flex-direction: column; align-items: center; letter-spacing: 1px; text-shadow: 6px 4px 4px rgb(0 0 0 / 50%); font-size: 18px;" onclick="gameSound()">
-                SOUND ON/OFF <img class="soundIcon" id="soundOn" src="img/description/audioOn.png">
-                <img class="soundIcon d-none" id="soundOff" src="img/description/audioOff.png">
-            </div>
+           
+
         </div>
     </div>
-    </div>
-    <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
-
-    <div class="endScreen d-none" id="endScreenLost">
-        <img src="img/9_intro_outro_screens/game_over/you lost.png" width="720px" height="480px">
-        <div class="restartBtn" onclick="reload()">RESTART GAME</div>
-    </div>
-
-    <div class="endScreen d-none" id="endScreenWon">
-        <img src="img/9_intro_outro_screens/game_over/game over.png" width="720px" height="480px">
-        <div class="restartBtn" onclick="reload()">RESTART GAME</div>
-    </div>
+    </div> -->
 
 
-    </div>
+
+
+
+
+    <!-- <div style="display: flex; flex-direction: column; align-items: center; letter-spacing: 1px; text-shadow: 6px 4px 4px rgb(0 0 0 / 50%); font-size: 18px;">
+        CHOOSE FULLSCREEN
+        <img style="margin-top: 8px;" onclick="fullscreen()" class="chooseFullscreenIcon" src="img/9_intro_outro_screens/fullscreen.svg">
+    </div> -->
 </body>
 
 </html>
