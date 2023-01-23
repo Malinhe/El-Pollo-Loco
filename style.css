@@ -116,15 +116,52 @@ canvas {
     height: 100%;
 }
 
+.turnDevice {
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.97);
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    z-index: 3;
+    height: 100vh;
+    width: 100vw;
+}
+
 @font-face {
     font-family: 'zabars';
     src: url('fonts/zabars.ttf') format('truetype');
     /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
+/* The orientation CSS media feature can be used to test the orientation of the viewport (or the page box, for paged media) */
+@media screen and (orientation:portrait) {
+    .please_turn_device {
+        display: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9;
+        background-color: rgba(0, 0, 0, 0.95);
+        color: red;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
 @media only screen and (max-width: 720px) {
     canvas, .main, .startScreen {
         width: 100%;
+    }
+
+    .turnDevice {
+       visibility: visible;
     }
 
     /* .mobileOverlay {
