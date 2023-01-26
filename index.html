@@ -46,28 +46,48 @@
                 <img class="soundIcon d-none" id="soundOff" src="img/description/audioOff.png">
             </div>
 
+            <!-- <div class="d-none" id="fullscreenIcon">
+                <img style="margin-top: 8px;" onclick="fullscreen()" class="chooseFullscreenIcon" src="img/9_intro_outro_screens/fullscreen.svg">
+            </div> -->
+            
             <div class="mobileOverlay">
                 <div class="panel">
-                    <div class="panelWrapper ml">
-                        <img src="img/description/play.png">
-                        <img src="img/description/mute-mobile.png">
-                        <img src="img/description/soundOn-mobile.png">
-                        <img src="img/description/arrow-mobile-reload.png">
+                    <div class="panelWrapper ml-auto ">
+                        <button id="btnPlay" class="mobileBTN" onclick="startGame()">
+                            <img class="mr-8 ml-8" src="img/description/play.png">
+                        </button>
+
+                        <div id="btnSound" class="mobileSoundContainer" onclick="gameSound()">
+                                <img class="mr-8 ml-8 d-none" id="mobileSoundOFF" src="img/description/mute-mobile.png">                            
+                                <img class="mr-8 ml-8" id="mobileSoundON" src="img/description/soundOn-mobile.png">
+                        </div>
+
+                        <button id="btnReload" class="mobileBTN d-none">
+                            <img class="mr-8 ml-8" src="img/description/arrow-mobile-reload.png" onclick="reload()">
+                        </button>
                     </div>
                 </div>
 
                 <div class="panel">
                     <div class="panelWrapper">
                         <div class="d-flex">
-                            <img src="img/description/arrow-mobile-left.png">
-                            <img src="img/description/arrow-mobile-right.png">
+                            <button id="btnLeft" class="mobileBTN">
+                                <img class="mr-8 ml-8" src="img/description/arrow-mobile-left.png">
+                            </button>
+                            <button id="btnRight" class="mobileBTN">
+                                <img class="mr-8 ml-8" src="img/description/arrow-mobile-right.png">
+                            </button>
                         </div>
                     </div>
 
                     <div class="panelWrapper">
                         <div class="d-flex">
-                            <img src="img/description/arrow-mobile-up.png">
-                            <img src="img/description/arrow-mobile-throw.png">
+                            <button id="btnJump" class="mobileBTN">
+                                <img class="mr-8 ml-8" src="img/description/arrow-mobile-up.png">
+                            </button>
+                            <button id="btnThrow" class="mobileBTN">
+                                <img class="mr-8 ml-8" src="img/description/arrow-mobile-throw.png">
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -101,6 +121,9 @@
             </div>
         </div>
 
+      
+
+
         <div class="startBtn" id="start" onclick="startGame()">START</div>
 
         <div class="restartBtn d-none" id="restart" onclick="reload()">RESTART GAME</div>
@@ -113,11 +136,7 @@
 
 
 
-    <!-- <div style="display: flex; flex-direction: column; align-items: center; letter-spacing: 1px; text-shadow: 6px 4px 4px rgb(0 0 0 / 50%); font-size: 18px;">
-        CHOOSE FULLSCREEN
-        <img style="margin-top: 8px;" onclick="fullscreen()" class="chooseFullscreenIcon" src="img/9_intro_outro_screens/fullscreen.svg">
-    </div> -->
-
+   
 </body>
 
 </html>

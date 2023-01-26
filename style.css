@@ -1,3 +1,7 @@
+/* * {
+    box-sizing: border-box;
+} */
+
 body {
     margin: 0;
     display: flex;
@@ -65,7 +69,7 @@ h1 {
 }
 
 .fullscreen {
-  position: relative;
+    position: relative;
 }
 
 .d-none {
@@ -78,7 +82,6 @@ canvas {
 }
 
 .mobileOverlay {
-    background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     z-index: 2;
     top: 0;
@@ -88,24 +91,44 @@ canvas {
     visibility: hidden;
     flex-direction: column;
     justify-content: space-between;
+    /* box-sizing: border-box; */
 }
 
-.ml {
+.ml-auto {
     margin-left: auto;
 }
+
+.ml-8 {
+    margin-left: 8px;
+}
+
+.mr-8 {
+    margin-right: 8px;
+} 
 
 .panel {
     padding: 12px;
     display: flex;
     justify-content: space-between;
+    margin-top: 36px;
 }
 
 .panelWrapper {
     display: flex;
 }
 
+.mobileBTN {
+    background-color: transparent;
+    border: none;
+}
+
 .d-flex {
     display: flex;
+}
+
+.mobileSoundContainer {
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .endScreen {
@@ -117,7 +140,7 @@ canvas {
 }
 
 .turnDevice {
-   display: none;
+    display: none;
 }
 
 @font-face {
@@ -126,19 +149,29 @@ canvas {
     /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
+@media only screen and (max-height: 680px){
+canvas {
+    height: 100vh;
+    width: 100%;
+}
+}
 
 @media only screen and (max-width: 720px) {
     canvas, .main, .startScreen {
         width: 100%;
     }
 
-   h1, .startBtn, .description-container {
-    display: none;
-   }
+    h1, .startBtn, .restartBtn, .description-container, .soundOnOFF {
+        display: none;
+    }
+
+    .mobileOverlay {
+        visibility: visible;
+    }
 }
 
 @media only screen and (max-height: 480px) {
-    canvas, .main, .startScreen  {
+    canvas, .main, .startScreen {
         height: 100vh;
     }
 }

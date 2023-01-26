@@ -4,27 +4,42 @@ let keyboard = new Keyboard();
 let intervalIds = [];
 let soundOff = false;
 let lastMoved;
-// let startScreenSound = new Audio('audio/guitarrPepe.mp3');
+// let startScreenSound = new Audio('audio/laCucaracha.mp3');
 let background_sound = new Audio('audio/pepe-bg-sound.mp3');
 let chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
 let endboss_sound = new Audio('audio/guitarr.mp3');
+let outro_sound = new Audio('audio/guitarrPepe.mp3');
 
+// function startSound() {
+//     setInterval(() => {
+//     if (!soundOff) {
+//         startScreenSound.volume = 0.5;
+//         startScreenSound.play();
+//     }else if (soundOff) {
+//         startScreenSound.pause();
+//     }}, 200);
+// }
 
 function startGame() {
+    // startScreenSound.pause();
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('start').classList.add('d-none');
-    document.getElementById('sound').classList.add('d-none');
+    // document.getElementById('fullscreenIcon').classList.remove('d-none');
     document.getElementById('restart').classList.remove('d-none');
     document.getElementById('canvas').classList.remove('d-none');
-    initLevel(); //damit die Gegener erst geladen werden, sobald das Spiel startet, sonst laufen die schon durch, bevor man START gedrückt hat
+    document.getElementById('btnPlay').classList.add('d-none');
+    document.getElementById('btnReload').classList.remove('d-none');
+    initLevel();
     init();
     lastMoved = new Date().getTime();
-    if (!soundOff) {
-        background_sound.volume = 0.1;
-        background_sound.play();
-        chicken_clucking_sound.play();
-        chicken_clucking_sound.volume = 0.2;
-        chicken_clucking_sound.playbackRate = 1;
+    background_sound.volume = 0.1;
+    chicken_clucking_sound.volume = 0.2;
+    chicken_clucking_sound.playbackRate = 1;
+    background_sound.play();
+    chicken_clucking_sound.play();
+    if (soundOff) {
+        background_sound.pause();
+        chicken_clucking_sound.pause();
     }
 }
 
@@ -35,15 +50,8 @@ function startGame() {
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    touchButtons();
 }
-
-//noch checken was da schief läuft, onload bei body geht auch nicht
-// function startScreenSound () {
-//     if (!soundOff) {
-//         startScreenSound.volume = 0.5;
-//         startScreenSound.play();
-//     }
-// }
 
 function setStopableInterval(fn, time) {
     let id = setInterval(fn, time);
@@ -55,10 +63,18 @@ function gameSound() {
         soundOff = true;
         document.getElementById('soundOff').classList.remove('d-none');
         document.getElementById('soundOn').classList.add('d-none');
+        document.getElementById('mobileSoundOFF').classList.remove('d-none');
+        document.getElementById('mobileSoundON').classList.add('d-none');
+        background_sound.pause();
+        chicken_clucking_sound.pause();
     } else if (soundOff) {
         soundOff = false;
         document.getElementById('soundOff').classList.add('d-none');
         document.getElementById('soundOn').classList.remove('d-none');
+        document.getElementById('mobileSoundOFF').classList.add('d-none');
+        document.getElementById('mobileSoundON').classList.remove('d-none');
+        background_sound.play();
+        chicken_clucking_sound.play();
     }
 }
 
@@ -67,6 +83,10 @@ function stopGame() {
     background_sound.pause();
     endboss_sound.pause();
     chicken_clucking_sound.pause();
+    outro_sound.play();
+    if (soundOff) {
+        outro_sound.pause();
+    }
 }
 
 function youLost() {
@@ -84,6 +104,8 @@ function reload() {
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
     enterFullscreen(fullscreen);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
@@ -167,3 +189,44 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
+function touchButtons() {
+    document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+
+    document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById('btnRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('btnJump').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+
+    document.getElementById('btnJump').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+
+    document.getElementById('btnThrow').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.D = true;
+    });
+
+    document.getElementById('btnThrow').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.D = false;
+    });
+}

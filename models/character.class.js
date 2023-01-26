@@ -2,7 +2,7 @@ class Character extends MovableObject {
     y = 150;
     width = 160;
     height = 290;
-    speed = 7;
+    speed = 6;
 
 
     IMAGES_IDLE = [
@@ -107,6 +107,8 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 if (!soundOff) {
                     this.walking_sound.play();
+                } else if (soundOff) {
+                    this.walking_sound.pause();
                 }
             }
             //wenn man das oben mit in die Abfrage packt, dann läuft der Character nicht mehr, wenn man es hier macht dann is der Sound immer aus
@@ -117,6 +119,8 @@ class Character extends MovableObject {
                 endboss_sound.playbackRate = 1.2;
                 if (!soundOff) {
                     endboss_sound.play();
+                } else if (soundOff) {
+                    endboss_sound.pause();
                 }
             }
 
@@ -125,6 +129,8 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 if (!soundOff) {
                     this.walking_sound.play();
+                } else if (soundOff) {
+                    this.walking_sound.pause();
                 }
             }
 
@@ -149,6 +155,8 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
                 if (!soundOff) {
                     this.hit_sound.play();
+                } else if (soundOff) {
+                    this.hit_sound.pause();
                 }
             }
 

@@ -54,6 +54,8 @@ class Endboss extends MovableObject {
 
     energy = 400;
 
+    endboss_alert_sound = new Audio('audio/big_chicken_alert.mp3');
+
     constructor() {
         super().loadImage(this.ENDBOSS_WALKING[0]);
         this.loadImages(this.ENDBOSS_WALKING);
@@ -78,7 +80,7 @@ class Endboss extends MovableObject {
         setStopableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.ENDBOSS_DEAD);
-
+                this.endboss_alert_sound.pause();
                 setTimeout(() => {
                     youWon();
                     stopGame();
@@ -92,6 +94,10 @@ class Endboss extends MovableObject {
             } else if (this.energy < 250) {
                 this.playAnimation(this.ENDBOSS_ATTACK);
                 this.moveFastLeft();
+                this.endboss_alert_sound.play();
+            if(soundOff){
+                this.endboss_alert_sound.pause();
+            }
             }
             else {
                 this.playAnimation(this.ENDBOSS_ALERT);
