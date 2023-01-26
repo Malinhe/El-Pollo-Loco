@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    endboss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -65,8 +66,7 @@ class World {
 
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            let endboss = this.level.enemies[11];
-
+            let endboss = this.endboss;
             if (this.character.isColliding(enemy) && this.characterJumps()) {
                 this.character.jump();
                 enemy.chickenDead();
@@ -75,12 +75,18 @@ class World {
                     this.chicken_dead_sound.play();
                 }
             } else if (this.character.isColliding(enemy) && this.characterDoesNotJump()) {
-                this.character.hit();
-                this.statusbar.setPercentage(this.character.energy);
+                this.characterLooseHP();
+            } else if (this.character.isColliding(endboss)) {
+               this.characterLooseHP();
             }
         });
     }
 
+    characterLooseHP() {
+         this.character.hit(); 
+         this.statusbar.setPercentage(this.character.energy);
+       
+    }
 
     /**
      * this function makes collected objects disappear
@@ -126,20 +132,15 @@ class World {
     }
 
     checkCollisionBottleVSenemies() {
+
         this.throwableObjects.forEach((bottle) => {
-
-            this.level.enemies.forEach((enemy) => {
-                let endboss = this.level.enemies[11];
-
-                if (bottle.isColliding(enemy)) {
-                    bottle.hitEnemy = true;
-                } else if (bottle.isColliding(endboss)) {
-                    console.log('hit Endboss');
-                    endboss.hit();
-                    console.log('Endboss energy is', endboss.energy);
-                    this.endbossbar.setPercentage(endboss.energy);
-                }
-            })
+            let endboss = this.endboss;
+            if (bottle.isColliding(endboss)) {
+                console.log('hit Endboss');
+                endboss.hit();
+                console.log('Endboss energy is', endboss.energy);
+                this.endbossbar.setPercentage(endboss.energy);
+            }
         })
     }
 
@@ -213,6 +214,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.hearts);
         this.addToMap(this.character);
+        this.addToMap(this.endboss);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
 
