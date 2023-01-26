@@ -4,15 +4,17 @@ let keyboard = new Keyboard();
 let intervalIds = [];
 let soundOff = false;
 let lastMoved;
-// let music = true;
+// let startScreenSound = new Audio('audio/guitarrPepe.mp3');
 let background_sound = new Audio('audio/pepe-bg-sound.mp3');
-let endboss_sound = new Audio('audio/endboss_sound.mp3');
+let chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
+let endboss_sound = new Audio('audio/guitarr.mp3');
+
 
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
-    document.getElementById('start').classList.add('d-none'); 
-    document.getElementById('sound').classList.add('d-none'); 
-    document.getElementById('restart').classList.remove('d-none');  
+    document.getElementById('start').classList.add('d-none');
+    document.getElementById('sound').classList.add('d-none');
+    document.getElementById('restart').classList.remove('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     initLevel(); //damit die Gegener erst geladen werden, sobald das Spiel startet, sonst laufen die schon durch, bevor man START gedrückt hat
     init();
@@ -20,6 +22,9 @@ function startGame() {
     if (!soundOff) {
         background_sound.volume = 0.1;
         background_sound.play();
+        chicken_clucking_sound.play();
+        chicken_clucking_sound.volume = 0.2;
+        chicken_clucking_sound.playbackRate = 1;
     }
 }
 
@@ -30,8 +35,15 @@ function startGame() {
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    console.log('My Character is', world.character);
 }
+
+//noch checken was da schief läuft, onload bei body geht auch nicht
+// function startScreenSound () {
+//     if (!soundOff) {
+//         startScreenSound.volume = 0.5;
+//         startScreenSound.play();
+//     }
+// }
 
 function setStopableInterval(fn, time) {
     let id = setInterval(fn, time);
@@ -54,6 +66,7 @@ function stopGame() {
     intervalIds.forEach(clearInterval);
     background_sound.pause();
     endboss_sound.pause();
+    chicken_clucking_sound.pause();
 }
 
 function youLost() {

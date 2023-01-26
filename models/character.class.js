@@ -112,16 +112,13 @@ class Character extends MovableObject {
             //wenn man das oben mit in die Abfrage packt, dann läuft der Character nicht mehr, wenn man es hier macht dann is der Sound immer aus
 
             if (this.x > 3250) {
+                background_sound.pause();
                 endboss_sound.volume = 0.2;
-                endboss_sound.playbackRate = 1;
+                endboss_sound.playbackRate = 1.2;
                 if (!soundOff) {
                     endboss_sound.play();
                 }
             }
-
-            // if (this.x < 3250) {
-            //     this.endboss_sound.pause();
-            // }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
@@ -161,11 +158,9 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             } else if (this.stayLong()) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
-                console.log('schläft');
             } else {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-
         }, 200);
 
     }

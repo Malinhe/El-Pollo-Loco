@@ -21,8 +21,6 @@ class SmallChicken extends MovableObject {
         right: 4,
     };
 
-    chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
-
     constructor() {
         //ruft vom übergeordneten movableObject die loadImage() auf
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
@@ -36,15 +34,11 @@ class SmallChicken extends MovableObject {
         this.x = 500 + Math.random() * 3000;
         this.speed = 0.1 + Math.random() * 0.5;
         this.animate();
-
     }
 
     animate() {
          setStopableInterval(() => {
             this.moveLeft();
-            // this.chicken_clucking_sound.volume = 0.2;
-            // this.chicken_clucking_sound.playbackRate = 1;
-            // this.chicken_clucking_sound.play();
         }, 1000 / 60);
 
          setStopableInterval(() => {

@@ -71,6 +71,7 @@ class World {
                 this.character.jump();
                 enemy.chickenDead();
                 if (!soundOff) {
+                    this.chicken_dead_sound.volume = 0.2;
                     this.chicken_dead_sound.play();
                 }
             } else if (this.character.isColliding(enemy) && this.characterDoesNotJump()) {

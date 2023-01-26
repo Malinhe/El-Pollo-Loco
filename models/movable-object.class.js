@@ -4,8 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0; // Geschwindigkeit mit der das Object auf der Y-Achse fällt
     acceleration = 2.5; // Beschleunigung auf die Geschwindigkeit speedY
     energy = 100;
-    lastHit = 0;
-    
+    lastHit = 0;    
 
     //damit Pepe fallen kann
     applyGravity() {

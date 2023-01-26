@@ -21,8 +21,6 @@ class Chicken extends MovableObject {
         right: 4,
     };
 
-    chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
-
     constructor() {
         //ruft vom übergeordneten movableObject die loadImage() auf
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -46,10 +44,6 @@ class Chicken extends MovableObject {
         }, 1000 / 60);
 
          setStopableInterval(() => {
-              // this.chicken_clucking_sound.volume = 0.2;
-            // this.chicken_clucking_sound.playbackRate = 1;
-            // if (!soundOff) {
-            // // this.chicken_clucking_sound.play();
             this.playAnimation(this.CHICKEN_WALKING);
         }, 200);
     }
