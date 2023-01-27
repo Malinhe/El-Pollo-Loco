@@ -22,44 +22,28 @@ class Chicken extends MovableObject {
     };
 
     constructor() {
-        //ruft vom übergeordneten movableObject die loadImage() auf
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.CHICKEN_WALKING);
         this.loadImages(this.CHICKEN_DEAD);
-
-
-        //Math.random() generiert eine zufällige Zahle zwischen 0 und 1, deswegen *500,
-        // damit die Chicken irgendwo zwischen 200 und 700px auf der x-Achse spawnen
-        //dadurch spawnen die Chicken zufällig bei jedem Neuladen der Seite an einer anderen Stelle
         this.x = 900 + Math.random() * 3200;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
-
     }
 
+    /**
+     * this function play the Chicken and let them move
+     */
     animate() {
-         setStopableInterval(() => {
-            this.moveLeft();
-          
-        }, 1000 / 60);
-
-         setStopableInterval(() => {
-            this.playAnimation(this.CHICKEN_WALKING);
-        }, 200);
+         setStopableInterval(() => this.moveLeft(), 1000 / 60);
+         setStopableInterval(() => this.playAnimation(this.CHICKEN_WALKING), 200);
     }
 
+    /**
+     * this function lets the Chicken die
+     */
     chickenDead() {
-         setStopableInterval(() => {
-            this.playAnimation(this.CHICKEN_DEAD);
-        }, 1000 / 60);
-
-        this.deadChickenDisappear();
-    }
-
-    deadChickenDisappear() {
-        setTimeout(() => {
-            this.x = -3000;
-        }, 400);
+         setStopableInterval(() => this.playAnimation(this.CHICKEN_DEAD), 1000 / 60);
+         this.disappearWhenIsDead();
     }
 }
 

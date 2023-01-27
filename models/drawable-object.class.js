@@ -13,21 +13,32 @@ class DrawableObject {
         right: 0
     };
 
-
-    //path = pfad zum img
+    /**
+     * This function loads an image from a given path into the current object.
+     * 
+     * @param {String} path - the path of the Picture you want to load
+     */
     loadImage(path) {
-        this.img = new Image(); //ist dasselbe wie: this.img = document.getElementById('image')<img id="image" src)
-        this.img.src = path; //verändert das src Attribut
+        this.img = new Image();
+        this.img.src = path;
     }
 
-
-    //?? Warum this.img, this.x usw?
-    //weil wir vorher die draw() in der World hatten und mit mo.img, mo.x usw auf die MovableObjects zugegriffen haben, jetzt befinden sich aber die Variablen in derselben Klasse wie die Function, also wieder mit this darauf zugreifen
+    /**
+     * The draw function draws the current image (this.img) onto a given canvas context (ctx)
+     * with given x and y coordinates (this.x, this.y) and given width and height (this.width, this.height).
+     * 
+     * @param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
+     * that provides the environment for drawing on an HTML canvas. It allows drawing shapes, images and text on a canvas
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    // um durch das Array zu etarieren und die Bilder zu laden
+    /**
+     * this function iterates through the array and loads the images
+     * 
+     * @param {String} array 
+     */
     loadImages(array) {
         array.forEach((path) => {
             let img = new Image();
@@ -39,13 +50,13 @@ class DrawableObject {
     /**
      * this function is used to draw rectangles around the MovableObject, it helps to check where they will collide
      * 
-     * @param {string} ctx - so that you can draw on the canvas
+     * @param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
+     * that provides the environment for drawing on an HTML canvas. It allows drawing shapes, images and text on a canvas
      */
     drawFrame(ctx) {
-
-        //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin || this instanceof SmallChicken || this instanceof Heart) {
-            //draw rectangle
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss ||
+            this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin ||
+            this instanceof SmallChicken || this instanceof Heart) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'transparent';
@@ -57,7 +68,8 @@ class DrawableObject {
     /**
      * this function is used to draw the coordinates from the MovableObject that you want to know
      * 
-     * @param {string} ctx - so that you can draw on the canvas
+     *@param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
+     * that provides the environment for drawing on an HTML canvas. It allows drawing shapes, images and text on a canvas
      */
     // drawPosition(ctx) {
     //     if(this instanceof SalsaBottle) {
@@ -66,16 +78,18 @@ class DrawableObject {
     //     }
     // }
 
-     /**
-     * this function is used to draw rectangles around the MovableObject within the other frame, it helps to check where they will collide
-     * offset means the difference between the outer and the inner frame (this one here is the inner one)
-     * 
-     * @param {string} ctx - so that you can draw on the canvas
-     */
-    drawFrameOffset(ctx) {
 
-        //instanceof damit die Vierecke nur um die Chicken und den Character sind und nicht um jedes MO
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin || this instanceof SmallChicken || this instanceof Heart) {
+    /**
+    * this function is used to draw rectangles around the MovableObject within the other frame, it helps to check where they will collide
+    * offset means the difference between the outer and the inner frame (this one here is the inner one)
+    * 
+    *@param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
+    * that provides the environment for drawing on an HTML canvas. It allows drawing shapes, images and text on a canvas
+    */
+    drawFrameOffset(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss ||
+            this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin ||
+            this instanceof SmallChicken || this instanceof Heart) {
             //draw rectangle
             ctx.beginPath();
             ctx.lineWidth = '2';

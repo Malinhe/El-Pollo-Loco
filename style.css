@@ -87,7 +87,6 @@ canvas {
     visibility: hidden;
     flex-direction: column;
     justify-content: space-between;
-    /* box-sizing: border-box; */
 }
 
 .ml-auto {

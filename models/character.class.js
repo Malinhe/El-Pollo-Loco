@@ -92,14 +92,16 @@ class Character extends MovableObject {
     }
 
     /**
-     * this function animates the Character and let him move
-     * 
+     * this function plays the Character and let him move
      */
     animate() {
         setStopableInterval(() => this.moveCharacter(), 1000 / 60);
         setStopableInterval(() => this.playCharacter(), 200);
     }
 
+    /**
+     * this function moves the Character when
+     */
     moveCharacter() {
         this.walking_sound.pause();
         this.walking_sound.volume = 0.2;
@@ -115,14 +117,14 @@ class Character extends MovableObject {
             }
         }
 
-        if (this.x > 3250) {
+        if (this.arrivesTheEndboss()) {
             background_sound.pause();
-            endboss_sound.volume = 0.2;
-            endboss_sound.playbackRate = 1.2;
+            this.world.endboss_sound.volume = 0.2;
+            this.world.endboss_sound.playbackRate = 1.2;
             if (!soundOff) {
-                endboss_sound.play();
+                this.world.endboss_sound.play();
             } else if (soundOff) {
-                endboss_sound.pause();
+                this.world.endboss_sound.pause();
             }
         }
 
@@ -142,12 +144,26 @@ class Character extends MovableObject {
         this.world.camera_x = -this.x + 100;
     }
 
+    /**
+     * this function returns true when the Character sees the Endboss
+     * 
+     * @returns true
+     */
+    arrivesTheEndboss() {
+        return this.x > 3250
+    }
+
+    /**
+     * this function plays the Character if he´s dead, hurt, jumping or sleeping
+     */
     playCharacter() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             setTimeout(() => {
                 youLost();
-                stopGame(); 
+                stopGame();
+                background_sound.pause();
+                this.world.endboss_sound.pause();
             }, 500);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);

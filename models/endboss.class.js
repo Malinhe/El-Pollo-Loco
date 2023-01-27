@@ -52,9 +52,8 @@ class Endboss extends MovableObject {
         right: 50,
     };
 
-    // world;
     energy = 400;
-
+    world;
     endboss_alert_sound = new Audio('audio/big_chicken_alert.mp3');
 
     constructor() {
@@ -68,8 +67,11 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * this function reduces the energy from the Endboss and saves the moment when he was hit for the last time
+     */
     hit() {
-        this.energy -= 9;
+        this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -77,16 +79,13 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * this function plays the Endboss
+     */
     animate() {
         setStopableInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.ENDBOSS_DEAD);
-                this.endboss_alert_sound.pause();
-                setTimeout(() => {
-                    youWon();
-                    stopGame();
-                }, 1000);
-
+                this.endTheGame();
             } else if (this.isHurt()) {
                 this.playAnimation(this.ENDBOSS_HURT);
             } else if (this.energy < 400 && this.energy > 250) {
@@ -96,22 +95,38 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.ENDBOSS_ATTACK);
                 this.moveFastLeft();
                 this.endboss_alert_sound.play();
-            if(soundOff){
-                this.endboss_alert_sound.pause();
-            }
-            }
-            else {
+                if (soundOff) {
+                    this.endboss_alert_sound.pause();
+                }
+            } else {
                 this.playAnimation(this.ENDBOSS_ALERT);
             }
         }, 200);
     }
 
+    /**
+     * this function shows the screen that you have won and stops the game
+     */
+    endTheGame() {
+        this.playAnimation(this.ENDBOSS_DEAD);
+        this.endboss_alert_sound.pause();
+        setTimeout(() => {
+            youWon();
+            stopGame();
+            this.world.endboss_sound.pause();
+        }, 1000);
+    }
 
+    /**
+     * this function lets the Endboss walk towards the Character
+     */
     moveLeft() {
         this.x -= this.speed * 75;
     }
 
-
+    /**
+     * this function lets the Endboss attack
+     */
     moveFastLeft() {
         this.x -= this.speed * 200;
     }

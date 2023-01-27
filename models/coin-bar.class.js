@@ -6,10 +6,8 @@ class CoinBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
-        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png' //Bild Nummer 5
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
     ];
-
-    // coinAmount = 0;
 
     constructor() {
         super();
@@ -21,13 +19,23 @@ class CoinBar extends DrawableObject {
         this.setCoinAmount(0);
     }
 
+    /**
+    * this function sets the number of coins (coinAmount) to a given value. 
+    * Then a variable "path" is created to hold the path to an image based on the value of coinAmount.
+    * 
+    * @param {Integer} coinAmount - the amount of collected Coins
+    */
     setCoinAmount(coinAmount) {
         this.coinAmount = coinAmount;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
-    
+    /**
+   * This function is responsible for getting the index of the image to use.
+   * 
+   * @returns an integer which is used to get the right image from the array
+   */
     resolveImageIndex() {
         if (this.coinAmount == 10) {
             return 5;

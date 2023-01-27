@@ -1,6 +1,8 @@
 class World {
     character = new Character();
     endboss = new Endboss();
+    endbossbar = new EndbossBar();
+    endboss_sound = new Audio('audio/guitarr.mp3');
     level = level1;
     canvas;
     ctx;
@@ -8,7 +10,6 @@ class World {
     camera_x = 0;//Minus, weil das Bild ja nach links verschoben wird
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
-    endbossbar = new EndbossBar();
     bottleCounter = 0;
     coinCounter = 0;
     coinbar = new CoinBar();
@@ -28,16 +29,19 @@ class World {
         this.run();
     }
 
-    //????????
+    /**
+     * this function links the world to the character and Endboss so that the variables of the world can be accessed from the character or Endboss.
+     * In this case, "this" after the equals sign is the world as an instance
+     */
     setWorld() {
         this.character.world = this;
-        // this.endboss.world = this;
+        this.endboss.world = this;
     }
 
     /**
-     * Function to check if movable objects are colliding
+     * this function checks every 0.1s if movable objects are colliding with each other
      * 
-     * @param {object} mo - object that could be a bottle, character, endboss or chicken
+     * @param {object} mo - object that could be a bottle, heart, coin, character, endboss or chicken
      */
     run() {
         setStopableInterval(() => {
@@ -45,11 +49,17 @@ class World {
             this.checkIfBottleCollected();
             this.checkThrowObjects();
             this.checkIfCoinCollected();
-            this.checkCollisionBottleVSenemies();
+            this.checkCollisionBottleVSEndboss();
             this.checkIfHeartCollected();
         }, 100);
     }
 
+    /**
+     * this function is a help-function for the collect sounds, when the gamesound is not OFF then the music will play
+     * 
+     * @param {String} sound - the sound that should be played
+     * @param {Number} volume - how should the sound be
+     */
     playCollectSound(sound, volume = 0.2) {
         sound.volume = volume;
         if (!soundOff) {
@@ -57,14 +67,28 @@ class World {
         }
     }
 
+      /**
+     * this function returns true when the Character is above the ground
+     * 
+     * @returns true
+     */
     characterJumps() {
         return this.character.isAboveGround() && this.character.speedY < 0
     }
 
+    /**
+     * this function returns true when the Character isn´t above the ground
+     * 
+     * @returns true
+     */
     characterDoesNotJump() {
         return !this.character.isAboveGround()
     }
 
+    /**
+     * the function uses the forEach method to iterate over each enemy in the list and 
+     * lets the Character jump on the top of it so the SmallChicken and the Chicken will die
+     */
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
             let endboss = this.endboss;
@@ -78,15 +102,16 @@ class World {
             } else if (this.character.isColliding(enemy) && this.characterDoesNotJump()) {
                 this.characterLooseHP();
             } else if (this.character.isColliding(endboss)) {
-               this.characterLooseHP();
-            }
-        });
+                this.characterLooseHP();
+            }});
     }
 
+    /**
+     * this function lets the Character loose energy and updates the statusbar from the Character
+     */
     characterLooseHP() {
-         this.character.hit(); 
-         this.statusbar.setPercentage(this.character.energy);
-       
+        this.character.hit();
+        this.statusbar.setPercentage(this.character.energy);
     }
 
     /**
@@ -98,19 +123,23 @@ class World {
         object.x = -3000;
     }
 
+    /**
+     * this function collect the SalsaBottles
+     */
     checkIfBottleCollected() {
         this.level.salsabottle.forEach((bottle, i) => {
             if (this.character.isColliding(bottle)) {
                 this.level.salsabottle.splice(i, 1);
                 this.bottleCounter++;
                 this.bottlebar.setBottleAmount(this.bottleCounter);
-                console.log('BottleCounter is', this.bottleCounter);
                 this.playCollectSound(this.bottle_collect_sound);
                 this.disappear(this.level.salsabottle);
-            }
-        })
+            }})
     }
 
+    /**
+     * this function is for throwing only the amount of Salsabottles which you´ve collected
+     */
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
@@ -118,33 +147,37 @@ class World {
                 this.throwableObjects.push(bottle);
                 this.bottleCounter--;
                 this.bottlebar.setBottleAmount(this.bottleCounter);
-                console.log('BottleCounter is', this.bottleCounter);
                 this.playBottleThrowSound();
-            }
-        }
+            }}
     }
 
+    /**
+     * this function is for the sound from the thrown SalsaBottles
+     */
     playBottleThrowSound() {
-        this.throw_bottle_sound.volume = 0.2;
+        this.throw_bottle_sound.volume = 0.7;
         this.throw_bottle_sound.playbackRate = 3;
         if (!soundOff) {
             this.throw_bottle_sound.play();
         }
     }
 
-    checkCollisionBottleVSenemies() {
-
+    /**
+     * this function lets the Endboss get hit by the Salsabottles
+     */
+    checkCollisionBottleVSEndboss() {
         this.throwableObjects.forEach((bottle) => {
             let endboss = this.endboss;
             if (bottle.isColliding(endboss)) {
-                console.log('hit Endboss');
+                bottle.hitEnemy = true;
                 endboss.hit();
-                console.log('Endboss energy is', endboss.energy);
                 this.endbossbar.setPercentage(endboss.energy);
-            }
-        })
+            }})
     }
 
+    /**
+     * this function collect the coins
+     */
     checkIfCoinCollected() {
         this.level.coins.forEach((coin, i) => {
             if (this.character.isColliding(coin)) {
@@ -153,8 +186,7 @@ class World {
                 this.coinbar.setCoinAmount(this.coinCounter);
                 this.playCollectSound(this.coin_sound);
                 this.disappear(this.level.coins);
-            }
-        });
+            }});
     }
 
     /**
@@ -168,20 +200,18 @@ class World {
                 this.increaseCharactersEnergy(i);
             } if (this.character.isColliding(heart)) {
                 this.collectHeart();
-                console.log('Heart collected');
-
-            }
-        });
+            }});
     }
 
     /**
      * this function collects the heart
      * 
-     * @param {integer} i - is the index from the heart which is collected
+     * @param {number} i - is the index from the heart which is collected
      */
     collectHeart(i) {
         this.level.hearts.splice(i, 1); //damit die aus dem Array gelöscht werden und verschwinden können
         this.playCollectSound(this.power_up);
+        this.power_up.volume = 0.2;
         this.disappear(this.level.hearts);
     }
 
@@ -194,23 +224,20 @@ class World {
         this.statusbar.setPercentage(this.character.energy);
     }
 
+    /**
+     * this function draws the objects and add them to the map
+     */
     draw() {
-        //hiermit wird das Canvas gecleart, damit Pepe neu gezeichnet werden kann, sonst hätte man irgendwann 300x dasselbe Bild nur an anderer Stelle
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-
         this.addObjectsToMap(this.level.clouds);
-
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusbar);
         this.addToMap(this.endbossbar);
         this.addToMap(this.bottlebar);
         this.addToMap(this.coinbar);
         this.ctx.translate(this.camera_x, 0);
-
-
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.hearts);
@@ -218,48 +245,38 @@ class World {
         this.addToMap(this.endboss);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
-
-
         this.ctx.translate(-this.camera_x, 0);
-
-        //der Variable self wird das this zugewiesen, weil das in der requestAnimationFrame nicht benutzt werden kann
-        //Draw() wird immerwieder aufgerufen durch requestAnimationFrame
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
     }
 
-    //diese funktion verkürzt die Vorschleifen
+    /**
+     * This function adds a list of objects to a map. The function uses
+     * the forEach method to iterate over each object in the list and then add it using the addToMap function.
+     * 
+     * @param {Object} objects - the MovableObjects that you want to add which are in an array
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
-
-    //parameter mo stands for MovableObject
-    //hiermit wird das Bild geladen
     /**
-     * With this Function yua add Objects to the Map
+     * this Function adds Objects to the Map like the Character or the Endboss
      * 
      * @param {object} mo - this is the MovableObject that you want to add to the Map
      */
     addToMap(mo) {
-        //Bild spiegeln
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
 
-        //warum mo.draw und this.ctx?
-        //mo = movableObject, draw ist die Function die in MovableObject Class ist(oder gewesen, ist nun in drawableobjects), wir greifen mit mo.draw auf die Funktion zu
-        //this.ctx weil wir oben in Zeile 5 ctx; als Variable haben
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
         mo.drawFrameOffset(this.ctx);
-
-        // mo.drawPosition(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -287,10 +304,17 @@ class World {
         this.ctx.restore();
     }
 
+    /**
+     * This function checks whether an object collides with another object that has the properties
+     * x, y, width and height. To do this, the x and y positions as well as the width and height of the object are compared.
+     * 
+     * @param {*} mo - is the MovableObject. It could be a bottel, heart, coin, Chicken, Character or Endboss
+     * @returns true
+     */
     isColliding(mo) {
         return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.height
+               this.y + this.height > mo.y &&
+               this.x < mo.x &&
+               this.y < mo.height
     }
 }

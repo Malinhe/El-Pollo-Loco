@@ -30,33 +30,39 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+    /**
+     * this function simulates gravity for the thrown SalsaBottles
+     */
     throw() {
         this.speedY = 30;
         this.applyGravity();
-
-         setStopableInterval(() => {
+        setStopableInterval(() => {
             this.x += 10;
         }, 25);
     }
 
+    /**
+     * this function animates the SalsaBottles. When they are thrown they will rotate, if they hit the Endboss they will splash
+     */
     animate() {
-         setStopableInterval(() => {
+        setStopableInterval(() => {
             if (this.hitEnemy) {
                 this.playAnimation(this.BOTTLE_SPLASH);
-                if (!soundOff) {
-                this.bottle_break_sound.play();
-                }
                 this.splashedBottleDisappear();
                 this.hitEnemy = false;
+                if (!soundOff) {
+                    this.bottle_break_sound.play();
+                }
             } else {
                 this.playAnimation(this.BOTTLE_ROTATE);
             }
         }, 100);
     }
 
+    /**
+     * this function is used to let the splashed thrown SalsaBottle disappear
+     */
     splashedBottleDisappear() {
-        setTimeout(() => {
-            this.x = -3000;
-        }, 300);
+        setTimeout(() => this.x = -3000, 300);
     }
 }

@@ -11,8 +11,8 @@ class Coin extends MovableObject {
         left: 35,
         right: 35,
     };
-    
-    constructor(x, y){
+
+    constructor(x, y) {
         super().loadImage('img/8_coin/coin_1.png');
         this.loadImages(this.COIN_IMAGES);
         // this.x = 200 + Math.random() * 3000;
@@ -20,12 +20,12 @@ class Coin extends MovableObject {
         this.x = x;
         this.y = y;
         this.animate();
-}
+    }
 
-animate() {
-    setStopableInterval(() => {
-        this.playAnimation(this.COIN_IMAGES);
-    }, 200);
-}
-
+    /**
+     * this function let the coins glow.
+     */
+    animate() {
+        setStopableInterval(() => this.playAnimation(this.COIN_IMAGES), 200);
+    }
 }

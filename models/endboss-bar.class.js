@@ -19,23 +19,34 @@ class EndbossBar extends DrawableObject {
         this.y = 0;
         this.width = 200;
         this.height = 60;
-        this.setPercentage(100);
+        this.setPercentage(400);
     }
 
+    /**
+    * this function sets the percentage to a given value. 
+    * Then a variable "path" is created to hold the path to an image based on the value of the HP percentage.
+    * 
+    * @param {Integer} percentage - the amount of of the HP from the Endboss
+    */
     setPercentage(percentage) {
-        this.percentage = percentage; 
+        this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+   /**
+   * This function is responsible for getting the index of the image to use.
+   * 
+   * @returns an integer which is used to get the right image from the array
+   */
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentage == 400) {
             return 5;
-        } else if (this.percentage > 75) {
+        } else if (this.percentage > 300) {
             return 4;
-        } else if (this.percentage > 50) {
+        } else if (this.percentage > 200) {
             return 3;
-        } else if (this.percentage > 25) {
+        } else if (this.percentage > 100) {
             return 2;
         } else if (this.percentage > 0) {
             return 1;
@@ -43,5 +54,4 @@ class EndbossBar extends DrawableObject {
             return 0;
         }
     }
-
 }
