@@ -166,7 +166,7 @@ canvas {
 }
 
 @media only screen and (max-height: 480px) {
-    canvas, .main, .startScreen {
+       canvas, .main, .startScreen {
         height: 100vh;
     }
 }

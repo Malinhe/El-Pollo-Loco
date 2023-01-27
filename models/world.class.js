@@ -31,6 +31,7 @@ class World {
     //????????
     setWorld() {
         this.character.world = this;
+        // this.endboss.world = this;
     }
 
     /**

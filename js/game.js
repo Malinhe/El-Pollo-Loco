@@ -193,6 +193,7 @@ function touchButtons() {
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.LEFT = true;
+        lastMoved = new Date().getTime();
     });
 
     document.getElementById('btnLeft').addEventListener('touchend', (e) => {
@@ -203,6 +204,7 @@ function touchButtons() {
     document.getElementById('btnRight').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.RIGHT = true;
+        lastMoved = new Date().getTime();
     });
 
     document.getElementById('btnRight').addEventListener('touchend', (e) => {
@@ -213,6 +215,7 @@ function touchButtons() {
     document.getElementById('btnJump').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.SPACE = true;
+        lastMoved = new Date().getTime();
     });
 
     document.getElementById('btnJump').addEventListener('touchend', (e) => {
@@ -223,6 +226,7 @@ function touchButtons() {
     document.getElementById('btnThrow').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.D = true;
+        lastMoved = new Date().getTime();
     });
 
     document.getElementById('btnThrow').addEventListener('touchend', (e) => {

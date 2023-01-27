@@ -78,10 +78,8 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('audio/walk.mp3');
     hit_sound = new Audio('audio/ayayay.mp3');
-    // endboss_sound = new Audio('audio/endboss_sound.mp3');
 
     constructor() {
-        //ruft vom übergeordneten movableObject die loadImage() auf
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
@@ -93,86 +91,89 @@ class Character extends MovableObject {
         this.animate();
     }
 
-    //function to change the pictures from the Character, so he seems to walk
+    /**
+     * this function animates the Character and let him move
+     * 
+     */
     animate() {
-
-        //walking direction onkeydown
-        setStopableInterval(() => {
-            this.walking_sound.pause();
-            this.walking_sound.volume = 0.2;
-            this.walking_sound.playbackRate = 2.5;
-
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                if (!soundOff) {
-                    this.walking_sound.play();
-                } else if (soundOff) {
-                    this.walking_sound.pause();
-                }
-            }
-            //wenn man das oben mit in die Abfrage packt, dann läuft der Character nicht mehr, wenn man es hier macht dann is der Sound immer aus
-
-            if (this.x > 3250) {
-                background_sound.pause();
-                endboss_sound.volume = 0.2;
-                endboss_sound.playbackRate = 1.2;
-                if (!soundOff) {
-                    endboss_sound.play();
-                } else if (soundOff) {
-                    endboss_sound.pause();
-                }
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                if (!soundOff) {
-                    this.walking_sound.play();
-                } else if (soundOff) {
-                    this.walking_sound.pause();
-                }
-            }
-
-            //wenn key space true ist UND wir nicht (!) über dem Boden sind
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
-
-        setStopableInterval(() => {
-            //dead animation
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    youLost();
-                    stopGame();
-                    
-
-                }, 500);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                if (!soundOff) {
-                    this.hit_sound.play();
-                } else if (soundOff) {
-                    this.hit_sound.pause();
-                }
-            }
-
-            else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-            } else if (this.stayLong()) {
-                this.playAnimation(this.IMAGES_LONG_IDLE);
-            } else {
-                this.playAnimation(this.IMAGES_IDLE);
-            }
-        }, 200);
-
+        setStopableInterval(() => this.moveCharacter(), 1000 / 60);
+        setStopableInterval(() => this.playCharacter(), 200);
     }
 
+    moveCharacter() {
+        this.walking_sound.pause();
+        this.walking_sound.volume = 0.2;
+        this.walking_sound.playbackRate = 2.5;
+
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+            if (!soundOff) {
+                this.walking_sound.play();
+            } else if (soundOff) {
+                this.walking_sound.pause();
+            }
+        }
+
+        if (this.x > 3250) {
+            background_sound.pause();
+            endboss_sound.volume = 0.2;
+            endboss_sound.playbackRate = 1.2;
+            if (!soundOff) {
+                endboss_sound.play();
+            } else if (soundOff) {
+                endboss_sound.pause();
+            }
+        }
+
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            if (!soundOff) {
+                this.walking_sound.play();
+            } else if (soundOff) {
+                this.walking_sound.pause();
+            }
+        }
+
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
+        this.world.camera_x = -this.x + 100;
+    }
+
+    playCharacter() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD);
+            setTimeout(() => {
+                youLost();
+                stopGame(); 
+            }, 500);
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+            if (!soundOff) {
+                this.hit_sound.play();
+            } else if (soundOff) {
+                this.hit_sound.pause();
+            }
+        }
+
+        else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+        } else if (this.stayLong()) {
+            this.playAnimation(this.IMAGES_LONG_IDLE);
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }
+
+    /**
+     * this function lets us know when the Character stays longer than 5 seconds
+     * 
+     * @returns true
+     */
     stayLong() {
         let timepassed = new Date().getTime() - lastMoved;
         timepassed = timepassed / 1000;

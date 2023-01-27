@@ -52,6 +52,7 @@ class Endboss extends MovableObject {
         right: 50,
     };
 
+    // world;
     energy = 400;
 
     endboss_alert_sound = new Audio('audio/big_chicken_alert.mp3');
