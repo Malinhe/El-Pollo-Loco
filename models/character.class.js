@@ -160,7 +160,7 @@ class Character extends MovableObject {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             setTimeout(() => {
-                youLost();
+                youWon();
                 stopGame();
                 background_sound.pause();
                 this.world.endboss_sound.pause();

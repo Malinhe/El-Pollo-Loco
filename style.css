@@ -15,15 +15,23 @@ h1 {
     font-size: 56px;
     letter-spacing: 4px;
     text-shadow: 6px 4px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
 }
 
 .main {
-    width: 720px;
+    position: relative;
+    height: 100%;
+}
+
+.startDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .description-container {
     display: flex;
-    justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .description {
@@ -31,12 +39,15 @@ h1 {
     align-items: center;
     letter-spacing: 1px;
     text-shadow: 6px 4px 4px rgb(0 0 0 / 50%);
-    font-size: 18px;
+    font-size: 21px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .soundOnOFF {
     position: absolute;
-    bottom: 0;
+    z-index: 4;
+    bottom: 10px;
     right: 0;
     display: flex;
     flex-direction: column;
@@ -49,23 +60,19 @@ h1 {
 
 .startBtn, .restartBtn {
     cursor: pointer;
-    font-size: 40px;
+    font-size: 36px;
     letter-spacing: 2px;
     text-shadow: 6px 4px 6px rgb(0 0 0 / 50%);
-    padding: 8px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-.startBtn:hover, .restartBtn:hover, .chooseFullscreenIcon:hover, .soundIcon:hover {
+.startBtn:hover, .restartBtn:hover, .soundIcon:hover {
     transform: scale(1.2);
 }
 
-.chooseFullscreenIcon, .soundIcon {
+.soundIcon {
     width: 28px;
-}
-
-.fullscreen {
-    position: relative;
 }
 
 .d-none {
@@ -87,10 +94,12 @@ canvas {
     visibility: hidden;
     flex-direction: column;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .ml-auto {
     margin-left: auto;
+    margin-right: auto;
 }
 
 .ml-8 {
@@ -99,7 +108,7 @@ canvas {
 
 .mr-8 {
     margin-right: 8px;
-} 
+}
 
 .panel {
     padding: 12px;
@@ -130,8 +139,6 @@ canvas {
     position: absolute;
     z-index: 1;
     top: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .turnDevice {
@@ -151,22 +158,21 @@ canvas {
 
     canvas, .main, .startScreen {
         width: 100%;
-    }    
+    }
+
+    .endScreen {
+        width: 100%;
+        height: 100%
+    }
 
     .mobileOverlay {
         visibility: visible;
     }
 }
 
-@media only screen and (max-width: 720px) {
-    canvas, .main, .startScreen {
-        width: 100%;
-    }    
-}
-
 @media only screen and (max-height: 480px) {
-       canvas, .main, .startScreen {
-        height: 100vh;
+    canvas, .startScreen {
+        height: 100%;
     }
 }
 

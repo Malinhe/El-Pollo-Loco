@@ -90,13 +90,6 @@ function stopGame() {
     }
 }
 
-/**
- * shows the "youLost"-screen, when the Character died
- */
-function youLost() {
-    document.getElementById('endScreenLost').classList.remove('d-none');
-}
-
 
 /**
  * shows the "youWon"-screen, when the Endboss died
