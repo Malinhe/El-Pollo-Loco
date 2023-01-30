@@ -2,12 +2,12 @@ class World {
     character = new Character();
     endboss = new Endboss();
     endbossbar = new EndbossBar();
-    endboss_sound = new Audio('audio/guitarr.mp3');
+    background_sound = new Audio('audio/pepe-bg-sound.mp3');
     level = level1;
     canvas;
     ctx;
     keyboard;
-    camera_x = 0;//Minus, weil das Bild ja nach links verschoben wird
+    camera_x = 0;
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     bottleCounter = 0;
@@ -17,6 +17,7 @@ class World {
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
+    // chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
     chicken_dead_sound = new Audio('audio/chicken-dead.mp3');
     power_up = new Audio('audio/powerUp.mp3');
 
@@ -29,12 +30,32 @@ class World {
         this.run();
     }
 
+    playBgSound() {
+        this.background_sound.volume = 0.1;
+        if (!soundOff) {
+            this.background_sound.play();
+        } else if (soundOff) {
+            this.background_sound.pause();
+      }
+    } 
+
+    // playChickenSound() {
+    //     this.chicken_clucking_sound.volume = 0.2;
+    //     this.chicken_clucking_sound.playbackRate = 1;
+    //     if (!soundOff) {
+    //         this.chicken_clucking_sound.play();
+    //     } else if (soundOff) {
+    //         this.chicken_clucking_sound.pause();
+    //     }
+    // }
+
     /**
      * this function links the world to the character and Endboss so that the variables of the world can be accessed from the character or Endboss.
      * In this case, "this" after the equals sign is the world as an instance
      */
     setWorld() {
         this.character.world = this;
+        this.level.enemies.world = this;
         this.endboss.world = this;
     }
 
@@ -45,12 +66,14 @@ class World {
      */
     run() {
         setStopableInterval(() => {
+            this.playBgSound();
             this.checkCollisionsWithEnemy();
             this.checkIfBottleCollected();
             this.checkThrowObjects();
             this.checkIfCoinCollected();
             this.checkCollisionBottleVSEndboss();
             this.checkIfHeartCollected();
+           
         }, 100);
     }
 
@@ -67,11 +90,11 @@ class World {
         }
     }
 
-      /**
-     * this function returns true when the Character is above the ground
-     * 
-     * @returns true
-     */
+    /**
+   * this function returns true when the Character is above the ground
+   * 
+   * @returns true
+   */
     characterJumps() {
         return this.character.isAboveGround() && this.character.speedY < 0
     }
@@ -103,7 +126,8 @@ class World {
                 this.characterLooseHP();
             } else if (this.character.isColliding(endboss)) {
                 this.characterLooseHP();
-            }});
+            }
+        });
     }
 
     /**
@@ -134,7 +158,8 @@ class World {
                 this.bottlebar.setBottleAmount(this.bottleCounter);
                 this.playCollectSound(this.bottle_collect_sound);
                 this.disappear(this.level.salsabottle);
-            }})
+            }
+        })
     }
 
     /**
@@ -148,7 +173,8 @@ class World {
                 this.bottleCounter--;
                 this.bottlebar.setBottleAmount(this.bottleCounter);
                 this.playBottleThrowSound();
-            }}
+            }
+        }
     }
 
     /**
@@ -172,7 +198,8 @@ class World {
                 bottle.hitEnemy = true;
                 endboss.hit();
                 this.endbossbar.setPercentage(endboss.energy);
-            }})
+            }
+        })
     }
 
     /**
@@ -186,7 +213,8 @@ class World {
                 this.coinbar.setCoinAmount(this.coinCounter);
                 this.playCollectSound(this.coin_sound);
                 this.disappear(this.level.coins);
-            }});
+            }
+        });
     }
 
     /**
@@ -200,7 +228,8 @@ class World {
                 this.increaseCharactersEnergy(i);
             } if (this.character.isColliding(heart)) {
                 this.collectHeart();
-            }});
+            }
+        });
     }
 
     /**
@@ -220,7 +249,6 @@ class World {
      */
     increaseCharactersEnergy() {
         this.character.energy += 100 - this.character.energy;
-        console.log('Character energy is', this.character.energy);
         this.statusbar.setPercentage(this.character.energy);
     }
 
@@ -313,8 +341,8 @@ class World {
      */
     isColliding(mo) {
         return this.x + this.width > mo.x &&
-               this.y + this.height > mo.y &&
-               this.x < mo.x &&
-               this.y < mo.height
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.height
     }
 }

@@ -118,14 +118,17 @@ class Character extends MovableObject {
         }
 
         if (this.arrivesTheEndboss()) {
-            background_sound.pause();
-            this.world.endboss_sound.volume = 0.2;
-            this.world.endboss_sound.playbackRate = 1.2;
+            this.world.background_sound.pause();
+            // this.world.chicken_clucking_sound.pause();
             if (!soundOff) {
-                this.world.endboss_sound.play();
+                this.playEndbossSound()
             } else if (soundOff) {
-                this.world.endboss_sound.pause();
+                this.endboss_sound.pause();
             }
+        }
+
+        if (this.x < 3245) {
+            this.endboss_sound.pause();  
         }
 
         if (this.world.keyboard.LEFT && this.x > 0) {
@@ -159,11 +162,14 @@ class Character extends MovableObject {
     playCharacter() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
+
             setTimeout(() => {
+                this.endboss_sound.pause();
+                this.world.background_sound.pause();
+                // this.world.chicken_clucking_sound.pause();
                 youWon();
                 stopGame();
-                background_sound.pause();
-                this.world.endboss_sound.pause();
+
             }, 500);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);

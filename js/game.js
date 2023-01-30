@@ -4,8 +4,6 @@ let keyboard = new Keyboard();
 let intervalIds = [];
 let soundOff = false;
 let lastMoved;
-let background_sound = new Audio('audio/pepe-bg-sound.mp3');
-let chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
 let outro_sound = new Audio('audio/guitarrPepe.mp3');
 
 
@@ -15,7 +13,6 @@ let outro_sound = new Audio('audio/guitarrPepe.mp3');
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('start').classList.add('d-none');
-    // document.getElementById('fullscreenIcon').classList.remove('d-none');
     document.getElementById('restart').classList.remove('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('btnPlay').classList.add('d-none');
@@ -23,15 +20,6 @@ function startGame() {
     initLevel();
     init();
     lastMoved = new Date().getTime();
-    background_sound.volume = 0.1;
-    background_sound.play();
-    chicken_clucking_sound.volume = 0.2;
-    chicken_clucking_sound.playbackRate = 1;
-    chicken_clucking_sound.play();
-    if (soundOff) {
-        background_sound.pause();
-        chicken_clucking_sound.pause();
-    }
 }
 
 /**
@@ -64,16 +52,12 @@ function gameSound() {
         document.getElementById('soundOn').classList.add('d-none');
         document.getElementById('mobileSoundOFF').classList.remove('d-none');
         document.getElementById('mobileSoundON').classList.add('d-none');
-        background_sound.pause();
-        chicken_clucking_sound.pause();
     } else if (soundOff) {
         soundOff = false;
         document.getElementById('soundOff').classList.add('d-none');
         document.getElementById('soundOn').classList.remove('d-none');
         document.getElementById('mobileSoundOFF').classList.add('d-none');
         document.getElementById('mobileSoundON').classList.remove('d-none');
-        background_sound.play();
-        chicken_clucking_sound.play();
     }
 }
 
@@ -81,13 +65,13 @@ function gameSound() {
  * this function stops every stopable interval and the background sounds
  */
 function stopGame() {
-    intervalIds.forEach(clearInterval);
-    background_sound.pause();
-    chicken_clucking_sound.pause();
-    outro_sound.play();
-    if (soundOff) {
+    if (!soundOff) {
+        outro_sound.play();
+    } if (soundOff) {
         outro_sound.pause();
     }
+    intervalIds.forEach(clearInterval);
+   
 }
 
 

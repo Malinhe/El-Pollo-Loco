@@ -63,7 +63,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.ENDBOSS_ALERT);
         this.loadImages(this.ENDBOSS_ATTACK);
         this.loadImages(this.ENDBOSS_DEAD);
-        this.x = 3800; //wo der Endboss spawned
+        this.x = 3800;
         this.animate();
     }
 
@@ -110,11 +110,16 @@ class Endboss extends MovableObject {
     endTheGame() {
         this.playAnimation(this.ENDBOSS_DEAD);
         this.endboss_alert_sound.pause();
+
         setTimeout(() => {
+            this.endboss_sound.pause();
+            console.log('sound stopped');
+            // this.world.background_sound.pause();
+            // this.world.chicken_clucking_sound.pause();
+            
             youWon();
             stopGame();
-            this.world.endboss_sound.pause();
-        }, 1000);
+        }, 500);
     }
 
     /**

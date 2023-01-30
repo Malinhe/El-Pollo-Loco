@@ -4,7 +4,15 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
-    lastHit = 0;    
+    lastHit = 0;
+    endboss_sound = new Audio('audio/guitarr.mp3');    
+   
+
+    playEndbossSound() {
+        this.endboss_sound.volume = 0.2;
+        this.endboss_sound.playbackRate = 1.2;
+        this.endboss_sound.play();
+    }
 
 
     /**
@@ -28,11 +36,12 @@ class MovableObject extends DrawableObject {
      * @returns true if an Object is above the ground
      */
     isAboveGround() {
-        if(this instanceof ThrowableObject) {
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
-        return this.y < 150;
-    }}
+            return this.y < 150;
+        }
+    }
 
     /**
      * Function to check if a movable object overlaps with another
@@ -64,7 +73,8 @@ class MovableObject extends DrawableObject {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
-        }}
+        }
+    }
 
     /**
      * This function checks whether the current object has been hit in the past period. 
@@ -117,5 +127,5 @@ class MovableObject extends DrawableObject {
      */
     moveLeft() {
         this.x -= this.speed;
-    }  
+    }
 }

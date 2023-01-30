@@ -30,6 +30,8 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    world; 
+
     /**
      * this function play the Chicken and let them move
      */
