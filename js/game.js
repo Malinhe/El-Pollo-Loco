@@ -4,8 +4,36 @@ let keyboard = new Keyboard();
 let intervalIds = [];
 let soundOff = false;
 let lastMoved;
-let outro_sound = new Audio('audio/guitarrPepe.mp3');
+let background_sound = new Audio('audio/pepe-bg-sound.mp3');
 
+
+/**
+ * this function starts and stops the background sounds and shows wether the sound is on or off
+ */
+function gameSoundOnOff() {
+    if (!soundOff) {
+        soundOff = true;
+        document.getElementById('soundOff').classList.remove('d-none');
+        document.getElementById('soundOn').classList.add('d-none');
+        document.getElementById('mobileSoundOFF').classList.remove('d-none');
+        document.getElementById('mobileSoundON').classList.add('d-none');
+    } else if (soundOff) {
+        soundOff = false;
+        document.getElementById('soundOff').classList.add('d-none');
+        document.getElementById('soundOn').classList.remove('d-none');
+        document.getElementById('mobileSoundOFF').classList.add('d-none');
+        document.getElementById('mobileSoundON').classList.remove('d-none');
+    }
+}
+
+function playBGSound() {
+    background_sound.volume = 0.1;
+    if (!soundOff) {
+        background_sound.play();
+    } else if (soundOff) {
+        background_sound.pause();
+    }
+}
 
 /**
  * this function fires when the game is started. The startscreen will be removed and the background sounds start
@@ -17,6 +45,9 @@ function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('btnPlay').classList.add('d-none');
     document.getElementById('btnReload').classList.remove('d-none');
+    playBGSound();
+      
+    
     initLevel();
     init();
     lastMoved = new Date().getTime();
@@ -42,43 +73,18 @@ function setStopableInterval(fn, time) {
     intervalIds.push(id);
 }
 
-/**
- * this function starts and stops the background sounds and shows wether the sound is on or off
- */
-function gameSound() {
-    if (!soundOff) {
-        soundOff = true;
-        document.getElementById('soundOff').classList.remove('d-none');
-        document.getElementById('soundOn').classList.add('d-none');
-        document.getElementById('mobileSoundOFF').classList.remove('d-none');
-        document.getElementById('mobileSoundON').classList.add('d-none');
-    } else if (soundOff) {
-        soundOff = false;
-        document.getElementById('soundOff').classList.add('d-none');
-        document.getElementById('soundOn').classList.remove('d-none');
-        document.getElementById('mobileSoundOFF').classList.add('d-none');
-        document.getElementById('mobileSoundON').classList.remove('d-none');
-    }
-}
 
 /**
- * this function stops every stopable interval and the background sounds
+ * this function stops every stopable interval
  */
 function stopGame() {
-    if (!soundOff) {
-        outro_sound.play();
-    } if (soundOff) {
-        outro_sound.pause();
-    }
-    intervalIds.forEach(clearInterval);
-   
+    intervalIds.forEach(clearInterval);  
 }
 
-
 /**
- * shows the "youWon"-screen, when the Endboss died
+ * shows the "youWon"-screen, the game is over
  */
-function youWon() {
+function gameOver() {
     document.getElementById('endScreenWon').classList.remove('d-none');
 }
 

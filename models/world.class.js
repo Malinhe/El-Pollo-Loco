@@ -2,7 +2,7 @@ class World {
     character = new Character();
     endboss = new Endboss();
     endbossbar = new EndbossBar();
-    background_sound = new Audio('audio/pepe-bg-sound.mp3');
+    endboss_sound = new Audio('audio/guitarr.mp3');
     level = level1;
     canvas;
     ctx;
@@ -17,10 +17,11 @@ class World {
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
-    // chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
+    chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
     chicken_dead_sound = new Audio('audio/chicken-dead.mp3');
     power_up = new Audio('audio/powerUp.mp3');
-
+    outro_sound = new Audio('audio/guitarrPepe.mp3');
+ 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -28,26 +29,38 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.playChickenSound();
     }
 
-    playBgSound() {
-        this.background_sound.volume = 0.1;
-        if (!soundOff) {
-            this.background_sound.play();
-        } else if (soundOff) {
-            this.background_sound.pause();
-      }
-    } 
 
-    // playChickenSound() {
-    //     this.chicken_clucking_sound.volume = 0.2;
-    //     this.chicken_clucking_sound.playbackRate = 1;
-    //     if (!soundOff) {
-    //         this.chicken_clucking_sound.play();
-    //     } else if (soundOff) {
-    //         this.chicken_clucking_sound.pause();
-    //     }
-    // }
+    playChickenSound() {
+        this.chicken_clucking_sound.volume = 0.2;
+        this.chicken_clucking_sound.playbackRate = 1;
+        if (!soundOff) {
+            this.chicken_clucking_sound.play();
+        } else if (soundOff) {
+            this.chicken_clucking_sound.pause();
+        }
+    }
+
+    playEndbossSound() {
+        this.endboss_sound.volume = 0.2;
+        this.endboss_sound.playbackRate = 1.2;
+
+        if (!soundOff) {
+            this.endboss_sound.play();
+        } else if (soundOff) {
+            this.endboss_sound.pause();
+        }
+    }
+
+    playOutroSound() {
+        if (!soundOff) {
+            this.outro_sound.play();
+        } else if (soundOff) {
+            this.outro_sound.pause();
+        }
+    }
 
     /**
      * this function links the world to the character and Endboss so that the variables of the world can be accessed from the character or Endboss.
@@ -66,14 +79,14 @@ class World {
      */
     run() {
         setStopableInterval(() => {
-            this.playBgSound();
+            
             this.checkCollisionsWithEnemy();
             this.checkIfBottleCollected();
             this.checkThrowObjects();
             this.checkIfCoinCollected();
             this.checkCollisionBottleVSEndboss();
             this.checkIfHeartCollected();
-           
+
         }, 100);
     }
 

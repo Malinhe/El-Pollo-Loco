@@ -4,7 +4,6 @@ class Character extends MovableObject {
     height = 290;
     speed = 6;
 
-
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
         'img/2_character_pepe/1_idle/idle/I-2.png',
@@ -118,19 +117,9 @@ class Character extends MovableObject {
         }
 
         if (this.arrivesTheEndboss()) {
-            this.world.background_sound.pause();
-            // this.world.chicken_clucking_sound.pause();
-            if (!soundOff) {
-                this.playEndbossSound()
-                console.log('playing endboss sound');
-            } else if (soundOff) {
-                this.endboss_sound.pause();
-                console.log('character dead sound stopped');
-            }
-        }
-
-        if (this.x < 3245) {
-            this.endboss_sound.pause();  
+            background_sound.pause();
+            this.world.chicken_clucking_sound.pause();
+            this.world.playEndbossSound();
         }
 
         if (this.world.keyboard.LEFT && this.x > 0) {
@@ -166,14 +155,15 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_DEAD);
 
             setTimeout(() => {
-                this.endboss_sound.pause();
-                // this.world.background_sound.pause();
-                // this.world.chicken_clucking_sound.pause();
-                youWon();
+                this.world.endboss_sound.pause();
+                background_sound.pause();
+                this.world.chicken_clucking_sound.pause();
+                this.world.playOutroSound()
+                gameOver();
                 stopGame();
-
             }, 500);
-        } else if (this.isHurt()) {
+        }
+        else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             if (!soundOff) {
                 this.hit_sound.play();

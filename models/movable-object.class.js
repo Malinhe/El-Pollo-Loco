@@ -5,14 +5,6 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-    endboss_sound = new Audio('audio/guitarr.mp3');    
-   
-
-    playEndbossSound() {
-        this.endboss_sound.volume = 0.2;
-        this.endboss_sound.playbackRate = 1.2;
-        this.endboss_sound.play();
-    }
 
 
     /**
