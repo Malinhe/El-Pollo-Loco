@@ -118,7 +118,7 @@ class Character extends MovableObject {
 
         if (this.arrivesTheEndboss()) {
             background_sound.pause();
-            this.world.chicken_clucking_sound.pause();
+            chicken_clucking_sound.pause();
             this.world.playEndbossSound();
         }
 
@@ -156,9 +156,9 @@ class Character extends MovableObject {
 
             setTimeout(() => {
                 this.world.endboss_sound.pause();
+                this.walking_sound.pause();
                 background_sound.pause();
-                this.world.chicken_clucking_sound.pause();
-                this.world.playOutroSound()
+                chicken_clucking_sound.pause();
                 gameOver();
                 stopGame();
             }, 500);

@@ -17,10 +17,10 @@ class World {
     bottle_collect_sound = new Audio('audio/bottle-collect.mp3');
     throwableObjects = [];
     throw_bottle_sound = new Audio('audio/throw-bottle.mp3');
-    chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
+   
     chicken_dead_sound = new Audio('audio/chicken-dead.mp3');
     power_up = new Audio('audio/powerUp.mp3');
-    outro_sound = new Audio('audio/guitarrPepe.mp3');
+   
  
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -29,18 +29,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.playChickenSound();
-    }
-
-
-    playChickenSound() {
-        this.chicken_clucking_sound.volume = 0.2;
-        this.chicken_clucking_sound.playbackRate = 1;
-        if (!soundOff) {
-            this.chicken_clucking_sound.play();
-        } else if (soundOff) {
-            this.chicken_clucking_sound.pause();
-        }
     }
 
     playEndbossSound() {
@@ -52,15 +40,7 @@ class World {
         } else if (soundOff) {
             this.endboss_sound.pause();
         }
-    }
-
-    playOutroSound() {
-        if (!soundOff) {
-            this.outro_sound.play();
-        } else if (soundOff) {
-            this.outro_sound.pause();
-        }
-    }
+    }  
 
     /**
      * this function links the world to the character and Endboss so that the variables of the world can be accessed from the character or Endboss.
@@ -68,7 +48,6 @@ class World {
      */
     setWorld() {
         this.character.world = this;
-        this.level.enemies.world = this;
         this.endboss.world = this;
     }
 

@@ -28,9 +28,7 @@ class Chicken extends MovableObject {
         this.x = 900 + Math.random() * 3200;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
-    }
-
-    world; 
+    } 
 
     /**
      * this function play the Chicken and let them move
@@ -39,6 +37,7 @@ class Chicken extends MovableObject {
          setStopableInterval(() => this.moveLeft(), 1000 / 60);
          setStopableInterval(() => this.playAnimation(this.CHICKEN_WALKING), 200);
     }
+
 
     /**
      * this function lets the Chicken die

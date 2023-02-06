@@ -106,7 +106,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.ENDBOSS_DEAD);
         setTimeout(() => {
             this.world.endboss_sound.pause();
-            this.world.outro_sound.play();
+          
             gameOver();
             stopGame();
         }, 500);

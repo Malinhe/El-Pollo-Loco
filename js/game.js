@@ -5,6 +5,9 @@ let intervalIds = [];
 let soundOff = false;
 let lastMoved;
 let background_sound = new Audio('audio/pepe-bg-sound.mp3');
+let chicken_clucking_sound = new Audio('audio/chicken_clucking.mp3');
+let outro_sound = new Audio('audio/guitarrPepe.mp3');
+let start = false;
 
 
 /**
@@ -13,12 +16,16 @@ let background_sound = new Audio('audio/pepe-bg-sound.mp3');
 function gameSoundOnOff() {
     if (!soundOff) {
         soundOff = true;
+        playBGSound();
+        playChickenSound();
         document.getElementById('soundOff').classList.remove('d-none');
         document.getElementById('soundOn').classList.add('d-none');
         document.getElementById('mobileSoundOFF').classList.remove('d-none');
         document.getElementById('mobileSoundON').classList.add('d-none');
     } else if (soundOff) {
         soundOff = false;
+        playBGSound();
+        playChickenSound();
         document.getElementById('soundOff').classList.add('d-none');
         document.getElementById('soundOn').classList.remove('d-none');
         document.getElementById('mobileSoundOFF').classList.add('d-none');
@@ -26,12 +33,34 @@ function gameSoundOnOff() {
     }
 }
 
+/**
+ * this function is for the backgroundsound, it will be played when the game starts and 
+ * can only be paused or played when the game was started
+ */
 function playBGSound() {
-    background_sound.volume = 0.1;
-    if (!soundOff) {
-        background_sound.play();
-    } else if (soundOff) {
-        background_sound.pause();
+    if (start) {
+        background_sound.volume = 0.1;
+        if (!soundOff) {
+            background_sound.play();
+        } else if (soundOff) {
+            background_sound.pause();
+        }
+    }
+}
+
+/**
+ * this function is for the sound from the chicken, it will be played when the game starts and 
+ * can only be paused or played when the game was started
+ */
+function playChickenSound() {
+    if (start) {
+        chicken_clucking_sound.volume = 0.2;
+        chicken_clucking_sound.playbackRate = 1;
+        if (!soundOff) {
+            chicken_clucking_sound.play();
+        } else if (soundOff) {
+            chicken_clucking_sound.pause();
+        }
     }
 }
 
@@ -45,9 +74,9 @@ function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('btnPlay').classList.add('d-none');
     document.getElementById('btnReload').classList.remove('d-none');
+    start = true;
     playBGSound();
-      
-    
+    playChickenSound();
     initLevel();
     init();
     lastMoved = new Date().getTime();
@@ -73,12 +102,23 @@ function setStopableInterval(fn, time) {
     intervalIds.push(id);
 }
 
+/**
+ * this function is for the sound when the game is over
+ */
+function playOutroSound() {
+    if (!soundOff) {
+        outro_sound.play();
+    } else if (soundOff) {
+        outro_sound.pause();
+    }
+}
 
 /**
- * this function stops every stopable interval
+ * this function stops every stopable interval and playes the sound when the game ended
  */
 function stopGame() {
-    intervalIds.forEach(clearInterval);  
+    intervalIds.forEach(clearInterval);
+    playOutroSound();
 }
 
 /**
@@ -86,6 +126,8 @@ function stopGame() {
  */
 function gameOver() {
     document.getElementById('endScreenWon').classList.remove('d-none');
+    document.getElementById('sound').classList.add('d-none');
+    document.getElementById('btnSound').classList.add('d-none');
 }
 
 /**
@@ -156,7 +198,6 @@ window.addEventListener("keyup", (e) => {
         keyboard.D = false;
     }
 });
-
 
 /**
  * this function is for the touch btns when the game is played on a mobile device. It also saves, when the character was last moved
