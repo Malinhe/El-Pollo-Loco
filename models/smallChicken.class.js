@@ -31,18 +31,21 @@ class SmallChicken extends MovableObject {
     }
 
      /**
-     * this function play the Chicken and let them move
+     * Plays the Chicken and let them move
      */
-    animate() {
+     animate() {
         setStopableInterval(() => this.moveLeft(), 1000 / 60);
-        setStopableInterval(() => this.playAnimation(this.CHICKEN_WALKING), 200);
+        setStopableInterval(() => this.playChicken(), 200);
     }
 
-     /**
-     * this function lets the Chicken die
+    /**
+     * Plays Chicken dead, stopps moving and let them disappear or let them walk
      */
-    chickenDead() {
-        setStopableInterval(() => this.playAnimation(this.CHICKEN_DEAD), 1000 / 60);
-        this.disappearWhenIsDead();
+    playChicken() {
+        if (this.isDead()) {
+            this.speed = 0;
+            this.playAnimation(this.CHICKEN_DEAD);
+            this.disappearWhenIsDead();
+        } else this.playAnimation(this.CHICKEN_WALKING);
     }
 }

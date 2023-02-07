@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     width = 360;
     height = 490;
     y = -30;
+    energy = 400;
 
     ENDBOSS_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -52,7 +53,6 @@ class Endboss extends MovableObject {
         right: 50,
     };
 
-    energy = 400;
     world;
 
     constructor() {
@@ -67,60 +67,64 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * this function reduces the energy from the Endboss and saves the moment when he was hit for the last time
+     * Reduces the energy from the Endboss and saves the moment when he was hit for the last time
      */
     hit() {
         this.energy -= 20;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
+        if (this.energy < 0)  this.energy = 0;
+        else this.lastHit = new Date().getTime();
     }
 
     /**
-     * this function plays the Endboss
+     * Plays the Endboss
      */
     animate() {
         setStopableInterval(() => {
-            if (this.isDead()) {
-                this.endTheGame();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.ENDBOSS_HURT);
-            } else if (this.energy < 400 && this.energy > 250) {
-                this.playAnimation(this.ENDBOSS_WALKING);
-                this.moveLeft();
-            } else if (this.energy < 250) {
-                this.playAnimation(this.ENDBOSS_ATTACK);
-                this.moveFastLeft();
-            } else {
-                this.playAnimation(this.ENDBOSS_ALERT);
-            }
+            if (this.isDead())  this.endTheGame();
+            else if (this.isHurt()) this.playAnimation(this.ENDBOSS_HURT);
+            else if (this.energy < 400 && this.energy > 250) this.endbossWalk();
+            else if (this.energy < 250) this.endbossAttacks();
+            else this.playAnimation(this.ENDBOSS_ALERT);
         }, 200);
     }
 
     /**
-     * this function shows the screen that the game is over and stops the game
+     * Shows the screen that the game is over and stops the game
      */
     endTheGame() {
         this.playAnimation(this.ENDBOSS_DEAD);
         setTimeout(() => {
             this.world.endboss_sound.pause();
-          
             gameOver();
             stopGame();
         }, 500);
     }
 
+     /**
+     * Lets the Endboss walk towards the Character
+     */
+    endbossWalk() {
+        this.playAnimation(this.ENDBOSS_WALKING);
+        this.moveLeft();
+    }
+
     /**
-     * this function lets the Endboss walk towards the Character
+     * Lets the Endboss walk
      */
     moveLeft() {
         this.x -= this.speed * 75;
     }
 
+     /**
+     * Lets the Endboss attack
+     */
+    endbossAttacks() {
+        this.playAnimation(this.ENDBOSS_ATTACK);
+        this.moveFastLeft();
+    }
+
     /**
-     * this function lets the Endboss attack
+     * Lets the Endboss walk faster
      */
     moveFastLeft() {
         this.x -= this.speed * 200;

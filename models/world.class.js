@@ -58,16 +58,13 @@ class World {
      */
     run() {
         setStopableInterval(() => {
-            
             this.checkCollisionsWithEnemy();
             this.checkIfBottleCollected();
             this.checkThrowObjects();
             this.checkIfCoinCollected();
             this.checkCollisionBottleVSEndboss();
             this.checkIfHeartCollected();
-
-        }, 100);
-    }
+        }, 100);}
 
     /**
      * this function is a help-function for the collect sounds, when the gamesound is not OFF then the music will play
@@ -109,7 +106,7 @@ class World {
             let endboss = this.endboss;
             if (this.character.isColliding(enemy) && this.characterJumps()) {
                 this.character.jump();
-                enemy.chickenDead();
+                enemy.energy = 0;
                 if (!soundOff) {
                     this.chicken_dead_sound.volume = 0.2;
                     this.chicken_dead_sound.play();

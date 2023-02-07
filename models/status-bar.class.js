@@ -22,35 +22,28 @@ class StatusBar extends DrawableObject {
     }
 
     /**
-   * this function sets the percentage to a given value. 
+   * Sets the percentage to a given value. 
    * Then a variable "path" is created to hold the path to an image based on the value of the HP percentage.
    * 
    * @param {Integer} percentage - the amount of of the HP from the Character
    */
     setPercentage(percentage) {
-        this.percentage = percentage; //Zahl zwischen 0 und 5 muss ermittelt werden, weil das Array 6 Images hat
+        this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
    /**
-   * This function is responsible for getting the index of the image to use.
+   * Is responsible for getting the index of the image to use.
    * 
    * @returns an integer which is used to get the right image from the array
    */
     resolveImageIndex() {
-        if (this.percentage >= 100) {
-            return 5;
-        } else if (this.percentage > 80) {
-            return 4;
-        } else if (this.percentage > 60) {
-            return 3;
-        } else if (this.percentage > 40) {
-            return 2;
-        } else if (this.percentage > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+        if (this.percentage >= 100) return 5;   
+         else if (this.percentage > 80) return 4;   
+         else if (this.percentage > 60) return 3;
+         else if (this.percentage > 40) return 2;
+         else if (this.percentage > 0) return 1;
+         else return 0;   
     }
 }

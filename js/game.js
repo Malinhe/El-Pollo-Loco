@@ -11,7 +11,7 @@ let start = false;
 
 
 /**
- * this function starts and stops the background sounds and shows wether the sound is on or off
+ * Starts and stops the background sounds and shows wether the sound is on or off
  */
 function gameSoundOnOff() {
     if (!soundOff) {
@@ -34,7 +34,7 @@ function gameSoundOnOff() {
 }
 
 /**
- * this function is for the backgroundsound, it will be played when the game starts and 
+ * Is for the backgroundsound, it will be played when the game starts and 
  * can only be paused or played when the game was started
  */
 function playBGSound() {
@@ -49,7 +49,7 @@ function playBGSound() {
 }
 
 /**
- * this function is for the sound from the chicken, it will be played when the game starts and 
+ * Is for the sound from the chicken, it will be played when the game starts and 
  * can only be paused or played when the game was started
  */
 function playChickenSound() {
@@ -65,7 +65,7 @@ function playChickenSound() {
 }
 
 /**
- * this function fires when the game is started. The startscreen will be removed and the background sounds start
+ * Fires when the game is started. The startscreen will be removed and the background sounds start
  */
 function startGame() {
     document.getElementById('startScreen').classList.add('d-none');
@@ -83,7 +83,7 @@ function startGame() {
 }
 
 /**
- * This Function is used to load our Canvas and implement the touch btns
+ * Is used to load our Canvas and implement the touch btns
  */
 function init() {
     canvas = document.getElementById('canvas');
@@ -92,7 +92,7 @@ function init() {
 }
 
 /**
- * this function pushes the intervals into an array
+ * Pushes the intervals into an array
  * 
  * @param {Function} fn - the name of the function
  * @param {Number} time - the time of the interval
@@ -103,7 +103,7 @@ function setStopableInterval(fn, time) {
 }
 
 /**
- * this function is for the sound when the game is over
+ * For the sound when the game is over
  */
 function playOutroSound() {
     if (!soundOff) {
@@ -114,7 +114,7 @@ function playOutroSound() {
 }
 
 /**
- * this function stops every stopable interval and playes the sound when the game ended
+ * Stops every stopable interval and playes the sound when the game ended
  */
 function stopGame() {
     intervalIds.forEach(clearInterval);
@@ -122,7 +122,7 @@ function stopGame() {
 }
 
 /**
- * shows the "youWon"-screen, the game is over
+ * Shows the "youWon"-screen, the game is over
  */
 function gameOver() {
     document.getElementById('endScreenWon').classList.remove('d-none');
@@ -131,14 +131,14 @@ function gameOver() {
 }
 
 /**
- * this function reloads the window and resets the game
+ * Reloads the window and resets the game
  */
 function reload() {
     location.reload();
 }
 
 /**
- * This Function is used to check if a key is pressed or not. It also saves, when the character was last moved
+ * Is used to check if a key is pressed or not. It also saves, when the character was last moved
  */
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 32) {
@@ -200,7 +200,7 @@ window.addEventListener("keyup", (e) => {
 });
 
 /**
- * this function is for the touch btns when the game is played on a mobile device. It also saves, when the character was last moved
+ * Is for the touch btns when the game is played on a mobile device. It also saves, when the character was last moved
  */
 function touchButtons() {
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {

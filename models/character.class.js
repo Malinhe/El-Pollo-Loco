@@ -91,7 +91,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * this function plays the Character and let him move
+     * Plays the Character and let him move
      */
     animate() {
         setStopableInterval(() => this.moveCharacter(), 1000 / 60);
@@ -99,13 +99,23 @@ class Character extends MovableObject {
     }
 
     /**
-     * this function moves the Character when
+     * Moves the Character
      */
     moveCharacter() {
         this.walking_sound.pause();
         this.walking_sound.volume = 0.2;
         this.walking_sound.playbackRate = 2.5;
+        this.walkRightDirection();
+        this.walkLeftDirection();
+        this.arrivesAtEndboss();
+        this.characterJumps();
+        this.world.camera_x = -this.x + 100;
+    }
 
+    /**
+     * Press arrow RIGHT to walk in the right direction
+     */
+    walkRightDirection() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
@@ -113,15 +123,12 @@ class Character extends MovableObject {
                 this.walking_sound.play();
             } else if (soundOff) {
                 this.walking_sound.pause();
-            }
-        }
+            }}}
 
-        if (this.arrivesTheEndboss()) {
-            background_sound.pause();
-            chicken_clucking_sound.pause();
-            this.world.playEndbossSound();
-        }
-
+    /**
+     * Press arrow LEFT to walk in the left direction
+     */
+    walkLeftDirection() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
@@ -129,62 +136,72 @@ class Character extends MovableObject {
                 this.walking_sound.play();
             } else if (soundOff) {
                 this.walking_sound.pause();
-            }
-        }
+            }}}
 
-        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-            this.jump();
-        }
-        this.world.camera_x = -this.x + 100;
+    /**
+     * Press SPACE to jump
+     */
+    characterJumps() {
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) this.jump();
     }
 
     /**
-     * this function returns true when the Character sees the Endboss
+     * Character arrives at the Endboss, sounds will stop and change
+     */
+    arrivesAtEndboss() {
+        if (this.characterSeesEndboss()) {
+            background_sound.pause();
+            chicken_clucking_sound.pause();
+            this.world.playEndbossSound();
+        }}
+
+    /**
+     * Returns true when the Character sees the Endboss
      * 
      * @returns true
      */
-    arrivesTheEndboss() {
+    characterSeesEndboss() {
         return this.x > 3250
     }
 
     /**
-     * this function plays the Character if he´s dead, hurt, jumping or sleeping
+     * Plays the Character
      */
     playCharacter() {
-        if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
-
-            setTimeout(() => {
-                this.world.endboss_sound.pause();
-                this.walking_sound.pause();
-                background_sound.pause();
-                chicken_clucking_sound.pause();
-                gameOver();
-                stopGame();
-            }, 500);
-        }
-        else if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT);
-            if (!soundOff) {
-                this.hit_sound.play();
-            } else if (soundOff) {
-                this.hit_sound.pause();
-            }
-        }
-
-        else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
-        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.playAnimation(this.IMAGES_WALKING);
-        } else if (this.stayLong()) {
-            this.playAnimation(this.IMAGES_LONG_IDLE);
-        } else {
-            this.playAnimation(this.IMAGES_IDLE);
-        }
+        if (this.isDead()) this.playDead();
+        else if (this.isHurt()) this.playHurt();
+        else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
+        else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) this.playAnimation(this.IMAGES_WALKING);
+        else if (this.stayLong()) this.playAnimation(this.IMAGES_LONG_IDLE);
+        else this.playAnimation(this.IMAGES_IDLE);
     }
 
     /**
-     * this function lets us know when the Character stays longer than 5 seconds
+     * Stops gamesounds and the game itself
+     */
+    playDead() {
+        setTimeout(() => {
+            this.playAnimation(this.IMAGES_DEAD);
+            this.world.endboss_sound.pause();
+            this.walking_sound.pause();
+            background_sound.pause();
+            chicken_clucking_sound.pause();
+            gameOver();
+            stopGame();
+        }, 500);
+    }
+
+    /**
+     * Playes images hurt and hurtsound
+     */
+    playHurt() {
+        this.playAnimation(this.IMAGES_HURT);
+        if (!soundOff) this.hit_sound.play();
+        else if (soundOff) this.hit_sound.pause();
+    }
+
+    /**
+     * Lets us know when the Character stays longer than 5 seconds
      * 
      * @returns true
      */

@@ -20,7 +20,7 @@ class BottleBar extends DrawableObject {
     }
 
     /**
-     * this function sets the number of bottles (bottleAmount) to a given value. 
+     * Sets the number of bottles (bottleAmount) to a given value. 
      * Then a variable "path" is created to hold the path to an image based on the value of bottleAmount.
      * 
      * @param {Integer} bottleAmount - the amount of SalsaBottles
@@ -32,23 +32,16 @@ class BottleBar extends DrawableObject {
     }
 
     /**
-     * This function is responsible for getting the index of the image to use.
+     * Is responsible for getting the index of the image to use.
      * 
      * @returns an integer which is used to get the right image from the array
      */
     resolveImageIndex() {
-        if (this.bottleAmount == 10) {
-            return 5;
-        } else if (this.bottleAmount >= 8) {
-            return 4;
-        } else if (this.bottleAmount >= 6) {
-            return 3;
-        } else if (this.bottleAmount >= 3) {
-            return 2;
-        } else if (this.bottleAmount > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+        if (this.bottleAmount == 10) return 5;
+        else if (this.bottleAmount >= 8) return 4;
+        else if (this.bottleAmount >= 6) return 3;
+        else if (this.bottleAmount >= 3) return 2;
+        else if (this.bottleAmount > 0) return 1;
+        else return 0;
     }
 }

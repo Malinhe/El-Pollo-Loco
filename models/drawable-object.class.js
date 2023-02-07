@@ -14,7 +14,7 @@ class DrawableObject {
     };
 
     /**
-     * This function loads an image from a given path into the current object.
+     * Loads an image from a given path into the current object.
      * 
      * @param {String} path - the path of the Picture you want to load
      */
@@ -24,7 +24,7 @@ class DrawableObject {
     }
 
     /**
-     * The draw function draws the current image (this.img) onto a given canvas context (ctx)
+     * Draws the current image (this.img) onto a given canvas context (ctx)
      * with given x and y coordinates (this.x, this.y) and given width and height (this.width, this.height).
      * 
      * @param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
@@ -35,7 +35,7 @@ class DrawableObject {
     }
 
     /**
-     * this function iterates through the array and loads the images
+     * Iterates through the array and loads the images
      * 
      * @param {String} array 
      */
@@ -48,7 +48,7 @@ class DrawableObject {
     }
 
     /**
-     * this function is used to draw rectangles around the MovableObject, it helps to check where they will collide
+     * Draw rectangles around the MovableObject, it helps to check where they collide
      * 
      * @param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
      * that provides the environment for drawing on an HTML canvas. It allows drawing shapes, images and text on a canvas
@@ -66,21 +66,7 @@ class DrawableObject {
     }
 
     /**
-     * this function is used to draw the coordinates from the MovableObject that you want to know
-     * 
-     *@param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
-     * that provides the environment for drawing on an HTML canvas. It allows drawing shapes, images and text on a canvas
-     */
-    // drawPosition(ctx) {
-    //     if(this instanceof SalsaBottle) {
-    //         ctx.font = "48px serif";
-    //         ctx.fillText(`${this.x}, ${this.y}`, this.x, this.y);
-    //     }
-    // }
-
-
-    /**
-    * this function is used to draw rectangles around the MovableObject within the other frame, it helps to check where they will collide
+    * Draw rectangles around the MovableObject within the other frame, it helps to check where they collide
     * offset means the difference between the outer and the inner frame (this one here is the inner one)
     * 
     *@param {Canvas-Context} ctx - the "ctx" parameter is a canvas context (CanvasRenderingContext2D) 
@@ -90,12 +76,12 @@ class DrawableObject {
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss ||
             this instanceof ThrowableObject || this instanceof SalsaBottle || this instanceof Coin ||
             this instanceof SmallChicken || this instanceof Heart) {
-            //draw rectangle
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'transparent';
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.top - this.offset.bottom);
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top,
+                     this.width - this.offset.right - this.offset.left,
+                     this.height - this.offset.top - this.offset.bottom);
             ctx.stroke();
-        }
-    }
+        }}
 }

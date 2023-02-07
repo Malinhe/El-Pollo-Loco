@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * This function simulates the effect of gravity by periodically decreasing the object's y position, causing the object to fall downwards.
+     * Simulates the effect of gravity by periodically decreasing the object's y position, causing the object to fall downwards.
      * However, if the object is not above the ground, the object's y position is set to 155.
      */
     applyGravity() {
@@ -16,27 +16,22 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            } else {
-                this.y = 155;
-            }
+            } else this.y = 155;
         }, 1000 / 25);
     }
 
     /**
-     * the method returns the result whether the current object is above the ground or not.
+     * Returns the result whether the current object is above the ground or not.
      * 
      * @returns true if an Object is above the ground
      */
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
-            return true;
-        } else {
-            return this.y < 150;
-        }
+        if (this instanceof ThrowableObject) return true;
+        else return this.y < 150;
     }
 
     /**
-     * Function to check if a movable object overlaps with another
+     * Check if a movable object overlaps with another
      * 
      * @param {object} mo - object that could be a bottle, character, endboss or chicken
      * @returns 
@@ -57,19 +52,16 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * this function reduces the energy from the MovableObject and saves the moment when it was hit for the last time
+     * Reduces the energy from the MovableObject and saves the moment when it was hit for the last time
      */
     hit() {
         this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
+        if (this.energy < 0) this.energy = 0;
+        else this.lastHit = new Date().getTime();
     }
 
     /**
-     * This function checks whether the current object has been hit in the past period. 
+     * Checks whether the current object has been hit in the past period. 
      * It does this by comparing the current time to the time of the object's last hit.
      *  
      * @returns true
@@ -81,7 +73,8 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * this function returns true when the energy from the MovableObject ist 0
+     * Returns true when the energy from the MovableObject ist 0
+     * 
      * @returns true
      */
     isDead() {
@@ -89,14 +82,14 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * this function lets the killed Object disaapear after the time of 0.4s
+     * Lets the killed Object disappear after the time of 0.4s
      */
     disappearWhenIsDead() {
         setTimeout(() => this.x = -3000, 400);
     }
 
     /**
-     * this function is used to iterate through an array of images so the Object can be animated
+     * Iterates through an array of images so the Object can be animated
      * 
      * @param {Array} images - array from the images you want to use for the animation
      */
@@ -108,14 +101,14 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * this function is for all MovableObject so that they can move to the right direction
+     * Is for all MovableObject so that they can move to the right direction
      */
     moveRight() {
         this.x += this.speed;
     }
 
     /**
-     * this function is for all MovableObject so that they can move to the left direction
+     * Is for all MovableObject so that they can move to the left direction
      */
     moveLeft() {
         this.x -= this.speed;

@@ -40,18 +40,11 @@ class EndbossBar extends DrawableObject {
    * @returns an integer which is used to get the right image from the array
    */
     resolveImageIndex() {
-        if (this.percentage == 400) {
-            return 5;
-        } else if (this.percentage > 300) {
-            return 4;
-        } else if (this.percentage > 200) {
-            return 3;
-        } else if (this.percentage > 100) {
-            return 2;
-        } else if (this.percentage > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+        if (this.percentage == 400) return 5;
+         else if (this.percentage > 300) return 4;   
+         else if (this.percentage > 200) return 3;
+         else if (this.percentage > 100) return 2;    
+         else if (this.percentage > 0) return 1;   
+         else return 0;  
     }
 }
